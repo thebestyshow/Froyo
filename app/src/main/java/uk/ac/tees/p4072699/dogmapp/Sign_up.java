@@ -1,10 +1,8 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
 import android.widget.EditText;
@@ -44,13 +42,18 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
                     t.show();
                     break;
                 }
+                /*else if (dh.getSinlgeEntry_sign(e.getText().toString()).equals("EXIST")){
+                    t = Toast.makeText(getApplicationContext(),"Email is already in use",Toast.LENGTH_SHORT);
+                    t.show();
+                    break;
+                }*/
                 else if (!p1.getText().toString().equals(p2.getText().toString())) {
                     t = Toast.makeText(getApplicationContext(),"Please enter matching passswords", Toast.LENGTH_SHORT);
                     t.show();
                     break;
                 }else{
                     dh.add(new Owner(dh.getProfilesCount()+1,"TEST" + dh.getProfilesCount()+1, e.toString(),p2.toString(),new Date()));
-                    i = new Intent(getApplicationContext(),HomeActivity.class);
+                    i = new Intent(getApplicationContext(),Home.class);
                     t = Toast.makeText(getApplicationContext(),"Owner Added", Toast.LENGTH_SHORT);
                     t.show();
                     startActivity(i);

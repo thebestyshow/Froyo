@@ -1,12 +1,28 @@
 <resources>
     <string name="app_name">Dog Mapp</string>
+
+    <string name="add">Add Dog</string>
+    <string name="remove">Remove Dog</string>
+    <string name="home">Home</string>
+    <string name="dogname">Dog Name</string>
+
+    <!-- Strings and hints for log in and sign up-->
+    <string name="sign_up">Sign up</string>
+    <string name="Log_in">Log in</string>
+    <string name="e_hint"> Email</string>
+    <string name="p_hint">Password</string>
+    <string name="p_con_hint">Confirm Password</string>
+
+    <!-- String for Review page -->
     <string name="review_walk">Review Walk</string>
     <string name="comments">Comments</string>
     <string name="rating">Rating</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="add">Add Dog</string>
-    <string name="remove">Remove Dog</string>
-    <string name="home">Home</string>
-    <string name="dogname">Dog Name</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+
+
+
 </resources>

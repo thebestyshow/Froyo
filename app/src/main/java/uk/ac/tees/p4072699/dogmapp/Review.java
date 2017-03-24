@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     int paws;
     String comments;
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 comments = com.getText().toString();
                 dh.add(new Walk("TEST","2KM", paws));
-                Intent intent = new Intent(con, HomeActivity.class);
+                Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
             }
         });
