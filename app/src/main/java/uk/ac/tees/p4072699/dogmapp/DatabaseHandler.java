@@ -62,6 +62,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_RATING = "route_rating";
 
+    public String getOWNER_LOGIN_TABLE(){
+        return  OWNER_LOGIN_TABLE;
+    }
+
+    public String getCOL_EMAIL(){
+        return COL_EMAIL;
+    }
+
+    public String getCOL_PASS(){
+        return COL_PASS;
+    }
 
     private static String CREATE_FRIENDS_TABLE = "CREATE TABLE "
             + FRIEND_TABLE_NAME
@@ -118,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
         //db.execSQL(CREATE_FRIENDS_TABLE);
-        add(new Owner(1,"Admin","Admin","Admin",new Date()));
+        //add(new Owner(1,"Admin","Admin","Admin",new Date()));
         Log.d("Database", "Database Created");
 
     }
@@ -132,59 +143,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cnt;
     }
 
-    /*public Boolean checkEmail(String em){
+    public Boolean checkEmail(String em){
         SQLiteDatabase db = getReadableDatabase();
         Cursor mCursor = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " +
                 COL_EMAIL + "=?", new String[]{em});
 
-        if(mCursor.moveToFirst()){
-            return true;
-        }
+        return mCursor.moveToFirst();
 
-        return false;
-    }*/
-
-    public String getSinlgeEntry_log(String email)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor=db.query(OWNER_LOGIN_TABLE,null,COL_EMAIL + "=?",new String[]{email},
-                null,null,null);
-        if(cursor.getCount() > 0) // UserName Not Exist
-        {
-            cursor.moveToFirst();
-            String password= cursor.getString(cursor.getColumnIndex(COL_PASS));
-            cursor.close();
-            return password;
-        }
-
-        cursor.close();
-        return "";
     }
-
-    public String getSinlgeEntry_sign(String email)
-    {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor=db.query(OWNER_LOGIN_TABLE,null,COL_EMAIL + "=?",new String[]{email},
-                null,null,null);
-        if(cursor.getCount()<1) // UserName Not Exist
-        {
-            cursor.moveToFirst();
-            String password= cursor.getString(cursor.getColumnIndex(COL_PASS));
-            cursor.close();
-            return "NOT EXIST";
-        }
-
-        cursor.close();
-        return "EXIST";
-    }
-
 
     public void add(Dog d){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COL_NAME, d.getName());
-        values.put(COL_OWNER, d.getOwner());
+        //values.put(COL_OWNER, d.getOwner());
         values.put(COL_AVG_DIS, d.getTotwalks()/d.getTotdistance());
         values.put(COL_TOT_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
@@ -243,6 +216,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW WALK ADDED");
 
         return input;
+    }
+
+    public List<Owner> getallOwners(){
+        ArrayList<Owner> list = new ArrayList<Owner>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + OWNER_LOGIN_TABLE;
+
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor.moveToFirst()){
+            int idIdx = cursor.getColumnIndex(COL_ID);
+            int nameIdx = cursor.getColumnIndex(COL_NAME);
+            int emailIdx = cursor.getColumnIndex(COL_EMAIL);
+            int passIdx = cursor.getColumnIndex(COL_PASS);
+
+            do{
+                Owner owner = new Owner(
+                        cursor.getInt(idIdx),
+                        cursor.getString(nameIdx),
+                        cursor.getString(emailIdx),
+                        cursor.getString(passIdx),
+                        new Date()
+                );
+
+                list.add(owner);
+            } while(cursor.moveToNext());
+
+        }
+
+        return list;
     }
 
     /*public List<Object> getAll(){
