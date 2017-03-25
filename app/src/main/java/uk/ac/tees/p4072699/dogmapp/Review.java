@@ -31,6 +31,7 @@ public class Review extends AppCompatActivity {
                 Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
+                finish();
             }
         });
 
@@ -40,6 +41,7 @@ public class Review extends AppCompatActivity {
                 Intent intent = new Intent(con,Home.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
+                finish();
             }
         });
     }

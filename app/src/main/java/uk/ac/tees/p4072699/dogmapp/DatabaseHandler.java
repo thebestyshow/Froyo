@@ -62,13 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_RATING = "route_rating";
 
-    public String getOWNER_LOGIN_TABLE(){
-        return  OWNER_LOGIN_TABLE;
-    }
 
-    public String getCOL_EMAIL(){
-        return COL_EMAIL;
-    }
 
     public String getCOL_PASS(){
         return COL_PASS;
@@ -250,6 +244,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+
+    public List<Dog> getAllDogs(){
+        ArrayList<Dog> list = new ArrayList<Dog>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor.moveToFirst()){
+            int nameIdx = cursor.getColumnIndex(COL_NAME);
+            int ownerIdx = cursor.getColumnIndex(COL_OWNER);
+
+            do {
+                Dog dog = new Dog(
+                        cursor.getString(nameIdx),
+                        cursor.getString(ownerIdx)
+                        );
+                list.add(dog);
+            } while(cursor.moveToNext());
+
+        }
+
+        return list;
+    }
+
+
+    public List<Walk> getAllWalks(){
+        ArrayList<Walk> list = new ArrayList<Walk>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor.moveToFirst()){
+            int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
+            int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
+            int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
+
+            do {
+                Walk walk = new Walk(
+                        cursor.getString(nameIdx),
+                        cursor.getString(lengthIdx),
+                        cursor.getInt(ratingIdx)
+                );
+
+                list.add(walk);
+            } while(cursor.moveToNext());
+        }
+
+        return list;
+    }
+
     /*public List<Object> getAll(){
         ArrayList<Object> list = new ArrayList<Object>();
 
@@ -344,7 +393,134 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      }
      return l;
      }*/
+    public String getOwnerLogintable(){
+        return  OWNER_LOGIN_TABLE;
+    }
 
+
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
+    public static String getFriendTableName() {
+        return FRIEND_TABLE_NAME;
+    }
+
+    public static String getDogTableName() {
+        return DOG_TABLE_NAME;
+    }
+
+    public static String getWalkTableName() {
+        return WALK_TABLE_NAME;
+    }
+
+    public static String getOwnerLoginTable() {
+        return OWNER_LOGIN_TABLE;
+    }
+
+    public static String getColId() {
+        return COL_ID;
+    }
+
+    public static String getColName() {
+        return COL_NAME;
+    }
+
+    public static String getColCategory() {
+        return COL_CATEGORY;
+    }
+
+    public static String getColDatetime() {
+        return COL_DATETIME;
+    }
+
+    public static String getColLocLong() {
+        return COL_LOC_LONG;
+    }
+
+    public static String getColLocLat() {
+        return COL_LOC_LAT;
+    }
+
+    public static String getColImage() {
+        return COL_IMAGE;
+    }
+
+    public static String getColAvgDis() {
+        return COL_AVG_DIS;
+    }
+
+    public static String getColTotWalks() {
+        return COL_TOT_WALKS;
+    }
+
+    public static String getColTotDis() {
+        return COL_TOT_DIS;
+    }
+
+    public static String getColTotTime() {
+        return COL_TOT_TIME;
+    }
+
+    public static String getColOwner() {
+        return COL_OWNER;
+    }
+
+    public static String getColEmail() {
+        return COL_EMAIL;
+    }
+
+    public static String getColPass() {
+        return COL_PASS;
+    }
+
+    public static String getColDob() {
+        return COL_DOB;
+    }
+
+    public static String getColRouteName() {
+        return COL_ROUTE_NAME;
+    }
+
+    public static String getColRouteLen() {
+        return COL_ROUTE_LEN;
+    }
+
+    public static String getColRouteRating() {
+        return COL_ROUTE_RATING;
+    }
+
+    public static String getCreateFriendsTable() {
+        return CREATE_FRIENDS_TABLE;
+    }
+
+    public static void setCreateFriendsTable(String createFriendsTable) {
+        CREATE_FRIENDS_TABLE = createFriendsTable;
+    }
+
+    public static String getCreateDogTable() {
+        return CREATE_DOG_TABLE;
+    }
+
+    public static void setCreateDogTable(String createDogTable) {
+        CREATE_DOG_TABLE = createDogTable;
+    }
+
+    public static String getCreateOwnerTable() {
+        return CREATE_OWNER_TABLE;
+    }
+
+    public static void setCreateOwnerTable(String createOwnerTable) {
+        CREATE_OWNER_TABLE = createOwnerTable;
+    }
+
+    public static String getCreateWalkTable() {
+        return CREATE_WALK_TABLE;
+    }
+
+    public static void setCreateWalkTable(String createWalkTable) {
+        CREATE_WALK_TABLE = createWalkTable;
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum){

@@ -63,9 +63,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 SQLiteDatabase db = dh.getReadableDatabase();
 
-                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOWNER_LOGIN_TABLE() + " WHERE " + dh.getCOL_EMAIL() + "=?",new String[]{email});
+                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?",new String[]{email});
 
-                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOWNER_LOGIN_TABLE() + " WHERE " + dh.getCOL_EMAIL() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
+                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
 
                 if (cursor != null){
                     if (email.equals("")){
@@ -90,6 +90,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         i = new Intent(getApplicationContext(),Home.class);
                         startActivity(i);
                         setContentView(R.layout.activity_home);
+                        this.finish();
                         break;
                     }
                     else{
@@ -100,37 +101,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
 
                 }
-
-                /*Toast.makeText(getApplicationContext(), String.valueOf(dh.getProfilesCount()),Toast.LENGTH_SHORT).show();
-                if (email.equals("")){
-                    t= Toast.makeText(getApplicationContext(),"Please enter an email", Toast.LENGTH_SHORT);
-                    t.show();
-                    break;
-                }
-                else if(pass.equals("")){
-                    t = Toast.makeText(getApplicationContext(),"Please enter your password",Toast.LENGTH_SHORT);
-                    t.show();
-
-                    break;
-                }
-                /*else if (storedPass.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),"Email not found. Sign up to continue",Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                else if (pass.equals(storedPass))
-                {
-                    Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                    i = new Intent(getApplicationContext(),Home.class);
-                    startActivity(i);
-                    setContentView(R.layout.activity_home);
-                    break;
-                }else
-                {
-                    Toast.makeText(getApplicationContext(),"Email or password does not match",Toast.LENGTH_SHORT).show();
-                    break;
-                }*/
-
         }
     }
 }

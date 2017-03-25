@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Dog Mapp</string>
+    <string name="Help">Help</string>
+    <string name="dogs">Dogs</string>
 
+    <!--String for activity_add_dog and activity_dog_list-->
     <string name="add">Add Dog</string>
     <string name="remove">Remove Dog</string>
     <string name="home">Home</string>
@@ -21,8 +24,10 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_login">Sign in</string>
 
-
-
+    <string name="Help_content">Dogmapp is an app that allows you to create walks and share them with other users. It allows you to socialies with other dog
+    owners and organise walks. You can make profiles for each of the your dogs where stats from each walk your pet has been on will be saved. Once you have
+    started a walk dogmapp will track where you are and when your walk is complete, you can save the walk, give the walk a review and share it. For any futher
+    assistance with Dogmapp please email p4072699@tees.ac.uk.</string>
 
 
 </resources>
