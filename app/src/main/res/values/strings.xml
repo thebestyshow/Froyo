@@ -13,7 +13,7 @@
     <string name="p_hint">Password</string>
     <string name="p_con_hint">Confirm Password</string>
 
-    <!-- String for Review page -->
+    <!-- String for activity_review page -->
     <string name="review_walk">Review Walk</string>
     <string name="comments">Comments</string>
     <string name="rating">Rating</string>
