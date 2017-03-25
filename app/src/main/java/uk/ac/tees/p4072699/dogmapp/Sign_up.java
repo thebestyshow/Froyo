@@ -45,7 +45,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
 
                 SQLiteDatabase db = dh.getReadableDatabase();
 
-                Cursor cursor =  db.rawQuery("SELECT * FROM " + dh.getOWNER_LOGIN_TABLE() + " WHERE " + dh.getCOL_EMAIL() + "=?",new String[]{email});
+                Cursor cursor =  db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?",new String[]{email});
 
                 if (cursor != null) {
                     if (email.equals("")) {
