@@ -24,10 +24,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".Review" />
+        <activity android:name=".Home" />
         <activity android:name=".DogList" />
-        <activity android:name=".AddDogActivity"></activity>
+        <activity android:name=".AddDogActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".Help"></activity>
     </application>
 
 </manifest>

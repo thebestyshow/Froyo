@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="uk.ac.tees.p4072699.dogmapp.MainActivity">
+    tools:context="uk.ac.tees.p4072699.dogmapp.Review">
 
     <TextView
         android:text="@string/review_walk"

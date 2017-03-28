@@ -47,7 +47,7 @@ public class DogList extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(con, HomeActivity.class);
+                Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
             }
         });

@@ -16,9 +16,18 @@ public class Owner {
     private Date dob;
     private Image img;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     Owner(int id, String n, String e, String p, Date d){
         this.id = id;
         this.name = n;
+
         this.email = e;
         this.Password = p;
         this.dob = d;
