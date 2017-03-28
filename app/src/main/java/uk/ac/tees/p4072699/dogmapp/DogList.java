@@ -33,10 +33,8 @@ public class DogList extends AppCompatActivity {
         List<Dog> list = dh.getAllDogs();
 
         for (Dog dg : list) {
-            String log = "Dog Name:" + dg.getName() +" Owner: " + dg.getOwner();
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
-            dogs[dogs.length - 1] = "Dog Name: " + dg.getName() +" Owner: " + dg.getOwner();
-            Log.d("Database", log);
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dg.getOwner();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
@@ -47,7 +45,7 @@ public class DogList extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(con, HomeActivity.class);
+                Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
             }
         });

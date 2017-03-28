@@ -15,11 +15,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/Pass_txt1"
-        android:contentDescription="Password"
-        android:hint="Password2"
+        android:id="@+id/Pass_sign"
+        android:hint="@string/p_hint"
         android:layout_marginTop="37dp"
-        android:layout_below="@+id/email_txt"
+        android:layout_below="@+id/email_sign"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -27,42 +26,41 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/Pass_txt2"
-        android:contentDescription="Password"
-        android:hint="Confirm Password"
-        android:layout_below="@+id/Pass_txt1"
-        android:layout_alignLeft="@+id/Pass_txt1"
-        android:layout_alignStart="@+id/Pass_txt1"
+        android:id="@+id/Pass_con_sign"
+        android:hint="@string/p_con_hint"
+        android:layout_below="@+id/Pass_sign"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign"
         android:layout_marginTop="48dp" />
-
-    <Button
-        android:text="Sign Up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Sign_Up_btn"
-        android:layout_below="@+id/Pass_txt2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="80dp" />
-
-    <Button
-        android:text="Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Sign_Up_btn"
-        android:layout_marginTop="34dp"
-        android:id="@+id/login_btn"
-        android:visibility="invisible" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress|textPersonName"
         android:ems="10"
-        android:id="@+id/email_txt"
-        android:hint="Email"
+        android:id="@+id/email_sign"
+        android:hint="@string/e_hint"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/Pass_txt1"
-        android:layout_alignStart="@+id/Pass_txt1" />
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <Button
+        android:text="@string/sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Sign_Up_btn_sign"
+        android:layout_below="@+id/Pass_con_sign"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp" />
+
+    <Button
+        android:text="@string/Log_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Sign_Up_btn_sign"
+        android:layout_marginTop="34dp"
+        android:id="@+id/Log_in_btn_sign"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     int paws;
     String comments;
@@ -18,19 +16,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_review);
 
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText com = (EditText) findViewById(R.id.editText);
+        final Button cancel = (Button) findViewById(R.id.button_cancel);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                dh.add(new Walk("TEST","2KM", paws));
-                Intent intent = new Intent(con, HomeActivity.class);
+                dh.add(new Walk("TEST","2KM", paws, com.getText().toString()));
+                Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
+                setContentView(R.layout.activity_home);
+                finish();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(con,Home.class);
+                startActivity(intent);
+                setContentView(R.layout.activity_home);
+                finish();
             }
         });
     }

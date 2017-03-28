@@ -8,11 +8,21 @@ public class Walk {
     private String name;
     private String length;
     private int rating;
+    private String comment;
 
-    Walk(String n, String l, int r){
-        this.name = n;
-        this.length = l;
-        this.rating = r;
+    public Walk(String name, String length, int rating, String comment) {
+        this.name = name;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getRating() {
