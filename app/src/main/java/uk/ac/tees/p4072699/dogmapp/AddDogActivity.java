@@ -32,7 +32,7 @@ public class AddDogActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dh.add(new Dog(dgname.getText().toString(), "Mike"));
+                dh.add(new Dog(dgname.getText().toString(), "Mike"));
                 Intent intent = new Intent(con, DogList.class);
                 startActivity(intent);
             }
