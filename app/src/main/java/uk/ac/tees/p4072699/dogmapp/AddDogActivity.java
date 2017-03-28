@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddDogActivity extends AppCompatActivity {
+
     DatabaseHandler dh = new DatabaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
