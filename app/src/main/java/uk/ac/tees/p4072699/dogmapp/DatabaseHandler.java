@@ -122,7 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Boolean checkEmail(String em){
         SQLiteDatabase db = getReadableDatabase();
         Cursor mCursor = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " +
-        "email=?", new String[]{em});
+                "email=?", new String[]{em});
 
         if(mCursor.moveToFirst()){
             return true;
@@ -134,11 +134,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void add(Dog d){
         SQLiteDatabase db = getWritableDatabase();
-
         ContentValues values = new ContentValues();
+
         values.put(COL_NAME, d.getName());
         values.put(COL_OWNER, d.getOwner());
-        values.put(COL_AVG_DIS, d.getTotwalks()/d.getTotdistance());
+        values.put(COL_AVG_DIS, "nil");
         values.put(COL_NO_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
 
@@ -146,6 +146,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d("Database", "NEW ENTRY ADDED");
+    }
+
+    public List<Dog> getAllDogs() {
+        List<Dog> list = new ArrayList<Dog>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            int ownerIdx = cursor.getColumnIndex(COL_OWNER);
+            int nameIdx = cursor.getColumnIndex(COL_NAME);
+            do {
+                Dog dg = new Dog(
+                        cursor.getString(nameIdx),
+                        cursor.getString(ownerIdx)
+                );
+                list.add(dg);
+            } while (cursor.moveToNext());
+        }
+        return list;
     }
 
     public long add(Owner o){
