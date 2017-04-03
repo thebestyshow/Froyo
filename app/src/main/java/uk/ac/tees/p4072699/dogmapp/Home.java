@@ -18,11 +18,20 @@ public class Home extends AppCompatActivity {
         final Button add = (Button) findViewById(R.id.button_adddog);
         final Button review = (Button) findViewById(R.id.button_rev);
         final Button help = (Button) findViewById(R.id.home_btn_help);
+        final Button map = (Button) findViewById(R.id.button_map);
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,Help.class);
+                startActivity(i);
+            }
+        });
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con,MapsActivity.class);
                 startActivity(i);
             }
         });

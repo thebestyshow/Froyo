@@ -153,7 +153,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_NAME, d.getName());
         values.put(COL_OWNER, d.getOwner());
         values.put(COL_AVG_DIS, "nil");
-        values.put(COL_NO_WALKS, d.getTotwalks());
+        values.put(COL_TOT_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
 
         db.insert(DOG_TABLE_NAME,null,values);
@@ -255,33 +255,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-
-    public List<Dog> getAllDogs(){
-        ArrayList<Dog> list = new ArrayList<Dog>();
-        SQLiteDatabase db = getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME;
-
-        Cursor cursor = db.rawQuery(selectQuery,null);
-
-        if (cursor.moveToFirst()){
-            int nameIdx = cursor.getColumnIndex(COL_NAME);
-            int ownerIdx = cursor.getColumnIndex(COL_OWNER);
-
-            do {
-                Dog dog = new Dog(
-                        cursor.getString(nameIdx),
-                        cursor.getString(ownerIdx)
-                        );
-                list.add(dog);
-            } while(cursor.moveToNext());
-
-        }
-
-        return list;
-    }
-
-
     public List<Walk> getAllWalks(){
         ArrayList<Walk> list = new ArrayList<Walk>();
 
@@ -310,100 +283,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    /*public List<Object> getAll(){
-        ArrayList<Object> list = new ArrayList<Object>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()){
-            int idIdx = cursor.getColumnIndex(COL_ID);
-            int noteIdx = cursor.getColumnIndex(COL_NOTE);
-            int cateIdx = cursor.getColumnIndex(COL_CATEGORY);
-
-            do{
-                Entry entry = new Entry(
-                        cursor.getInt(idIdx),
-                        cursor.getString(noteIdx),
-                        cursor.getString(cateIdx)
-                );
-
-                list.add(entry);
-            } while(cursor.moveToNext());
-        }
-
-        return list;
-    }
-
-    public void deleteEntry (int id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String newint = String.valueOf(id-1);
-        db.delete(
-                TABLE_NAME,
-                COL_ID + " = ?",
-                new String[] {String.valueOf(id) }
-        );
-
-        db.close();
-
-        Log.d("Database", " Journal entry with id: " + id + " has been deleted");
-    }
-
-
-
-    public void removeAll(){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-
-        onCreate(db);
-    }
-
-    /**public void updateLecturer(int id, String name, String phone){
-     SQLiteDatabase db = this.getWritableDatabase();
-
-     String where = "_ID = " + id;
-
-     ContentValues values = new ContentValues();
-     values.put(COL_NAME, name);
-     values.put(COL_PHONE, phone);
-
-     db.update(
-     TABLE_NAME,
-     values,
-     where,
-     null
-     );
-     db.close();
-
-     Log.d("Database", "Database updated");
-     }
-
-     public Lecturer getRecord(int id) {
-     SQLiteDatabase db = this.getReadableDatabase();
-
-     String where = "_ID = " + id;
-
-     Cursor c = db.query(true, TABLE_NAME, null, where, null, null, null, null, null);
-
-     int idIdx = c.getColumnIndex(COL_ID);
-     int nameIdx = c.getColumnIndex(COL_NAME);
-     int phoneIdx = c.getColumnIndex(COL_PHONE);
-     Lecturer l = null;
-     if (c.moveToFirst()) {
-     do {
-     l = new Lecturer(
-     c.getInt(idIdx),
-     c.getString(nameIdx),
-     c.getString(phoneIdx)
-     );
-
-     } while (c.moveToNext());
-     }
-     return l;
-     }*/
     public String getOwnerLogintable(){
         return  OWNER_LOGIN_TABLE;
     }
