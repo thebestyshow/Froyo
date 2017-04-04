@@ -2,23 +2,24 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class DogList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
-    String selected;
+    int selected;
+    String[] dogs = {};
+    Integer[] dogsId = {};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,27 +28,43 @@ public class DogList extends AppCompatActivity {
         final Context con = this;
         final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
-
-        String[] dogs = {};
+        final Button rem = (Button) findViewById(R.id.button_remove);
 
         List<Dog> list = dh.getAllDogs();
 
         for (Dog dg : list) {
-            String log = "Dog Name:" + dg.getName() +" Owner: " + dg.getOwner();
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
-            dogs[dogs.length - 1] = "Dog Name: " + dg.getName() +" Owner: " + dg.getOwner();
-            Log.d("Database", log);
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dg.getOwner();
+            dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
+            dogsId[dogsId.length - 1] = dg.getId();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
 
-        ListView listView = (ListView) findViewById(R.id.lv_dgs);
+        final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selected = dogsId[position];
+            }
+        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
+                startActivity(intent);
+            }
+        });
+
+        rem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dh.removeDog(selected);
+                Intent intent = new Intent(con, DogList.class);
                 startActivity(intent);
             }
         });

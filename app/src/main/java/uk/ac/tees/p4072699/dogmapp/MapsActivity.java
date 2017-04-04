@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -44,8 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -98,12 +98,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
 
-        LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-        LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
+        //if (lastLoc != null) {
+         //   LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
+          //  LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
 
-        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
+           // String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
 
-        length = length + 1;
+          //  Log.d("URL: ", url);
+           // length = length + 1;
+       // }
 
         lastLoc = location;
         if (currentLoc != null) {

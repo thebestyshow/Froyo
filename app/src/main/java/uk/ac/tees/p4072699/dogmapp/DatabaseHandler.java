@@ -62,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_RATING = "route_rating";
 
-
+    private static final String COL_ROUTE_COMMENT = "route_comment";
 
     public String getCOL_PASS(){
         return COL_PASS;
@@ -85,9 +85,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_IMAGE + " IMAGE, "
             + COL_AVG_DIS + " TEXT,"
             + COL_TOT_WALKS + " INTEGER, "
-            + COL_TOT_DIS + "TEXT,"
-            + COL_TOT_TIME + "DATETIME"
-            + "FOREIGN KEY (COL_OWNER) REFERENCES" +  OWNER_LOGIN_TABLE + "(COL_ID));";
+            + COL_TOT_DIS + " TEXT,"
+            + COL_TOT_TIME + " DATETIME);";
 
     private static String CREATE_OWNER_TABLE = "CREATE TABLE "
             + OWNER_LOGIN_TABLE
@@ -108,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COL_ROUTE_NAME + " TEXT, "
             + COL_ROUTE_LEN + " TEXT,"
+            + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER);";
     //this needs things adding to the table.
 
@@ -120,7 +120,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
 
         db.execSQL(CREATE_OWNER_TABLE);
-        //db.execSQL(CREATE_DOG_TABLE);
+        db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
         //db.execSQL(CREATE_FRIENDS_TABLE);
         //add(new Owner(1,"Admin","Admin","Admin",new Date()));
@@ -143,7 +143,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COL_EMAIL + "=?", new String[]{em});
 
         return mCursor.moveToFirst();
-
     }
 
     public void add(Dog d){
@@ -170,10 +169,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             int ownerIdx = cursor.getColumnIndex(COL_OWNER);
             int nameIdx = cursor.getColumnIndex(COL_NAME);
+            int idIdx = cursor.getColumnIndex(COL_ID);
             do {
                 Dog dg = new Dog(
                         cursor.getString(nameIdx),
-                        cursor.getString(ownerIdx)
+                        cursor.getString(ownerIdx),
+                        cursor.getInt(idIdx)
                 );
                 list.add(dg);
             } while (cursor.moveToNext());
@@ -181,11 +182,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public void removeDog(int i) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null );
+        Log.d("DATABASE", "DOG DELETED");
+    }
+
     public long add(Owner o){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-
-        //Log.d("Database", "NEW ENTRY ADDED");
 
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_NAME, o.getName());
@@ -196,7 +201,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_TOT_DIS, "nil");
         values.put(COL_AVG_DIS, "nil");
         values.put(COL_TOT_TIME, "nil");
-        //values.put("image","nil");
 
         long input = db.insert(OWNER_LOGIN_TABLE, null, values);
         db.close();
@@ -214,6 +218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN,w.getLength());
         values.put(COL_ROUTE_RATING, w.getRating());
+        values.put(COL_ROUTE_COMMENT, w.getComment());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -237,7 +242,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int nameIdx = cursor.getColumnIndex(COL_NAME);
             int emailIdx = cursor.getColumnIndex(COL_EMAIL);
             int passIdx = cursor.getColumnIndex(COL_PASS);
-
             do{
                 Owner owner = new Owner(
                         cursor.getInt(idIdx),
@@ -246,12 +250,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(passIdx),
                         new Date()
                 );
-
                 list.add(owner);
             } while(cursor.moveToNext());
 
         }
-
         return list;
     }
 
@@ -268,14 +270,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
-
+            int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             do {
                 Walk walk = new Walk(
                         cursor.getString(nameIdx),
                         cursor.getString(lengthIdx),
-                        cursor.getInt(ratingIdx)
+                        cursor.getInt(ratingIdx),
+                        cursor.getString(comIdx)
                 );
-
                 list.add(walk);
             } while(cursor.moveToNext());
         }

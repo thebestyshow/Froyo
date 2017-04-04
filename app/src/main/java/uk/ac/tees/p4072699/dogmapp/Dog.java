@@ -11,11 +11,27 @@ public class Dog {
     private String name;
     private String owner;
     private Image img;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private int totwalks;
     private int totdistance;
+    private int id;
 
     public int getTotwalks() {
         return totwalks;
+    }
+
+    public Dog(String name, String owner, int id) {
+        this.name = name;
+        this.owner = owner;
+        this.id = id;
     }
 
     public Dog(String name, String owner) {
@@ -23,6 +39,7 @@ public class Dog {
         this.owner = owner;
         totwalks = 5;
         totdistance = 27;
+
     }
 
     public void setTotwalks(int totwalks) {
