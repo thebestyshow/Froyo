@@ -43,4 +43,13 @@
         android:layout_alignLeft="@+id/button_adddog"
         android:layout_alignStart="@+id/button_adddog"
         android:id="@+id/button_map" />
+
+    <Button
+        android:text="@string/review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_map"
+        android:layout_alignLeft="@+id/button_map"
+        android:layout_alignStart="@+id/button_map"
+        android:id="@+id/button_reviews" />
 </RelativeLayout>

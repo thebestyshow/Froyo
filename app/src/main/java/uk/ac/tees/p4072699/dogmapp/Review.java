@@ -27,7 +27,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                dh.add(new Walk("TEST","2KM", paws));
+                dh.add(new Walk("TEST","2KM", paws, com.getText().toString()));
                 Intent intent = new Intent(con, Home.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_home);

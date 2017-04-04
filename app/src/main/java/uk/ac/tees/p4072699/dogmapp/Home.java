@@ -19,6 +19,7 @@ public class Home extends AppCompatActivity {
         final Button review = (Button) findViewById(R.id.button_rev);
         final Button help = (Button) findViewById(R.id.home_btn_help);
         final Button map = (Button) findViewById(R.id.button_map);
+        final Button rev = (Button) findViewById(R.id.button_reviews);
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +33,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,MapsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        rev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con,ReviewList.class);
                 startActivity(i);
             }
         });
