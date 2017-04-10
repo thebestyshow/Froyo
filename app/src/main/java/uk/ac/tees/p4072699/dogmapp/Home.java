@@ -9,8 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
-
     Owner owner;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,Help.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -40,6 +42,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,MapsActivity.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -48,6 +51,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,ReviewList.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -56,6 +60,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, DogList.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
                 setContentView(R.layout.activity_dog_list);
             }
@@ -65,6 +70,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Review.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
                 setContentView(R.layout.activity_review);
             }
