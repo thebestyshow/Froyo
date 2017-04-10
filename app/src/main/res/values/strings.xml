@@ -2,6 +2,7 @@
     <string name="app_name">Dog Mapp</string>
     <string name="Help">Help</string>
     <string name="dogs">Dogs</string>
+    <string name="profile">Profile</string>
 
     <!--String for activity_add_dog and activity_dog_list-->
     <string name="add">Add Dog</string>
@@ -36,4 +37,8 @@
     assistance with Dogmapp please email p4072699@tees.ac.uk.</string>
     <string name="title_activity_walk_map">Map</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- Profile Page -->
+    <string name="tot_walks">Total Walks</string>
+    <string name="avg_walks">Average Walk Length</string>
 </resources>

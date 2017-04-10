@@ -52,4 +52,13 @@
         android:layout_alignLeft="@+id/button_map"
         android:layout_alignStart="@+id/button_map"
         android:id="@+id/button_reviews" />
+
+    <Button
+        android:text="@string/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_adddog"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button_profile" />
 </RelativeLayout>

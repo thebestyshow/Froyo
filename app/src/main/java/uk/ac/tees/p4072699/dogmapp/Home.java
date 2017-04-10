@@ -20,6 +20,7 @@ public class Home extends AppCompatActivity {
         final Button help = (Button) findViewById(R.id.home_btn_help);
         final Button map = (Button) findViewById(R.id.button_map);
         final Button rev = (Button) findViewById(R.id.button_reviews);
+        final Button prof = (Button) findViewById(R.id.button_profile);
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +63,15 @@ public class Home extends AppCompatActivity {
                 setContentView(R.layout.activity_review);
             }
         });
+
+        prof.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(con,Profile.class);
+                startActivity(i);
+                setContentView(R.layout.activity_profile);
+            }
+        });
+
     }
 }
