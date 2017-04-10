@@ -27,21 +27,12 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/dogs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_adddog"
-        android:layout_above="@+id/home_btn_help"
-        android:layout_alignLeft="@+id/home_btn_help"
-        android:layout_alignStart="@+id/home_btn_help" />
-
-    <Button
         android:text="@string/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_adddog"
-        android:layout_alignLeft="@+id/button_adddog"
-        android:layout_alignStart="@+id/button_adddog"
+        android:layout_above="@+id/button_doglist"
+        android:layout_alignLeft="@+id/button_doglist"
+        android:layout_alignStart="@+id/button_doglist"
         android:id="@+id/button_map" />
 
     <Button
@@ -57,8 +48,25 @@
         android:text="@string/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_adddog"
+        android:layout_below="@+id/button_doglist"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/button_profile" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_rev"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:id="@+id/Name_test" />
+
+    <Button
+        android:text="@string/dogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_doglist"
+        android:layout_above="@+id/home_btn_help"
+        android:layout_alignLeft="@+id/home_btn_help"
+        android:layout_alignStart="@+id/home_btn_help" />
 </RelativeLayout>

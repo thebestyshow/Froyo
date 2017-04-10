@@ -1,5 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,11 +19,19 @@ public class Profile extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     String[] dogs = {};
     Integer[] dogsId = {};
+    Owner owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        owner = (Owner)getIntent().getSerializableExtra("owner");
+
+        final TextView name = (TextView) findViewById(R.id.Prof_name);
+        final Context con = this;
+
+        name.setText(owner.getName());
 
 
         final Button home = (Button) findViewById(R.id.button_home);
@@ -40,8 +52,10 @@ public class Profile extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Home.class);
+                Intent intent = new Intent(con, Home.class);
+                intent.putExtra("owner",owner);
                 startActivity(intent);
+                setContentView(R.layout.activity_home);
             }
         });
     }

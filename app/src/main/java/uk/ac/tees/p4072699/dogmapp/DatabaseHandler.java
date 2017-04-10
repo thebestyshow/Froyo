@@ -137,13 +137,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cnt;
     }
 
-    public Boolean checkEmail(String em){
+    /*public Boolean checkEmail(String em){
         SQLiteDatabase db = getReadableDatabase();
         Cursor mCursor = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " +
                 COL_EMAIL + "=?", new String[]{em});
 
         return mCursor.moveToFirst();
-    }
+    }*/
 
     public void add(Dog d){
         SQLiteDatabase db = getWritableDatabase();
@@ -226,6 +226,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW WALK ADDED");
 
         return input;
+    }
+
+    public Owner getOneOwner(Cursor c){
+
+        if (c.moveToFirst()){
+            int idIdx = c.getColumnIndex(COL_ID);
+            int nameIdx = c.getColumnIndex(COL_NAME);
+            int emailIdx = c.getColumnIndex(COL_EMAIL);
+            int passIdx = c.getColumnIndex(COL_PASS);
+            do {
+                Owner owner = new Owner(
+                        c.getInt(idIdx),
+                        c.getString(nameIdx),
+                        c.getString(emailIdx),
+                        c.getString(passIdx),
+                        new Date()
+                );
+                return owner;
+            }while(c.moveToNext());
+        }
+        return null;
     }
 
     public List<Owner> getallOwners(){
