@@ -67,6 +67,7 @@ public class ReviewList extends AppCompatActivity {
             public void onClick(View view) {
                 dh.removeWalk(selected);
                 Intent intent = new Intent(con, ReviewList.class);
+                intent.putExtra("owner",owner);
                 startActivity(intent);
             }
         });
