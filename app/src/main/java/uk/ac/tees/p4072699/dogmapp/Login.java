@@ -65,9 +65,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 SQLiteDatabase db = dh.getReadableDatabase();
 
-                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?", new String[]{email});
+                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{email});
 
-                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email, pass});
+                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
 
                 if (cursor != null) {
                     if (email.equals("")) {

@@ -5,7 +5,7 @@ import android.media.Image;
 public class Dog {
 
     private String name;
-    private String owner;
+    private int ownerID;
     private Image img;
     private int totwalks;
     private int totdistance;
@@ -15,15 +15,15 @@ public class Dog {
         return totwalks;
     }
 
-    public Dog(String name, String owner, int id) {
+    public Dog(String name, int owner, int id) {
         this.name = name;
-        this.owner = owner;
+        this.ownerID = owner;
         this.id = id;
     }
 
-    public Dog(String name, String owner) {
+    public Dog(String name, int owner) {
         this.name = name;
-        this.owner = owner;
+        this.ownerID = owner;
         totwalks = 5;
         totdistance = 27;
 
@@ -57,12 +57,12 @@ public class Dog {
         this.name = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public int getOwnerID() {
+        return ownerID;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwner(int owner) {
+        this.ownerID = owner;
     }
 
     public Image getImg() {

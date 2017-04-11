@@ -2,6 +2,7 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,11 +35,17 @@ public class DogList extends AppCompatActivity {
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
-        List<Dog> list = dh.getAllDogs();
+        List<Dog> list = dh.getAllDogs(owner.getId());
+
 
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
-            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nOwner: " + dg.getOwner();
+
+            Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
+                    + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
+
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOneOwner(cID).getName();
+          
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
@@ -67,23 +74,24 @@ public class DogList extends AppCompatActivity {
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (selected == -1) {
                     Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
                 } else {
                     dh.removeDog(selected);
                     Intent intent = new Intent(con, DogList.class);
+                    intent.putExtra("owner",owner);
                     startActivity(intent);
                 }
-
             }
         });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con, AddDogActivity.class);
-                i.putExtra("owner", owner);
-                startActivity(i);
+                Intent intent = new Intent(con, AddDogActivity.class);
+                intent.putExtra("owner",owner);
+                startActivity(intent);
             }
         });
     }

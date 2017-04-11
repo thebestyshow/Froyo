@@ -150,7 +150,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(COL_NAME, d.getName());
-        values.put(COL_OWNER, d.getOwner());
+        values.put(COL_OWNER, d.getOwnerID());
         values.put(COL_AVG_DIS, "nil");
         values.put(COL_TOT_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
@@ -161,11 +161,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("Database", "NEW ENTRY ADDED");
     }
 
-    public List<Dog> getAllDogs() {
+    public List<Dog> getAllDogs(int owner) {
         List<Dog> list = new ArrayList<Dog>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME;
-        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_OWNER + "=?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{Integer.toString(owner)});
+
         if (cursor.moveToFirst()) {
             int ownerIdx = cursor.getColumnIndex(COL_OWNER);
             int nameIdx = cursor.getColumnIndex(COL_NAME);
@@ -173,7 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 Dog dg = new Dog(
                         cursor.getString(nameIdx),
-                        cursor.getString(ownerIdx),
+                        cursor.getInt(ownerIdx),
                         cursor.getInt(idIdx)
                 );
                 list.add(dg);
