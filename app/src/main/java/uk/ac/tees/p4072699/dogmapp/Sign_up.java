@@ -32,6 +32,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent i;
+        final EditText n = (EditText) findViewById(R.id.name_sign);
         final EditText e = (EditText) findViewById(R.id.email_sign);
         final EditText p1 = (EditText) findViewById(R.id.Pass_sign);
         final EditText p2 = (EditText) findViewById(R.id.Pass_con_sign);
@@ -39,6 +40,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
         switch(v.getId()){
 
             case R.id.Sign_Up_btn_sign:
+                String name = n.getText().toString();
                 String email = e.getText().toString();
                 String pass = p1.getText().toString();
                 String conPass = p2.getText().toString();
@@ -70,7 +72,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
                         break;
                     }
                     else if (cursor.getCount() < 1) {
-                        dh.add(new Owner(dh.getProfilesCount() + 1, "TEST" + dh.getProfilesCount() + 1, e.getText().toString(), p2.getText().toString(), new Date()));
+                        dh.add(new Owner(dh.getProfilesCount() + 1, name, email, conPass, new Date()));
                         i = new Intent(getApplicationContext(), Login.class);
                         Toast.makeText(getApplicationContext(), "Owner Added", Toast.LENGTH_SHORT).show();
                         startActivity(i);

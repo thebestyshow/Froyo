@@ -19,6 +19,7 @@ public class DogList extends AppCompatActivity {
     int selected;
     String[] dogs = {};
     Integer[] dogsId = {};
+    Owner owner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class DogList extends AppCompatActivity {
         final Button add = (Button) findViewById(R.id.button_add);
         final Button rem = (Button) findViewById(R.id.button_remove);
 
+        owner = (Owner)getIntent().getSerializableExtra("owner");
+
         List<Dog> list = dh.getAllDogs();
 
         for (Dog dg : list) {
@@ -37,7 +40,7 @@ public class DogList extends AppCompatActivity {
             dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dg.getOwner();
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
-        }
+    }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
 
@@ -56,6 +59,7 @@ public class DogList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
+                intent.putExtra("owner",owner);
                 startActivity(intent);
             }
         });

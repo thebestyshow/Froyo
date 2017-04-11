@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.List;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -88,6 +89,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         cursor.moveToFirst();
                         Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
                         i = new Intent(getApplicationContext(),Home.class);
+                        i.putExtra("owner",dh.getOneOwner(cemail));
                         startActivity(i);
                         setContentView(R.layout.activity_home);
                         this.finish();
