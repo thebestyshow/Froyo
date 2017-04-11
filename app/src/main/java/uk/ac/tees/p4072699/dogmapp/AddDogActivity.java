@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddDogActivity extends AppCompatActivity {
-    Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
 
     Owner owner;
