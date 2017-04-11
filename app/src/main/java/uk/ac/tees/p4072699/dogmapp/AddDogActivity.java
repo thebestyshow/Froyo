@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddDogActivity extends AppCompatActivity {
-
+    Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+
     Owner owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
+
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
         final Context con = this;
         final Button cancel = (Button) findViewById(R.id.button_cancel);

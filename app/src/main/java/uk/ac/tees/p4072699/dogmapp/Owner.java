@@ -5,10 +5,6 @@ import android.media.Image;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
-
 public class Owner implements Serializable {
     private int id;
     private String name;
@@ -25,7 +21,7 @@ public class Owner implements Serializable {
         this.id = id;
     }
 
-    Owner(int id, String n, String e, String p, Date d){
+    Owner(int id, String n, String e, String p, Date d) {
         this.id = id;
         this.name = n;
 
@@ -34,12 +30,10 @@ public class Owner implements Serializable {
         this.dob = d;
     }
 
-    Owner(int id,String n, String e, String p, Date d, Image i){
-        this(id,n,e,p,d);
+    Owner(int id, String n, String e, String p, Date d, Image i) {
+        this(id, n, e, p, d);
         this.img = i;
     }
-
-
 
     public String getName() {
         return name;

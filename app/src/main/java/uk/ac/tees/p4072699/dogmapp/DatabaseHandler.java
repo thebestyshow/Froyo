@@ -64,22 +64,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_COMMENT = "route_comment";
 
-    public String getCOL_PASS(){
+    public String getCOL_PASS() {
         return COL_PASS;
     }
 
     private static String CREATE_FRIENDS_TABLE = "CREATE TABLE "
             + FRIEND_TABLE_NAME
-            +" (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
             + COL_CATEGORY + " TEXT, "
             + COL_DATETIME + " TEXT, "
             + COL_LOC_LONG + " REAL, "
-            + COL_LOC_LAT + " REAl" +");";
+            + COL_LOC_LAT + " REAl" + ");";
 
     private static String CREATE_DOG_TABLE = "CREATE TABLE "
             + DOG_TABLE_NAME
-            +" (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
             + COL_OWNER + " TEXT, "
             + COL_IMAGE + " IMAGE, "
@@ -92,9 +92,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + OWNER_LOGIN_TABLE
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
-            + COL_EMAIL +" TEXT, "
+            + COL_EMAIL + " TEXT, "
             + COL_PASS + " TEXT, "
-            + COL_DOB +" DATE, "
+            + COL_DOB + " DATE, "
             + COL_TOT_WALKS + " INTEGER,"
             + COL_TOT_DIS + " TEXT, "
             + COL_AVG_DIS + " TEXT, "
@@ -112,12 +112,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //this needs things adding to the table.
 
 
-    public DatabaseHandler(Context context){
-        super(context, DATABASE_NAME,null,1);
+    public DatabaseHandler(Context context) {
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_OWNER_TABLE);
         db.execSQL(CREATE_DOG_TABLE);
@@ -128,7 +128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int getProfilesCount(){
+    public int getProfilesCount() {
         String countQuery = "SELECT  * FROM " + OWNER_LOGIN_TABLE;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -145,7 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return mCursor.moveToFirst();
     }*/
 
-    public void add(Dog d){
+    public void add(Dog d) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -155,7 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_TOT_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
 
-        db.insert(DOG_TABLE_NAME,null,values);
+        db.insert(DOG_TABLE_NAME, null, values);
         db.close();
 
         Log.d("Database", "NEW ENTRY ADDED");
@@ -186,17 +186,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void removeDog(int i) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null );
+        db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null);
         Log.d("DATABASE", "DOG DELETED");
     }
 
     public void removeWalk(int i) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(WALK_TABLE_NAME, COL_ID + "=" + i, null );
+        db.delete(WALK_TABLE_NAME, COL_ID + "=" + i, null);
         Log.d("DATABASE", "REVIEW DELETED");
     }
 
-    public long add(Owner o){
+    public long add(Owner o) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -219,12 +219,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public long add(Walk w){
+    public long add(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(COL_ROUTE_NAME, w.getName());
-        values.put(COL_ROUTE_LEN,w.getLength());
+        values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
 
@@ -236,9 +236,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return input;
     }
 
-    public Owner getOneOwner(Cursor c){
+    public Owner getOneOwner(Cursor c) {
 
-        if (c.moveToFirst()){
+        if (c.moveToFirst()) {
             int idIdx = c.getColumnIndex(COL_ID);
             int nameIdx = c.getColumnIndex(COL_NAME);
             int emailIdx = c.getColumnIndex(COL_EMAIL);
@@ -252,26 +252,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new Date()
                 );
                 return owner;
-            }while(c.moveToNext());
+            } while (c.moveToNext());
         }
         return null;
     }
 
-    public List<Owner> getallOwners(){
+    public List<Owner> getallOwners() {
         ArrayList<Owner> list = new ArrayList<Owner>();
 
         SQLiteDatabase db = getReadableDatabase();
 
         String selectQuery = "SELECT * FROM " + OWNER_LOGIN_TABLE;
 
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             int idIdx = cursor.getColumnIndex(COL_ID);
             int nameIdx = cursor.getColumnIndex(COL_NAME);
             int emailIdx = cursor.getColumnIndex(COL_EMAIL);
             int passIdx = cursor.getColumnIndex(COL_PASS);
-            do{
+            do {
                 Owner owner = new Owner(
                         cursor.getInt(idIdx),
                         cursor.getString(nameIdx),
@@ -280,22 +280,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new Date()
                 );
                 list.add(owner);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
 
         }
         return list;
     }
 
-    public List<Walk> getAllWalks(){
+    public List<Walk> getAllWalks() {
         ArrayList<Walk> list = new ArrayList<Walk>();
 
         SQLiteDatabase db = getReadableDatabase();
 
         String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME;
 
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             int idIdx = cursor.getColumnIndex(COL_ID);
             int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
@@ -310,14 +310,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getInt(idIdx)
                 );
                 list.add(walk);
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         return list;
     }
 
-    public String getOwnerLogintable(){
-        return  OWNER_LOGIN_TABLE;
+    public String getOwnerLogintable() {
+        return OWNER_LOGIN_TABLE;
     }
 
 
@@ -446,7 +446,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum){
+    public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum) {
         db.execSQL("DROP TABLE IF EXISTS " + OWNER_LOGIN_TABLE);
         onCreate(db);
     }

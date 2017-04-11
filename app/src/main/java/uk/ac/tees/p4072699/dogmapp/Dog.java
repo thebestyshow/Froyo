@@ -2,10 +2,6 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
-
 public class Dog {
 
     private String name;

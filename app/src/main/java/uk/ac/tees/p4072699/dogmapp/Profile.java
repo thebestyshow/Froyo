@@ -27,13 +27,12 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        owner = (Owner)getIntent().getSerializableExtra("owner");
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
         final TextView name = (TextView) findViewById(R.id.Prof_name);
         final Context con = this;
 
         name.setText(owner.getName());
-
 
         final Button home = (Button) findViewById(R.id.button_home);
         List<Dog> list = dh.getAllDogs(owner.getId());
@@ -58,7 +57,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner",owner);
+                intent.putExtra("owner", owner);
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
             }

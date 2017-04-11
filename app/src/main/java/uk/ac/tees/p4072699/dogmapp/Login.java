@@ -17,7 +17,8 @@ import java.util.List;
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     DatabaseHandler dh = new DatabaseHandler(this);
-    Button sign,log,datashow;
+    Button sign, log, datashow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,20 +41,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         final EditText emailtxt = (EditText) findViewById(R.id.Email_log);
         final EditText passtxt = (EditText) findViewById(R.id.Pass_log);
 
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.DATABASE_SHOW:
                 List<Owner> list = dh.getallOwners();
 
                 Log.d("Database", "Reading all owners");
 
-                for (Owner o : list){
+                for (Owner o : list) {
                     String log = "ID: " + o.getId() + " Name: " + o.getName() + " Email: " + o.getEmail() + " Pass: " + o.getPassword();
                     Log.d("Database ", log);
                 }
                 break;
 
             case R.id.Sign_up_btn_log:
-                i = new Intent(getApplicationContext(),Sign_up.class);
+                i = new Intent(getApplicationContext(), Sign_up.class);
                 startActivity(i);
                 setContentView(R.layout.activity_sign_up);
                 break;
@@ -68,40 +69,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
 
-                if (cursor != null){
-                    if (email.equals("")){
-                        t= Toast.makeText(getApplicationContext(),"Please enter an email", Toast.LENGTH_SHORT);
+                if (cursor != null) {
+                    if (email.equals("")) {
+                        t = Toast.makeText(getApplicationContext(), "Please enter an email", Toast.LENGTH_SHORT);
                         t.show();
                         break;
-                    }
-                    else if(pass.equals("")){
-                        t = Toast.makeText(getApplicationContext(),"Please enter your password",Toast.LENGTH_SHORT);
+                    } else if (pass.equals("")) {
+                        t = Toast.makeText(getApplicationContext(), "Please enter your password", Toast.LENGTH_SHORT);
                         t.show();
                         break;
-                    }
-                    else if (cemail.getCount() < 1){
+                    } else if (cemail.getCount() < 1) {
                         emailtxt.setText("");
                         passtxt.setText("");
-                        Toast.makeText(getApplicationContext(),"Email not Registered.\nPlease Sign Up to continue",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Email not Registered.\nPlease Sign Up to continue", Toast.LENGTH_SHORT).show();
                         break;
-                    }
-                    else if (cursor.getCount() > 0){
+                    } else if (cursor.getCount() > 0) {
                         cursor.moveToFirst();
-                        Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
-                        i = new Intent(getApplicationContext(),Home.class);
-                        i.putExtra("owner",dh.getOneOwner(cemail));
+                        Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                        i = new Intent(getApplicationContext(), Home.class);
+                        i.putExtra("owner", dh.getOneOwner(cemail));
                         startActivity(i);
                         setContentView(R.layout.activity_home);
                         this.finish();
                         break;
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Username or password is wrong",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Username or password is wrong", Toast.LENGTH_SHORT).show();
                         emailtxt.setText("");
                         passtxt.setText("");
                         break;
                     }
-
                 }
         }
     }

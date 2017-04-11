@@ -11,13 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class DogList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
-    int selected;
+    int selected = -1;
     String[] dogs = {};
     Integer[] dogsId = {};
     Owner owner;
@@ -32,7 +33,7 @@ public class DogList extends AppCompatActivity {
         final Button add = (Button) findViewById(R.id.button_add);
         final Button rem = (Button) findViewById(R.id.button_remove);
 
-        owner = (Owner)getIntent().getSerializableExtra("owner");
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
         List<Dog> list = dh.getAllDogs(owner.getId());
 
@@ -44,17 +45,17 @@ public class DogList extends AppCompatActivity {
                     + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
 
             dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOneOwner(cID).getName();
+          
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
-    }
+        }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
 
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new OnItemClickListener()
-        {
+        listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = dogsId[position];
@@ -65,7 +66,7 @@ public class DogList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner",owner);
+                intent.putExtra("owner", owner);
                 startActivity(intent);
             }
         });
@@ -73,10 +74,15 @@ public class DogList extends AppCompatActivity {
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.removeDog(selected);
-                Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",owner);
-                startActivity(intent);
+
+                if (selected == -1) {
+                    Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
+                } else {
+                    dh.removeDog(selected);
+                    Intent intent = new Intent(con, DogList.class);
+                    intent.putExtra("owner",owner);
+                    startActivity(intent);
+                }
             }
         });
 
