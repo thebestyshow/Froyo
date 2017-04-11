@@ -9,6 +9,15 @@ public class Walk {
     private String length;
     private int rating;
     private String comment;
+    private int id;
+
+    public Walk(String name, String length, int rating, String comment, int id) {
+        this.name = name;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+        this.id = id;
+    }
 
     public Walk(String name, String length, int rating, String comment) {
         this.name = name;
@@ -17,6 +26,13 @@ public class Walk {
         this.comment = comment;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getComment() {
         return comment;
     }

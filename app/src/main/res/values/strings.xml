@@ -31,6 +31,7 @@
 
     <string name="review">Reviews</string>
     <string name="addrev">Add Review</string>
+    <string name="rem">Remove</string>
 
     <string name="Help_content">Dogmapp is an app that allows you to create walks and share them with other users. It allows you to socialise with other dog
     owners and organise walks. You can make profiles for each of the your dogs where stats from each walk your pet has been on will be saved. Once you have

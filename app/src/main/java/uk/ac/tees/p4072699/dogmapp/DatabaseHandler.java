@@ -188,6 +188,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "DOG DELETED");
     }
 
+    public void removeWalk(int i) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(WALK_TABLE_NAME, COL_ID + "=" + i, null );
+        Log.d("DATABASE", "REVIEW DELETED");
+    }
+
     public long add(Owner o){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -288,6 +294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery,null);
 
         if (cursor.moveToFirst()){
+            int idIdx = cursor.getColumnIndex(COL_ID);
             int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
@@ -297,7 +304,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(nameIdx),
                         cursor.getString(lengthIdx),
                         cursor.getInt(ratingIdx),
-                        cursor.getString(comIdx)
+                        cursor.getString(comIdx),
+                        cursor.getInt(idIdx)
                 );
                 list.add(walk);
             } while(cursor.moveToNext());
