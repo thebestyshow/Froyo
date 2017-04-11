@@ -1,9 +1,5 @@
 package uk.ac.tees.p4072699.dogmapp;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
-
 public class Walk {
     private String name;
     private String length;
@@ -33,6 +29,7 @@ public class Walk {
     public void setId(int id) {
         this.id = id;
     }
+
     public String getComment() {
         return comment;
     }
@@ -64,6 +61,4 @@ public class Walk {
     public void setLength(String length) {
         this.length = length;
     }
-
-
 }

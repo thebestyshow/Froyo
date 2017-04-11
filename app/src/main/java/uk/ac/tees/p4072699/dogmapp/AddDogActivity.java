@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddDogActivity extends AppCompatActivity {
-
+    Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
+
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
         final Context con = this;
         final Button cancel = (Button) findViewById(R.id.button_cancel);
@@ -32,8 +35,9 @@ public class AddDogActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.add(new Dog(dgname.getText().toString(), "Mike"));
+                dh.add(new Dog(dgname.getText().toString(), owner.getName()));
                 Intent intent = new Intent(con, DogList.class);
+                intent.putExtra("owner", owner);
                 startActivity(intent);
             }
         });

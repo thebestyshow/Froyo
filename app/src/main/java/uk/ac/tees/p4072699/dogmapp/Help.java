@@ -9,6 +9,7 @@ import android.widget.Button;
 public class Help extends AppCompatActivity {
     Button home;
     Owner owner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +21,8 @@ public class Help extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Home.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(getApplicationContext(), Home.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
                 setContentView(R.layout.activity_home);
                 finish();

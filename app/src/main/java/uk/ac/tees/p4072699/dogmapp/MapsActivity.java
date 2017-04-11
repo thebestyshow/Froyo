@@ -48,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
     /* test for my local fork */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -99,14 +100,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
 
         //if (lastLoc != null) {
-         //   LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-          //  LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
+        //   LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
+        //  LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
 
-           // String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
+        // String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
 
-          //  Log.d("URL: ", url);
-           // length = length + 1;
-       // }
+        //  Log.d("URL: ", url);
+        // length = length + 1;
+        // }
 
         lastLoc = location;
         if (currentLoc != null) {

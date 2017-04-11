@@ -31,8 +31,8 @@ public class Home extends AppCompatActivity {
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con,Help.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(con, Help.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -40,8 +40,8 @@ public class Home extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con,MapsActivity.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(con, MapsActivity.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -49,8 +49,8 @@ public class Home extends AppCompatActivity {
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con,ReviewList.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(con, ReviewList.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -59,7 +59,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, DogList.class);
-                i.putExtra("owner",owner);
+                i.putExtra("owner", owner);
                 startActivity(i);
                 setContentView(R.layout.activity_dog_list);
             }
@@ -69,21 +69,20 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Review.class);
-                i.putExtra("owner",owner);
+                i.putExtra("owner", owner);
                 startActivity(i);
                 setContentView(R.layout.activity_review);
             }
         });
 
-        prof.setOnClickListener(new View.OnClickListener(){
+        prof.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent i = new Intent(con,Profile.class);
-                i.putExtra("owner",owner);
+            public void onClick(View view) {
+                Intent i = new Intent(con, Profile.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
                 setContentView(R.layout.activity_profile);
             }
         });
-
     }
 }

@@ -42,7 +42,8 @@
         android:id="@+id/lv_dgs"
         android:layout_above="@+id/button_add"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:listSelector="#11FFFF"/>
 
     <TextView
         android:text="@string/dogs"

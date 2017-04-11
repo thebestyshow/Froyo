@@ -25,7 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_height="380dp"
         android:layout_above="@+id/button_home"
-        android:id="@+id/lv_rev" />
+        android:id="@+id/lv_rev"
+        android:listSelector="#11FFFF"/>
 
     <Button
         android:layout_width="wrap_content"

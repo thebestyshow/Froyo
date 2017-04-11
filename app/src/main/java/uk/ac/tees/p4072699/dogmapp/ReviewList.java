@@ -35,7 +35,7 @@ public class ReviewList extends AppCompatActivity {
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
-            reviews[reviews.length - 1] = "Name: " + w.getName() +"\nRating: " + w.getRating() + "\nComment: " + w.getComment();
+            reviews[reviews.length - 1] = "Name: " + w.getName() + "\nRating: " + w.getRating() + "\nComment: " + w.getComment();
             revId = Arrays.copyOf(revId, revId.length + 1);
             revId[revId.length - 1] = w.getId();
         }
@@ -45,8 +45,7 @@ public class ReviewList extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.lv_rev);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = revId[position];
@@ -56,8 +55,8 @@ public class ReviewList extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con,Home.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(con, Home.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -67,6 +66,7 @@ public class ReviewList extends AppCompatActivity {
             public void onClick(View view) {
                 dh.removeWalk(selected);
                 Intent intent = new Intent(con, ReviewList.class);
+                intent.putExtra("owner", owner);
                 startActivity(intent);
             }
         });
