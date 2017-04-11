@@ -10,40 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Sign_up">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/Pass_sign"
-        android:hint="@string/p_hint"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/email_sign"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/Pass_con_sign"
-        android:hint="@string/p_con_hint"
-        android:layout_below="@+id/Pass_sign"
-        android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign"
-        android:layout_marginTop="48dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress|textPersonName"
-        android:ems="10"
-        android:id="@+id/email_sign"
-        android:hint="@string/e_hint"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
-
     <Button
         android:text="@string/sign_up"
         android:layout_width="match_parent"
@@ -62,5 +28,51 @@
         android:layout_marginTop="34dp"
         android:id="@+id/Log_in_btn_sign"
         android:visibility="visible" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/Pass_con_sign"
+        android:hint="@string/p_con_hint"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/Pass_sign"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/Pass_sign"
+        android:hint="@string/p_hint"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/email_sign"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress|textPersonName"
+        android:ems="10"
+        android:id="@+id/email_sign"
+        android:hint="@string/e_hint"
+        android:layout_marginTop="78dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/name_sign"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/email_sign"
+        android:layout_alignStart="@+id/email_sign"
+        android:hint="@string/n_hint" />
 
 </RelativeLayout>

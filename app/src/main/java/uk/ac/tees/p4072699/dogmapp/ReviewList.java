@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ReviewList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
+    Owner owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,8 @@ public class ReviewList extends AppCompatActivity {
 
         final Context con = this;
         final Button home = (Button) findViewById(R.id.button_home);
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+
 
         String[] reviews = {};
 
@@ -41,6 +44,7 @@ public class ReviewList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,Home.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });

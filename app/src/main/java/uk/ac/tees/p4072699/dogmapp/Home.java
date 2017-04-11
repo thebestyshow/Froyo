@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
+    Owner owner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,16 +18,22 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final Context con = this;
-        final Button add = (Button) findViewById(R.id.button_adddog);
+        final Button add = (Button) findViewById(R.id.button_doglist);
         final Button review = (Button) findViewById(R.id.button_rev);
         final Button help = (Button) findViewById(R.id.home_btn_help);
         final Button map = (Button) findViewById(R.id.button_map);
         final Button rev = (Button) findViewById(R.id.button_reviews);
+        final Button prof = (Button) findViewById(R.id.button_profile);
+        final TextView name = (TextView) findViewById(R.id.Name_test);
+
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+        name.setText(owner.getName());
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,Help.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -33,6 +42,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,MapsActivity.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -41,6 +51,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con,ReviewList.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });
@@ -49,6 +60,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, DogList.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
                 setContentView(R.layout.activity_dog_list);
             }
@@ -58,9 +70,21 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Review.class);
+                i.putExtra("owner",owner);
                 startActivity(i);
                 setContentView(R.layout.activity_review);
             }
         });
+
+        prof.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(con,Profile.class);
+                i.putExtra("owner",owner);
+                startActivity(i);
+                setContentView(R.layout.activity_profile);
+            }
+        });
+
     }
 }

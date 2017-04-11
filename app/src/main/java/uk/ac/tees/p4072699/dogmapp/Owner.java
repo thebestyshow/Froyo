@@ -2,13 +2,14 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by p4061644 on 07/03/2017.
  */
 
-public class Owner {
+public class Owner implements Serializable {
     private int id;
     private String name;
     private String email;
