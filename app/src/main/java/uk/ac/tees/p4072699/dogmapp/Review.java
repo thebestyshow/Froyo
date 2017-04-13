@@ -61,7 +61,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
-        /*p1.setOnClickListener(new View.OnClickListener() {
+        p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 paws = 1;
                 p1.setImageResource(R.drawable.selected);
@@ -116,6 +116,6 @@ public class Review extends AppCompatActivity {
                 p4.setImageResource(R.drawable.selected);
                 p1.setImageResource(R.drawable.selected);
             }
-        });*/
+        });
     }
 }
