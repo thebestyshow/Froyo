@@ -20,7 +20,7 @@ public class Home extends AppCompatActivity {
         final Button add = (Button) findViewById(R.id.button_doglist);
         final Button review = (Button) findViewById(R.id.button_rev);
         final Button help = (Button) findViewById(R.id.home_btn_help);
-        final Button map = (Button) findViewById(R.id.button_map);
+        final Button start = (Button) findViewById(R.id.button_startwalk);
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
         final TextView name = (TextView) findViewById(R.id.Name_test);
@@ -37,10 +37,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        map.setOnClickListener(new View.OnClickListener() {
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con, MapsActivity.class);
+                Intent i = new Intent(con, StartWalk.class);
                 i.putExtra("owner", owner);
                 startActivity(i);
             }

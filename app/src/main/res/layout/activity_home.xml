@@ -27,24 +27,6 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_doglist"
-        android:layout_alignLeft="@+id/button_doglist"
-        android:layout_alignStart="@+id/button_doglist"
-        android:id="@+id/button_map" />
-
-    <Button
-        android:text="@string/review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_map"
-        android:layout_alignLeft="@+id/button_map"
-        android:layout_alignStart="@+id/button_map"
-        android:id="@+id/button_reviews" />
-
-    <Button
         android:text="@string/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,4 +51,21 @@
         android:layout_above="@+id/home_btn_help"
         android:layout_alignLeft="@+id/home_btn_help"
         android:layout_alignStart="@+id/home_btn_help" />
+
+    <Button
+        android:text="@string/review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_reviews"
+        android:layout_above="@+id/button_startwalk"
+        android:layout_alignLeft="@+id/button_doglist"
+        android:layout_alignStart="@+id/button_doglist" />
+
+    <Button
+        android:text="@string/startw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_startwalk"
+        android:layout_above="@+id/button_doglist"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
