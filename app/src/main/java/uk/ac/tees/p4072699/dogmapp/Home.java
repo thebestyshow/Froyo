@@ -2,6 +2,7 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
     Owner owner;
+    DatabaseHandler dh = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Help.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -41,7 +43,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, StartWalk.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -50,7 +52,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, ReviewList.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -59,7 +61,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, DogList.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
                 setContentView(R.layout.activity_dog_list);
             }
@@ -69,7 +71,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Review.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
                 setContentView(R.layout.activity_review);
             }
@@ -79,7 +81,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Profile.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
                 setContentView(R.layout.activity_profile);
             }

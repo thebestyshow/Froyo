@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,9 +31,15 @@ public class Profile extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
         final TextView name = (TextView) findViewById(R.id.Prof_name);
+        final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
+        final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
         final Context con = this;
 
+        totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
+        DecimalFormat df = new DecimalFormat("#.00");
+        String avg = df.format(owner.getTot_dis()/owner.getTot_walks());
+        avgWalks.setText(avg + "KM");
 
         final Button home = (Button) findViewById(R.id.button_home);
         List<Dog> list = dh.getAllDogs(owner.getId());
@@ -57,7 +64,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", owner);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
             }

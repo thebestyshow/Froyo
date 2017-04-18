@@ -2,6 +2,8 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +60,7 @@ public class StartWalk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Home.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -66,8 +68,14 @@ public class StartWalk extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con, MapsActivity.class);
-                i.putExtra("owner", owner);
+                Intent i = new Intent(con, Home.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+
+                SQLiteDatabase db = dh.getReadableDatabase();
+                Cursor c = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{owner.getEmail()});
+                dh.updateOwner(c);
+                dh.updateDog(selected);
+
                 startActivity(i);
             }
         });

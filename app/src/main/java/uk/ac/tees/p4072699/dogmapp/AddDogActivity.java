@@ -31,7 +31,7 @@ public class AddDogActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",owner);
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
@@ -39,9 +39,9 @@ public class AddDogActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.add(new Dog(dgname.getText().toString(), owner.getId()));
+                dh.add(new Dog(dh.getDogCount()+1,dgname.getText().toString(), owner.getId()));
                 Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",owner);
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });

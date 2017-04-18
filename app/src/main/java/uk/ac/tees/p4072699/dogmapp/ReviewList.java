@@ -56,7 +56,7 @@ public class ReviewList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, Home.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -66,7 +66,7 @@ public class ReviewList extends AppCompatActivity {
             public void onClick(View view) {
                 dh.removeWalk(selected);
                 Intent intent = new Intent(con, ReviewList.class);
-                intent.putExtra("owner", owner);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
