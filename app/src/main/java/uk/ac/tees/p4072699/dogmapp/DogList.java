@@ -66,7 +66,7 @@ public class DogList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", owner);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class DogList extends AppCompatActivity {
                 } else {
                     dh.removeDog(selected);
                     Intent intent = new Intent(con, DogList.class);
-                    intent.putExtra("owner",owner);
+                    intent.putExtra("owner",dh.getOwnerHelper(owner));
                     startActivity(intent);
                 }
             }
@@ -90,7 +90,7 @@ public class DogList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, AddDogActivity.class);
-                intent.putExtra("owner",owner);
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });

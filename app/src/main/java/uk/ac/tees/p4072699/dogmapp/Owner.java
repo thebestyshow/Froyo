@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Owner implements Serializable {
-    private int id;
+    private int id, tot_walks;
+    private double tot_dis;
     private String name;
     private String email;
     private String Password;
@@ -24,7 +25,6 @@ public class Owner implements Serializable {
     Owner(int id, String n, String e, String p, Date d) {
         this.id = id;
         this.name = n;
-
         this.email = e;
         this.Password = p;
         this.dob = d;
@@ -33,6 +33,34 @@ public class Owner implements Serializable {
     Owner(int id, String n, String e, String p, Date d, Image i) {
         this(id, n, e, p, d);
         this.img = i;
+    }
+
+    Owner(int id, String n, String e, String p, Date d,int tw) {
+        this(id, n, e, p, d);
+        this.tot_walks = tw;
+    }
+
+    Owner(int id, String n, String e, String p, Date d,int tw,double dis) {
+        this(id, n, e, p, d);
+        this.tot_dis = dis;
+        this.tot_walks = tw;
+    }
+
+
+    public double getTot_dis() {
+        return tot_dis;
+    }
+
+    public void setTot_dis(float tot_dis) {
+        this.tot_dis = tot_dis;
+    }
+
+    public int getTot_walks() {
+        return tot_walks;
+    }
+
+    public void setTot_walks(int tot_walks) {
+        this.tot_walks = tot_walks;
     }
 
     public String getName() {

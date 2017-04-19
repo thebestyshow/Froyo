@@ -43,7 +43,7 @@ public class Review extends AppCompatActivity {
                 comments = com.getText().toString();
                 dh.add(new Walk("TEST", "2KM", paws, com.getText().toString()));
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", owner);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
                 finish();
@@ -54,7 +54,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", owner);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
                 finish();
