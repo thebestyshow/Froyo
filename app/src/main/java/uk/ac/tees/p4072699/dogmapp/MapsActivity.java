@@ -58,7 +58,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    /* test for my local fork */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -167,6 +166,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // https://developers.google.com/maps/documentation/android/utility/
         // I have used this to display the time as title for location markers
         // you can safely comment the following four lines but for this info
+
         /*IconGenerator iconFactory = new IconGenerator(this);
         iconFactory.setStyle(IconGenerator.STYLE_PURPLE);
         // options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(mLastUpdateTime + requiredArea + city)));
