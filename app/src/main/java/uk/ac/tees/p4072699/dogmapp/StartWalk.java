@@ -68,13 +68,13 @@ public class StartWalk extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con, Home.class);
+                Intent i = new Intent(con, MapsActivity.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
 
                 SQLiteDatabase db = dh.getReadableDatabase();
                 Cursor c = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{owner.getEmail()});
                 dh.updateOwner(c);
-                dh.updateDog(selected);
+                //dh.updateDog(selected);
 
                 startActivity(i);
             }
