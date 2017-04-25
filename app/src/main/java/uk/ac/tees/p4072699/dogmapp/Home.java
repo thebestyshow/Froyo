@@ -2,7 +2,6 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,6 @@ public class Home extends AppCompatActivity {
 
         final Context con = this;
         final Button add = (Button) findViewById(R.id.button_doglist);
-        final Button review = (Button) findViewById(R.id.button_rev);
         final Button help = (Button) findViewById(R.id.home_btn_help);
         final Button start = (Button) findViewById(R.id.button_startwalk);
         final Button rev = (Button) findViewById(R.id.button_reviews);
@@ -64,16 +62,6 @@ public class Home extends AppCompatActivity {
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
                 setContentView(R.layout.activity_dog_list);
-            }
-        });
-
-        review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Review.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-                setContentView(R.layout.activity_review);
             }
         });
 
