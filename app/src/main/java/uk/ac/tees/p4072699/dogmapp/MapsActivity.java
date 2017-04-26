@@ -108,15 +108,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnected(Bundle bundle) {
         locRequest = new LocationRequest();
-        locRequest.setInterval(500);
-        locRequest.setFastestInterval(500);
         locRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Hi:", "bye");
             LocationServices.FusedLocationApi.requestLocationUpdates(googleAPI, locRequest, this);
         }
-
     }
 
     @Override
@@ -126,21 +124,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
-        //if (lastLoc != null) {
-        //   LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-        //  LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
-
-        // String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
-
-        //  Log.d("URL: ", url);
-        // length = length + 1;
-        // }
-
         lastLoc = location;
         if (currentLoc != null) {
             currentLoc.remove();
         }
+
+        Log.d("LastLoc: ", lastLoc.toString());
+        Log.d("loc: ", location.toString());
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -175,29 +165,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void addMarker() {
         MarkerOptions options = new MarkerOptions();
-
-        // following four lines requires 'Google Maps Android API Utility Library'
-        // https://developers.google.com/maps/documentation/android/utility/
-        // I have used this to display the time as title for location markers
-        // you can safely comment the following four lines but for this info
-
-        /*IconGenerator iconFactory = new IconGenerator(this);
-        iconFactory.setStyle(IconGenerator.STYLE_PURPLE);
-        // options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(mLastUpdateTime + requiredArea + city)));
-        options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(requiredArea + ", " + city)));
-        options.anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());*/
-
         LatLng currentLatLng = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
         options.position(currentLatLng);
         Marker mapMarker = map.addMarker(options);
-        //long atTime = mCurrentLocation.getTime();
-        //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date(atTime));
-        //String title = mLastUpdateTime.concat(", " + requiredArea).concat(", " + city).concat(", " + country);
-        //mapMarker.setTitle(title);
-
-
-        //TextView mapTitle = (TextView) findViewById(R.id.textViewTitle);
-        //mapTitle.setText(title);
 
         Log.d("MapsActivity", "Marker added");
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
