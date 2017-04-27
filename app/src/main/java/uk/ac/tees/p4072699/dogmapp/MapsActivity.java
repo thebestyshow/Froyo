@@ -1,6 +1,8 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -10,6 +12,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +47,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int length;
     private ArrayList<LatLng> points;
     Polyline line;
+    Owner owner;
+    DatabaseHandler dh = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        final Context con = this;
+        final Button rev = (Button) findViewById(R.id.button_revScr);
+
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+
+        rev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Review.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -117,15 +137,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // length = length + 1;
         // }
 
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-
-        LatLng latlng = new LatLng(latitude,longitude);
-
-        points.add(latlng);
-
-        redrawLine();
-
         lastLoc = location;
         if (currentLoc != null) {
             currentLoc.remove();
@@ -137,6 +148,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         currentLoc = map.addMarker(markerOptions);
+
+        points.add(latLng);
+        redrawLine();
 
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         map.animateCamera(CameraUpdateFactory.zoomTo(11));
@@ -185,10 +199,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //TextView mapTitle = (TextView) findViewById(R.id.textViewTitle);
         //mapTitle.setText(title);
 
-        Log.d("MapsActivity", "Marker added.............................");
+        Log.d("MapsActivity", "Marker added");
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
                 13));
-        Log.d("MapsActivity", "Zoom done.............................");
+        Log.d("MapsActivity", "Zoom done");
     }
 
     @Override

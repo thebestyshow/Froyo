@@ -17,6 +17,7 @@
     <string name="p_hint">Password</string>
     <string name="n_hint">Name</string>
     <string name="p_con_hint">Confirm Password</string>
+    <string name="retur">Return</string>
 
     <!-- String for activity_review page -->
     <string name="review_walk">Review Walk</string>
@@ -46,4 +47,6 @@
     <!-- Profile Page -->
     <string name="tot_walks">Total Walks</string>
     <string name="avg_walks">Average Walk Length</string>
+
+    <string name="end">End Walk</string>
 </resources>

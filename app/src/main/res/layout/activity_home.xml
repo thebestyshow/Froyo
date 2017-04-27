@@ -11,14 +11,6 @@
     tools:context="uk.ac.tees.p4072699.dogmapp.Home">
 
     <Button
-        android:text="Review Screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_rev"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:text="@string/Help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_rev"
+        android:layout_below="@+id/button_revScr"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="61dp"
         android:id="@+id/Name_test" />
