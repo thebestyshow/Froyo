@@ -9,6 +9,7 @@ import android.widget.Button;
 public class Help extends AppCompatActivity {
     Button home;
     Owner owner;
+    DatabaseHandler dh = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class Help extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Home.class);
-                i.putExtra("owner", owner);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
                 setContentView(R.layout.activity_home);
                 finish();

@@ -17,6 +17,7 @@
     <string name="p_hint">Password</string>
     <string name="n_hint">Name</string>
     <string name="p_con_hint">Confirm Password</string>
+    <string name="retur">Return</string>
 
     <!-- String for activity_review page -->
     <string name="review_walk">Review Walk</string>
@@ -32,6 +33,9 @@
     <string name="review">Reviews</string>
     <string name="addrev">Add Review</string>
     <string name="rem">Remove</string>
+    <string name="start">Start</string>
+    <string name="startw">Start Walk</string>
+    <string name="choosedogs">Choose dogs for the walk</string>
 
     <string name="Help_content">Dogmapp is an app that allows you to create walks and share them with other users. It allows you to socialise with other dog
     owners and organise walks. You can make profiles for each of the your dogs where stats from each walk your pet has been on will be saved. Once you have
@@ -43,4 +47,6 @@
     <!-- Profile Page -->
     <string name="tot_walks">Total Walks</string>
     <string name="avg_walks">Average Walk Length</string>
+
+    <string name="end">End Walk</string>
 </resources>
