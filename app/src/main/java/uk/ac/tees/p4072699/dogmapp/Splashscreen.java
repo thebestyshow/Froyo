@@ -13,24 +13,30 @@ import android.widget.ProgressBar;
 
 public class Splashscreen extends Activity {
     private ProgressBar spinner;
+
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     Thread splashTread;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
         StartAnimations();
-        spinner = (ProgressBar)findViewById(R.id.progressBar);
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
     }
+
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
+        LinearLayout l = (LinearLayout) findViewById(R.id.lin_lay);
         l.clearAnimation();
         l.startAnimation(anim);
 
@@ -52,10 +58,10 @@ public class Splashscreen extends Activity {
                         sleep(100);
                         spinner.setProgress(progress);
                         waited += 100;
-                        progress+= 3;
+                        progress += 3;
                     }
                     Intent intent = new Intent(Splashscreen.this,
-                            Sign_up.class);
+                            Login.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     Splashscreen.this.finish();
@@ -64,11 +70,8 @@ public class Splashscreen extends Activity {
                 } finally {
                     Splashscreen.this.finish();
                 }
-
             }
         };
         splashTread.start();
-
     }
-
 }

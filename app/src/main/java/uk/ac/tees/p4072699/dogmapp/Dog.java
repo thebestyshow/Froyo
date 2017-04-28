@@ -2,34 +2,54 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
-
 public class Dog {
 
     private String name;
-    private String owner;
+    private int ownerID;
     private Image img;
     private int totwalks;
-    private int totdistance;
+    private double totdistance;
+    private int id;
+
+
+
+    public Dog(int id,String name, int owner,int totWalks, double totdistance) {
+        this(name,owner);
+        this.totwalks = totWalks;
+        this.totdistance = totdistance;
+        this.id = id;
+    }
+
+    public Dog(int id,String name, int owner) {
+        this(name,owner);
+        this.id = id;
+    }
+
+    public Dog(String name, int owner) {
+        this.name = name;
+        this.ownerID = owner;
+        totwalks = 5;
+        totdistance = 27;
+
+    }
 
     public int getTotwalks() {
         return totwalks;
     }
 
-    public Dog(String name, String owner) {
-        this.name = name;
-        this.owner = owner;
-        totwalks = 5;
-        totdistance = 27;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setTotwalks(int totwalks) {
         this.totwalks = totwalks;
     }
 
-    public int getTotdistance() {
+    public double getTotdistance() {
         return totdistance;
     }
 
@@ -45,12 +65,12 @@ public class Dog {
         this.name = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public int getOwnerID() {
+        return ownerID;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwner(int owner) {
+        this.ownerID = owner;
     }
 
     public Image getImg() {

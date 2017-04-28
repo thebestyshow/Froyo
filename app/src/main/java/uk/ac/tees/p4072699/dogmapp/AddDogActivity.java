@@ -10,20 +10,28 @@ import android.widget.EditText;
 
 public class AddDogActivity extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
+
+    Owner owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
+
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
         final Context con = this;
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
 
+        owner = (Owner)getIntent().getSerializableExtra("owner");
+
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, DogList.class);
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
@@ -31,8 +39,9 @@ public class AddDogActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dh.add(new Dog(dgname.getText().toString(), "Mike"));
+                dh.add(new Dog(dh.getDogCount()+1,dgname.getText().toString(), owner.getId()));
                 Intent intent = new Intent(con, DogList.class);
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });

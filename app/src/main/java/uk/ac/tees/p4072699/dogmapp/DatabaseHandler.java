@@ -10,11 +10,9 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -44,7 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_AVG_DIS = "avg_dis";
 
-    private static final String COL_NO_WALKS = "tot_walks";
+    private static final String COL_TOT_WALKS = "tot_walks";
 
     private static final String COL_TOT_DIS = "tot_dis";
 
@@ -52,115 +50,166 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_OWNER = "owner";
 
+    private static final String COL_EMAIL = "email";
+
+    private static final String COL_PASS = "password";
+
+    private static final String COL_DOB = "DOB";
+
+    private static final String COL_ROUTE_NAME = "route_name";
+
+    private static final String COL_ROUTE_LEN = "route_length";
+
+    private static final String COL_ROUTE_RATING = "route_rating";
+
+    private static final String COL_ROUTE_COMMENT = "route_comment";
+
+    public String getCOL_PASS() {
+        return COL_PASS;
+    }
+
     private static String CREATE_FRIENDS_TABLE = "CREATE TABLE "
             + FRIEND_TABLE_NAME
-            +" (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
             + COL_CATEGORY + " TEXT, "
             + COL_DATETIME + " TEXT, "
             + COL_LOC_LONG + " REAL, "
-            + COL_LOC_LAT + " REAl" +");";
+            + COL_LOC_LAT + " REAl" + ");";
 
     private static String CREATE_DOG_TABLE = "CREATE TABLE "
             + DOG_TABLE_NAME
-            +" (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
             + COL_OWNER + " TEXT, "
-            + COL_AVG_DIS + " INTEGER, "
-            + COL_NO_WALKS + " INTEGER, "
-            + COL_TOT_DIS + " INTEGER);";
+            + COL_IMAGE + " IMAGE, "
+            + COL_AVG_DIS + " TEXT,"
+            + COL_TOT_WALKS + " INTEGER, "
+            + COL_TOT_DIS + " TEXT,"
+            + COL_TOT_TIME + " DATETIME);";
 
     private static String CREATE_OWNER_TABLE = "CREATE TABLE "
             + OWNER_LOGIN_TABLE
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COL_NAME + " TEXT, "
-            + "email TEXT, "
-            + "password TEXT, "
-            + "DOB DATE, "
-            + "tot_walks INTEGER,"
-            + "tot_dis TEXT, "
-            + "avg_dis TEXT, "
-            + "tot_time TEXT);";
+            + COL_EMAIL + " TEXT, "
+            + COL_PASS + " TEXT, "
+            + COL_DOB + " DATE, "
+            + COL_TOT_WALKS + " INTEGER,"
+            + COL_TOT_DIS + " TEXT, "
+            + COL_AVG_DIS + " TEXT, "
+            + COL_TOT_TIME + " TEXT);";
             /*+ "image IMAGE*/
 
 
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
             + WALK_TABLE_NAME
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "route_name TEXT, "
-            + "route_length TEXT,"
-            + "route_rating INTEGER);";
+            + COL_ROUTE_NAME + " TEXT, "
+            + COL_ROUTE_LEN + " TEXT,"
+            + COL_ROUTE_COMMENT + " TEXT, "
+            + COL_ROUTE_RATING + " INTEGER);";
     //this needs things adding to the table.
 
 
-
-
-    public DatabaseHandler(Context context){
-        super(context, DATABASE_NAME,null,1);
+    public DatabaseHandler(Context context) {
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_OWNER_TABLE);
         db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
         //db.execSQL(CREATE_FRIENDS_TABLE);
+        //add(new Owner(1,"Admin","Admin","Admin",new Date()));
         Log.d("Database", "Database Created");
 
     }
 
-    public int getProfilesCount(){
-        String countQuery = "SELECT  * FROM " + OWNER_LOGIN_TABLE;
-        SQLiteDatabase db = this.getReadableDatabase();
+    public int getDogCount() {
+        String countQuery = "SELECT  * FROM " + DOG_TABLE_NAME;
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int cnt = cursor.getCount();
         cursor.close();
         return cnt;
     }
 
-    public Boolean checkEmail(String em){
+    public int getProfilesCount() {
+        String countQuery = "SELECT  * FROM " + OWNER_LOGIN_TABLE;
         SQLiteDatabase db = getReadableDatabase();
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " +
-        "email=?", new String[]{em});
-
-        if(mCursor.moveToFirst()){
-            return true;
-        }
-
-        return false;
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
     }
 
-
-    public void add(Dog d){
+    public void add(Dog d) {
         SQLiteDatabase db = getWritableDatabase();
-
         ContentValues values = new ContentValues();
+
         values.put(COL_NAME, d.getName());
-        values.put(COL_OWNER, d.getOwner());
-        values.put(COL_AVG_DIS, d.getTotwalks()/d.getTotdistance());
-        values.put(COL_NO_WALKS, d.getTotwalks());
+        values.put(COL_OWNER, d.getOwnerID());
+        values.put(COL_AVG_DIS, "nil");
+        values.put(COL_TOT_WALKS, d.getTotwalks());
         values.put(COL_TOT_DIS, d.getTotdistance());
 
-        db.insert(DOG_TABLE_NAME,null,values);
+        db.insert(DOG_TABLE_NAME, null, values);
         db.close();
 
         Log.d("Database", "NEW ENTRY ADDED");
     }
 
-    public long add(Owner o){
+    public List<Dog> getAllDogs(int owner) {
+        List<Dog> list = new ArrayList<Dog>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_OWNER + "=?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{Integer.toString(owner)});
+
+        if (cursor.moveToFirst()) {
+            int ownerIdx = cursor.getColumnIndex(COL_OWNER);
+            int nameIdx = cursor.getColumnIndex(COL_NAME);
+            int idIdx = cursor.getColumnIndex(COL_ID);
+            do {
+                Dog dg = new Dog(
+                        cursor.getInt(idIdx),
+                        cursor.getString(nameIdx),
+                        cursor.getInt(ownerIdx)
+                );
+                list.add(dg);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+    public void removeDog(int i) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null);
+        Log.d("DATABASE", "DOG DELETED");
+    }
+
+    public void removeWalk(int i) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(WALK_TABLE_NAME, COL_ID + "=" + i, null);
+        Log.d("DATABASE", "REVIEW DELETED");
+    }
+
+    public long add(Owner o) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_NAME, o.getName());
-        values.put("email", o.getEmail());
-        values.put("password", o.getPassword());
-        values.put("DOB", df.format(o.getDob()));
-        values.put("tot_walks", 2);
-        values.put("tot_dis", "nil");
-        values.put("avg_dis", "nil");
-        values.put("tot_time", "nil");
+        values.put(COL_EMAIL, o.getEmail());
+        values.put(COL_PASS, o.getPassword());
+        values.put(COL_DOB, df.format(o.getDob()));
+        values.put(COL_TOT_WALKS, 1);
+        values.put(COL_TOT_DIS, 102.0);
+        values.put(COL_AVG_DIS, "nil");
+        values.put(COL_TOT_TIME, "nil");
 
         long input = db.insert(OWNER_LOGIN_TABLE, null, values);
         db.close();
@@ -168,15 +217,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW OWNER ADDED");
 
         return input;
+
     }
 
-    public long add(Walk w){
+    public long add(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("route_name", w.getName());
-        values.put("route_length",w.getLength());
-        values.put("route_rating", w.getRating());
+        values.put(COL_ROUTE_NAME, w.getName());
+        values.put(COL_ROUTE_LEN, w.getLength());
+        values.put(COL_ROUTE_RATING, w.getRating());
+        values.put(COL_ROUTE_COMMENT, w.getComment());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -186,8 +237,300 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return input;
     }
 
+    public Owner getOwnerHelper(Owner o){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + getOwnerLogintable() + " WHERE " + getColEmail() + "=?",new String[]{o.getEmail()});
+
+        return getOneOwner(c);
+    }
+
+    public Dog getOneDog(Cursor c) {
+
+        if (c.moveToFirst()) {
+            int idIdx = c.getColumnIndex(COL_ID);
+            int nameIdx = c.getColumnIndex(COL_NAME);
+            int OwnerIdx = c.getColumnIndex(COL_OWNER);
+            int totWalks = c.getColumnIndex(COL_TOT_WALKS);
+            int totDis = c.getColumnIndex(COL_TOT_DIS);
+            do {
+                Dog dog = new Dog(
+                        c.getInt(idIdx),
+                        c.getString(nameIdx),
+                        c.getInt(OwnerIdx),
+                        c.getInt(totWalks),
+                        c.getDouble(totDis)
+                );
+                return dog;
+            } while (c.moveToNext());
+        }
+        return null;
+    }
+
+
+    public Owner getOneOwner(Cursor c) {
+
+        if (c.moveToFirst()) {
+            int idIdx = c.getColumnIndex(COL_ID);
+            int nameIdx = c.getColumnIndex(COL_NAME);
+            int emailIdx = c.getColumnIndex(COL_EMAIL);
+            int passIdx = c.getColumnIndex(COL_PASS);
+            int totWalks = c.getColumnIndex(COL_TOT_WALKS);
+            int totDis = c.getColumnIndex(COL_TOT_DIS);
+            do {
+                Owner owner = new Owner(
+                        c.getInt(idIdx),
+                        c.getString(nameIdx),
+                        c.getString(emailIdx),
+                        c.getString(passIdx),
+                        new Date(),
+                        c.getInt(totWalks),
+                        c.getDouble(totDis)
+                );
+                return owner;
+            } while (c.moveToNext());
+        }
+        return null;
+    }
+
+    public List<Owner> getallOwners() {
+        ArrayList<Owner> list = new ArrayList<Owner>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + OWNER_LOGIN_TABLE;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            int idIdx = cursor.getColumnIndex(COL_ID);
+            int nameIdx = cursor.getColumnIndex(COL_NAME);
+            int emailIdx = cursor.getColumnIndex(COL_EMAIL);
+            int passIdx = cursor.getColumnIndex(COL_PASS);
+            do {
+                Owner owner = new Owner(
+                        cursor.getInt(idIdx),
+                        cursor.getString(nameIdx),
+                        cursor.getString(emailIdx),
+                        cursor.getString(passIdx),
+                        new Date()
+                );
+                list.add(owner);
+            } while (cursor.moveToNext());
+
+        }
+        return list;
+    }
+
+    public List<Walk> getAllWalks() {
+        ArrayList<Walk> list = new ArrayList<Walk>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            int idIdx = cursor.getColumnIndex(COL_ID);
+            int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
+            int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
+            int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
+            int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
+            do {
+                Walk walk = new Walk(
+                        cursor.getString(nameIdx),
+                        cursor.getString(lengthIdx),
+                        cursor.getInt(ratingIdx),
+                        cursor.getString(comIdx),
+                        cursor.getInt(idIdx)
+                );
+                list.add(walk);
+            } while (cursor.moveToNext());
+        }
+
+        return list;
+    }
+
+
+    public void updateOwner(Cursor c){
+        SQLiteDatabase db = getWritableDatabase();
+
+        Owner o = getOneOwner(c);
+
+        ContentValues values = new ContentValues();
+
+        int walks = o.getTot_walks()+1;
+
+        values.put(COL_TOT_WALKS,walks);
+
+        db.update(OWNER_LOGIN_TABLE,
+                values,
+                COL_ID + " = " + o.getId(),
+                null);
+
+        db.close();
+
+        o = getOneOwner(c);
+        Log.d("Database", "Walk Added " + o.getName() + " " + o.getTot_walks());
+    }
+
+    /*public void updateDog(List<Integer> list){
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for (Integer i : list){
+
+            Cursor c = db.rawQuery("SELECT *  FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID
+            + " =?",new String[]{String.valueOf(i)});
+
+            Dog d = getOneDog(c);
+
+            int walks = d.getTotwalks()+1;
+
+            values.put(COL_TOT_WALKS,walks);
+
+            db.update(DOG_TABLE_NAME,
+                    values,
+                    COL_ID + " = " + d.getId(),
+                    null);
+            db.close();
+
+            Log.d("Database", "DOG: " + d.getId() + d.getName() + " has been updated");
+        }
+
+    }*/
+
+    public String getOwnerLogintable() {
+        return OWNER_LOGIN_TABLE;
+    }
+
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
+    public static String getFriendTableName() {
+        return FRIEND_TABLE_NAME;
+    }
+
+    public static String getDogTableName() {
+        return DOG_TABLE_NAME;
+    }
+
+    public static String getWalkTableName() {
+        return WALK_TABLE_NAME;
+    }
+
+    public static String getOwnerLoginTable() {
+        return OWNER_LOGIN_TABLE;
+    }
+
+    public static String getColId() {
+        return COL_ID;
+    }
+
+    public static String getColName() {
+        return COL_NAME;
+    }
+
+    public static String getColCategory() {
+        return COL_CATEGORY;
+    }
+
+    public static String getColDatetime() {
+        return COL_DATETIME;
+    }
+
+    public static String getColLocLong() {
+        return COL_LOC_LONG;
+    }
+
+    public static String getColLocLat() {
+        return COL_LOC_LAT;
+    }
+
+    public static String getColImage() {
+        return COL_IMAGE;
+    }
+
+    public static String getColAvgDis() {
+        return COL_AVG_DIS;
+    }
+
+    public static String getColTotWalks() {
+        return COL_TOT_WALKS;
+    }
+
+    public static String getColTotDis() {
+        return COL_TOT_DIS;
+    }
+
+    public static String getColTotTime() {
+        return COL_TOT_TIME;
+    }
+
+    public static String getColOwner() {
+        return COL_OWNER;
+    }
+
+    public static String getColEmail() {
+        return COL_EMAIL;
+    }
+
+    public static String getColPass() {
+        return COL_PASS;
+    }
+
+    public static String getColDob() {
+        return COL_DOB;
+    }
+
+    public static String getColRouteName() {
+        return COL_ROUTE_NAME;
+    }
+
+    public static String getColRouteLen() {
+        return COL_ROUTE_LEN;
+    }
+
+    public static String getColRouteRating() {
+        return COL_ROUTE_RATING;
+    }
+
+    public static String getCreateFriendsTable() {
+        return CREATE_FRIENDS_TABLE;
+    }
+
+    public static void setCreateFriendsTable(String createFriendsTable) {
+        CREATE_FRIENDS_TABLE = createFriendsTable;
+    }
+
+    public static String getCreateDogTable() {
+        return CREATE_DOG_TABLE;
+    }
+
+    public static void setCreateDogTable(String createDogTable) {
+        CREATE_DOG_TABLE = createDogTable;
+    }
+
+    public static String getCreateOwnerTable() {
+        return CREATE_OWNER_TABLE;
+    }
+
+    public static void setCreateOwnerTable(String createOwnerTable) {
+        CREATE_OWNER_TABLE = createOwnerTable;
+    }
+
+    public static String getCreateWalkTable() {
+        return CREATE_WALK_TABLE;
+    }
+
+    public static void setCreateWalkTable(String createWalkTable) {
+        CREATE_WALK_TABLE = createWalkTable;
+    }
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum){
+    public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum) {
         db.execSQL("DROP TABLE IF EXISTS " + OWNER_LOGIN_TABLE);
         onCreate(db);
     }

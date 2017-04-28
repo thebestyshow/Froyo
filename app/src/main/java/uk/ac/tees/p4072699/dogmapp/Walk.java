@@ -1,18 +1,41 @@
 package uk.ac.tees.p4072699.dogmapp;
 
-/**
- * Created by p4061644 on 07/03/2017.
- */
-
 public class Walk {
     private String name;
     private String length;
     private int rating;
+    private String comment;
+    private int id;
 
-    Walk(String n, String l, int r){
-        this.name = n;
-        this.length = l;
-        this.rating = r;
+    public Walk(String name, String length, int rating, String comment, int id) {
+        this.name = name;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+        this.id = id;
+    }
+
+    public Walk(String name, String length, int rating, String comment) {
+        this.name = name;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getRating() {
@@ -38,6 +61,4 @@ public class Walk {
     public void setLength(String length) {
         this.length = length;
     }
-
-
 }
