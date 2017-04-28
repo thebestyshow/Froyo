@@ -36,6 +36,16 @@ public class Review extends AppCompatActivity {
         p3 = (ImageButton) findViewById(R.id.paw_3);
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
