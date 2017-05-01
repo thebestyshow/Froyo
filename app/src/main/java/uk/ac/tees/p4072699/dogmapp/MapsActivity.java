@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -26,7 +27,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -40,6 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager lm;
     Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+    private ArrayList<LatLng> points; //added
+    Polyline line; //added
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +139,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.addMarker(options);
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
+
+    public void redrawLine(){
+        map.clear();
+
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+
+        for (int i = 0; i < points.size(); i++){
+            LatLng point = points.get(i);
+            options.add(point);
+        }
+        //Something goes here. Something to do with markers
+        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
+        line = map.addPolyline(options);
+    }
+
 
     @Override
     public void onLocationChanged(Location location) {
