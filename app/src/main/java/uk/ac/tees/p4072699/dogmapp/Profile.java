@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class Profile extends AppCompatActivity {
         final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
         final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
         final Context con = this;
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
         totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
@@ -67,6 +69,15 @@ public class Profile extends AppCompatActivity {
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
                 setContentView(R.layout.activity_home);
+            }
+        });
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
             }
         });
     }
