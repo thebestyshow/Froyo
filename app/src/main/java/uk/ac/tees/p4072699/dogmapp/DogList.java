@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
@@ -32,7 +33,8 @@ public class DogList extends AppCompatActivity {
         final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
         final Button rem = (Button) findViewById(R.id.button_remove);
-
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
+        final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
         List<Dog> list = dh.getAllDogs(owner.getId());
@@ -51,9 +53,16 @@ public class DogList extends AppCompatActivity {
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
-
-        final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         listView.setAdapter(adapter);
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
