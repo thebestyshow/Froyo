@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,7 @@ public class StartWalk extends AppCompatActivity {
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
         List<Dog> list = dh.getAllDogs(owner.getId());
 
@@ -53,6 +55,15 @@ public class StartWalk extends AppCompatActivity {
                     selected.add(position);
                 }
                 Log.d("Chosen", selected.toString());
+            }
+        });
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
             }
         });
 

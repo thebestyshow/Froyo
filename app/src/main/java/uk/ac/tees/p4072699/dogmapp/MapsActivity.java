@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -15,23 +16,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.location.LocationListener;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -42,13 +43,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap map;
     GoogleApiClient googleAPI;
     LocationRequest locRequest;
-    Location lastLoc;
-    Marker currentLoc;
-    int length;
-    private ArrayList<LatLng> points;
-    Polyline line;
+    Location prevLocation;
+    Location location;
+    LocationManager lm;
     Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+    double totaldis;
+    ArrayList<LatLng> points;
+    Polyline line;
+    LatLng oldlatlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         points = new ArrayList<LatLng>();
+
+        locRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10);
+
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -107,16 +117,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(Bundle bundle) {
-        locRequest = new LocationRequest();
-        locRequest.setInterval(500);
-        locRequest.setFastestInterval(500);
-        locRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleAPI, locRequest, this);
+            location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
+            if (location == null) {
+                Log.d("loc", location.toString());
+            } else {
+                Log.d("loc", "not null");
+                handleNewLocation(location);
+            }
         }
-
     }
 
     @Override
@@ -124,85 +135,88 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
+    private void handleNewLocation(Location location) {
+        Log.d("loc", location.toString());
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
 
-        //if (lastLoc != null) {
-        //   LatLng ll = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-        //  LatLng nl = new LatLng(location.getLatitude(), location.getLongitude());
-
-        // String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + ll + "&destinations=" + nl + "&key=AIzaSyDPU0ZCwvHYHB37KiBnmQnNg6hcrPWOXs0";
-
-        //  Log.d("URL: ", url);
-        // length = length + 1;
-        // }
-
-        lastLoc = location;
-        if (currentLoc != null) {
-            currentLoc.remove();
+        LatLng newlatLng = new LatLng(currentLatitude, currentLongitude);
+        if (prevLocation != null) {
+            oldlatlng = new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude());
+            totaldis += CalculationByDistance(oldlatlng, newlatLng);
         }
 
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        currentLoc = map.addMarker(markerOptions);
-
-        points.add(latLng);
+        MarkerOptions options = new MarkerOptions()
+                .position(newlatLng);
+        map.addMarker(options);
+        float f = 16;
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(newlatLng, f));
+        points.add(newlatLng);
         redrawLine();
-
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        map.animateCamera(CameraUpdateFactory.zoomTo(11));
-
-        if (googleAPI != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(googleAPI, this);
-        }
+        prevLocation = location;
     }
 
-    private void redrawLine(){
-
-        map.clear();  //clears all Markers and Polylines
+    public void redrawLine(){
+        map.clear();
 
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
-        for (int i = 0; i < points.size(); i++) {
+
+        int f = points.size();
+
+        for (int i = 0; i < f; i++) {
             LatLng point = points.get(i);
             options.add(point);
         }
-        addMarker(); //add Marker in current position
-        line = map.addPolyline(options); //add Polyline
+        //Something goes here. Something to do with markers
+        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
+        line = map.addPolyline(options);
     }
 
-    private void addMarker() {
-        MarkerOptions options = new MarkerOptions();
 
-        // following four lines requires 'Google Maps Android API Utility Library'
-        // https://developers.google.com/maps/documentation/android/utility/
-        // I have used this to display the time as title for location markers
-        // you can safely comment the following four lines but for this info
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d("loc", "changed");
+        handleNewLocation(location);
+    }
 
-        /*IconGenerator iconFactory = new IconGenerator(this);
-        iconFactory.setStyle(IconGenerator.STYLE_PURPLE);
-        // options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(mLastUpdateTime + requiredArea + city)));
-        options.icon(BitmapDescriptorFactory.fromBitmap(iconFactory.makeIcon(requiredArea + ", " + city)));
-        options.anchor(iconFactory.getAnchorU(), iconFactory.getAnchorV());*/
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
 
-        LatLng currentLatLng = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
-        options.position(currentLatLng);
-        Marker mapMarker = map.addMarker(options);
-        //long atTime = mCurrentLocation.getTime();
-        //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date(atTime));
-        //String title = mLastUpdateTime.concat(", " + requiredArea).concat(", " + city).concat(", " + country);
-        //mapMarker.setTitle(title);
+        return Radius * c;
+    }
 
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
 
-        //TextView mapTitle = (TextView) findViewById(R.id.textViewTitle);
-        //mapTitle.setText(title);
+    }
 
-        Log.d("MapsActivity", "Marker added");
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng,
-                13));
-        Log.d("MapsActivity", "Zoom done");
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 
     @Override

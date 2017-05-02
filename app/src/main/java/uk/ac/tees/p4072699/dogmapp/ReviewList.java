@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class ReviewList extends AppCompatActivity {
         final Button home = (Button) findViewById(R.id.button_home);
         final Button rem = (Button) findViewById(R.id.button_removerev);
         owner = (Owner) getIntent().getSerializableExtra("owner");
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
         List<Walk> list = dh.getAllWalks();
 
@@ -70,5 +72,15 @@ public class ReviewList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
+
     }
 }
