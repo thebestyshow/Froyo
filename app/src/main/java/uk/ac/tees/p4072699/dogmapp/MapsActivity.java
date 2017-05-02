@@ -48,14 +48,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager lm;
     Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
-    private ArrayList<LatLng> points; //added
-    Polyline line; //added
     double totaldis;
+    ArrayList<LatLng> points;
+    Polyline line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        points = new ArrayList<LatLng>();
 
         locRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -119,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
             if (location == null) {
-                Log.d("loc", "null");
+                Log.d("loc", location.toString());
             } else {
                 Log.d("loc", "not null");
                 handleNewLocation(location);
@@ -144,7 +146,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions options = new MarkerOptions()
                 .position(newlatLng);
         map.addMarker(options);
-        map.moveCamera(CameraUpdateFactory.newLatLng(newlatLng));
+        float f = 16;
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, f));
+        points.add(latLng);
+        redrawLine();
     }
 
     public void redrawLine(){
@@ -152,7 +157,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
 
-        for (int i = 0; i < points.size(); i++){
+        int f = points.size();
+
+        for (int i = 0; i < f; i++) {
             LatLng point = points.get(i);
             options.add(point);
         }
