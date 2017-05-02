@@ -99,7 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_TOT_DIS + " TEXT, "
             + COL_AVG_DIS + " TEXT, "
             + COL_TOT_TIME + " TEXT);";
-            /*+ "image IMAGE*/
+            /*+ "image BLOB*/
 
 
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
