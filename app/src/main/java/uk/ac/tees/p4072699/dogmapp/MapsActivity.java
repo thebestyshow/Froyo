@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -42,12 +43,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap map;
     GoogleApiClient googleAPI;
     LocationRequest locRequest;
+    Location prevLocation;
     Location location;
     LocationManager lm;
     Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+    double totaldis;
     ArrayList<LatLng> points;
     Polyline line;
+    LatLng oldlatlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,14 +139,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("loc", location.toString());
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+        LatLng newlatLng = new LatLng(currentLatitude, currentLongitude);
+        if (prevLocation != null) {
+            oldlatlng = new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude());
+            totaldis += CalculationByDistance(oldlatlng, newlatLng);
+        }
+
         MarkerOptions options = new MarkerOptions()
-                .position(latLng);
+                .position(newlatLng);
         map.addMarker(options);
         float f = 16;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, f));
-        points.add(latLng);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(newlatLng, f));
+        points.add(newlatLng);
         redrawLine();
+        prevLocation = location;
     }
 
     public void redrawLine(){
@@ -166,6 +177,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         Log.d("loc", "changed");
         handleNewLocation(location);
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
     }
 
     @Override
