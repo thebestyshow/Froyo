@@ -51,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double totaldis;
     ArrayList<LatLng> points;
     Polyline line;
+    LatLng oldlatlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,16 +141,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double currentLongitude = location.getLongitude();
 
         LatLng newlatLng = new LatLng(currentLatitude, currentLongitude);
-        LatLng oldlatlng = new LatLng(prevLocation.getLatitude(),prevLocation.getLongitude());
+        if (prevLocation != null) {
+            oldlatlng = new LatLng(prevLocation.getLatitude(), prevLocation.getLongitude());
+            totaldis += CalculationByDistance(oldlatlng, newlatLng);
+        }
 
-        totaldis += CalculationByDistance(oldlatlng,newlatLng);
         MarkerOptions options = new MarkerOptions()
                 .position(newlatLng);
         map.addMarker(options);
         float f = 16;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, f));
-        points.add(latLng);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(newlatLng, f));
+        points.add(newlatLng);
         redrawLine();
+        prevLocation = location;
     }
 
     public void redrawLine(){
@@ -172,7 +176,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         Log.d("loc", "changed");
-        prevLocation = location;
         handleNewLocation(location);
     }
 
