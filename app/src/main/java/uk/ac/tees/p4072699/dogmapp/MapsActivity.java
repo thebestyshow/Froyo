@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -26,7 +27,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -40,11 +46,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager lm;
     Owner owner;
     DatabaseHandler dh = new DatabaseHandler(this);
+    ArrayList<LatLng> points;
+    Polyline line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        points = new ArrayList<LatLng>();
 
         locRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -108,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
             if (location == null) {
-                Log.d("loc", "null");
+                Log.d("loc", location.toString());
             } else {
                 Log.d("loc", "not null");
                 handleNewLocation(location);
@@ -129,8 +139,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MarkerOptions options = new MarkerOptions()
                 .position(latLng);
         map.addMarker(options);
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        float f = 16;
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, f));
+        points.add(latLng);
+        redrawLine();
     }
+
+    public void redrawLine(){
+        map.clear();
+
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+
+        int f = points.size();
+
+        for (int i = 0; i < f; i++) {
+            LatLng point = points.get(i);
+            options.add(point);
+        }
+        //Something goes here. Something to do with markers
+        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
+        line = map.addPolyline(options);
+    }
+
 
     @Override
     public void onLocationChanged(Location location) {
