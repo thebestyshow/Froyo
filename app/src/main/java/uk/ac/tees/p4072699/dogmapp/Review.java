@@ -4,10 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
@@ -19,6 +27,9 @@ public class Review extends AppCompatActivity {
     ImageButton p3;
     ImageButton p4;
     ImageButton p5;
+    String e;
+    String s;
+    Date startDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,26 @@ public class Review extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
+        e = getIntent().getStringExtra("end");
+        s = getIntent().getStringExtra("start");
+
+        String start = s.substring(11, 18);
+        String end = e.substring(11, 18);
+
+        SimpleDateFormat smpl = new SimpleDateFormat("HH:mm");
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = smpl.parse(start);
+            endDate = smpl.parse(end);
+        } catch (ParseException e1) {
+        }
+        long difference = endDate.getTime() - startDate.getTime();
+
+        int hours = (int) (difference / (1000 * 60 * 60));
+        int min = (int) (difference - (1000 * 60 * 60 * hours)) / (1000 * 60);
+
+        Log.d("Time difference", Integer.toString(hours) + Integer.toString(min));
 
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_save);
@@ -37,6 +68,9 @@ public class Review extends AppCompatActivity {
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
+        final TextView tv = (TextView) findViewById(R.id.textView_time);
+
+        tv.setText("Hours: " + hours + " Minutes: " + min);
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override

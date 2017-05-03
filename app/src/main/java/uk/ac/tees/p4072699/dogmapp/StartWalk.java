@@ -86,8 +86,8 @@ public class StartWalk extends AppCompatActivity {
                 Intent i = new Intent(con, MapsActivity.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
-                i.putExtra("time", c.getTime());
-                Log.d("Time", c.getTime().toString());
+                String s = c.getTime().toString();
+                i.putExtra("start", s);
                 startActivity(i);
             }
         });

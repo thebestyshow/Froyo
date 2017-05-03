@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,7 +68,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 locRequest = LocationRequest.create()
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                         .setInterval(10);
-
                 lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
             }
@@ -87,7 +87,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
-                i.putExtra("time", c.getTime());
+                String e = c.getTime().toString();
+                i.putExtra("end", e);
+                String s = getIntent().getStringExtra("start");
+                i.putExtra("start", s);
                 startActivity(i);
             }
         });
@@ -127,9 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
             if (location == null) {
-                Log.d("loc", location.toString());
             } else {
-                Log.d("loc", "not null");
                 handleNewLocation(location);
             }
         }
