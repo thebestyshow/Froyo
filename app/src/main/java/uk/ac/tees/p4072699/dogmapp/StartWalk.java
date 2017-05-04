@@ -13,8 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class StartWalk extends AppCompatActivity {
@@ -81,12 +85,9 @@ public class StartWalk extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-
-                SQLiteDatabase db = dh.getReadableDatabase();
-                Cursor c = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{owner.getEmail()});
-                dh.updateOwner(c);
-                //dh.updateDog(selected);
-
+                Calendar c = new GregorianCalendar();
+                String s = c.getTime().toString();
+                i.putExtra("start", s);
                 startActivity(i);
             }
         });

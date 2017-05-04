@@ -2,24 +2,36 @@ package uk.ac.tees.p4072699.dogmapp;
 
 public class Walk {
     private String name;
-    private String length;
+    private double length;
     private int rating;
     private String comment;
     private int id;
+    private int time;
 
-    public Walk(String name, String length, int rating, String comment, int id) {
+    public Walk(String name, double length, int rating, String comment, int time) {
+        this.name = name;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+        this.time = time;
+
+    }
+
+    public Walk(String name, double length, int rating, String comment, int id, int time) {
         this.name = name;
         this.length = length;
         this.rating = rating;
         this.comment = comment;
         this.id = id;
+        this.time = time;
     }
 
-    public Walk(String name, String length, int rating, String comment) {
-        this.name = name;
-        this.length = length;
-        this.rating = rating;
-        this.comment = comment;
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public int getId() {
@@ -54,11 +66,11 @@ public class Walk {
         this.name = name;
     }
 
-    public String getLength() {
+    public Double getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 }

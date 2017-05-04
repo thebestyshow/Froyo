@@ -62,6 +62,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_RATING = "route_rating";
 
+    private static final String COL_ROUTE_TIME = "route_time";
+
     private static final String COL_ROUTE_COMMENT = "route_comment";
 
     public String getCOL_PASS() {
@@ -107,10 +109,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COL_ROUTE_NAME + " TEXT, "
             + COL_ROUTE_LEN + " TEXT,"
+            + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER);";
-    //this needs things adding to the table.
-
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -122,10 +123,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_OWNER_TABLE);
         db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
-        //db.execSQL(CREATE_FRIENDS_TABLE);
-        //add(new Owner(1,"Admin","Admin","Admin",new Date()));
         Log.d("Database", "Database Created");
-
     }
 
     public int getDogCount() {
@@ -226,6 +224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
+        values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
 
@@ -336,13 +335,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
+            int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             do {
                 Walk walk = new Walk(
                         cursor.getString(nameIdx),
-                        cursor.getString(lengthIdx),
+                        cursor.getDouble(lengthIdx),
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),
-                        cursor.getInt(idIdx)
+                        cursor.getInt(idIdx),
+                        cursor.getInt(timeIdx)
                 );
                 list.add(walk);
             } while (cursor.moveToNext());
