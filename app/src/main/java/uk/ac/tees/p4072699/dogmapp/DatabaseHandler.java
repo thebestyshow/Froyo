@@ -218,6 +218,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public long addW(Walk w) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COL_ROUTE_LEN, w.getLength());
+        values.put(COL_ROUTE_TIME, w.getTime());
+
+        long input = db.insert(WALK_TABLE_NAME, null, values);
+        db.close();
+
+        Log.d("DATABASE", "NEW WALK ADDED");
+
+        return input;
+    }
+
     public long add(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();

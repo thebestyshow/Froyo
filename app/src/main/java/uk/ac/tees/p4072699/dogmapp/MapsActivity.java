@@ -91,6 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 i.putExtra("end", e);
                 String s = getIntent().getStringExtra("start");
                 i.putExtra("start", s);
+                String d = Double.toString(totaldis);
+                i.putExtra("dis", d);
                 startActivity(i);
             }
         });
