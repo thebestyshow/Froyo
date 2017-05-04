@@ -362,16 +362,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void updateOwner(Cursor c){
+    public void addOwnerWalk(Owner o,double dis){
         SQLiteDatabase db = getWritableDatabase();
 
-        Owner o = getOneOwner(c);
 
         ContentValues values = new ContentValues();
 
+        double totdis = o.getTot_dis() + dis;
+        o.setTot_dis(totdis);
         int walks = o.getTot_walks()+1;
+        o.setTot_walks(walks);
 
         values.put(COL_TOT_WALKS,walks);
+        values.put(COL_TOT_DIS,String.valueOf(totdis));
 
         db.update(OWNER_LOGIN_TABLE,
                 values,
@@ -380,36 +383,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
 
-        o = getOneOwner(c);
-        Log.d("Database", "Walk Added " + o.getName() + " " + o.getTot_walks());
+        Log.d("Database", "Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
 
-    /*public void updateDog(List<Integer> list){
+    public void addDogWalk(ArrayList<Dog> list,double dis){
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        for (Integer i : list){
-
-            Cursor c = db.rawQuery("SELECT *  FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID
-            + " =?",new String[]{String.valueOf(i)});
-
-            Dog d = getOneDog(c);
+        for (Dog d : list){
 
             int walks = d.getTotwalks()+1;
+            d.setTotwalks(walks);
+            double totdis = d.getTotdistance() + dis;
+            d.setTotdistance(totdis);
 
             values.put(COL_TOT_WALKS,walks);
+            values.put(COL_TOT_DIS,String.valueOf(totdis));
 
             db.update(DOG_TABLE_NAME,
                     values,
                     COL_ID + " = " + d.getId(),
                     null);
-            db.close();
 
-            Log.d("Database", "DOG: " + d.getId() + d.getName() + " has been updated");
+
+            Log.d("Database", "DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
         }
-
-    }*/
+        db.close();
+    }
 
     public String getOwnerLogintable() {
         return OWNER_LOGIN_TABLE;

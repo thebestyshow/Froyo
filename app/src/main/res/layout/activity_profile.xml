@@ -11,76 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Profile">
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/Prof_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="162dp"
-        android:id="@+id/Prof_dogList" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Prof_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="47dp"
-        android:id="@+id/textView8"
-        android:text="@string/tot_walks" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_toRightOf="@+id/Prof_name"
-        android:layout_toEndOf="@+id/Prof_name"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:id="@+id/prof_totwalks" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignRight="@+id/prof_totwalks"
-        android:layout_alignEnd="@+id/prof_totwalks"
-        android:id="@+id/Prof_avgwalks" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:id="@+id/Prof_name"
-        android:layout_below="@+id/button_home"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/avg_walks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:layout_below="@+id/textView8"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
-        android:layout_marginTop="47dp" />
-
-    <TextView
-        android:text="@string/dogs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
-        android:id="@+id/textView11" />
-
     <Button
         android:text="@string/home"
         android:layout_width="wrap_content"
@@ -99,4 +29,71 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         app:srcCompat="@drawable/settings" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Prof_name"
+        android:layout_alignBottom="@+id/imageButton_settings"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/textView8"
+        android:text="@string/tot_walks"
+        android:layout_below="@+id/Prof_name"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prof_totwalks"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/Prof_name"
+        android:layout_alignStart="@+id/Prof_name"
+        android:layout_marginTop="15dp"
+        android:textAlignment="gravity"
+        android:gravity="center" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/Prof_dogList"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Prof_avgwalks"
+        android:layout_below="@+id/textView9"
+        android:layout_alignLeft="@+id/prof_totwalks"
+        android:layout_alignStart="@+id/prof_totwalks"
+        android:layout_marginTop="21dp"
+        android:textAlignment="gravity"
+        android:gravity="center" />
+
+    <TextView
+        android:text="@string/avg_walks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/prof_totwalks"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/dogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_above="@+id/Prof_dogList"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -22,6 +23,8 @@ public class Review extends AppCompatActivity {
     int paws;
     String comments;
     Owner owner;
+    Bundle lisbun;
+    ArrayList<Dog> doglist;
     ImageButton p1;
     ImageButton p2;
     ImageButton p3;
@@ -31,17 +34,22 @@ public class Review extends AppCompatActivity {
     String s;
     int hours;
     int min;
-    String d;
+    double d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
-
+        lisbun  = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
+        doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
+
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
-        d = getIntent().getStringExtra("dis");
+        d = getIntent().getExtras().getDouble("dis");
+
+        dh.addOwnerWalk(owner,d);
+        dh.addDogWalk(doglist,d);
 
         String start = s.substring(11, 18);
         String end = e.substring(11, 18);
@@ -90,7 +98,8 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                dh.add(new Walk(Double.parseDouble(d), paws, com.getText().toString(), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
+
+                //dh.add(new Walk("TEST", d, paws, com.getText().toString(), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
@@ -102,7 +111,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.addW(new Walk(Double.parseDouble(d), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
+                //dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
