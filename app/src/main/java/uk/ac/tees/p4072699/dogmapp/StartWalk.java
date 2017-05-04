@@ -27,6 +27,7 @@ public class StartWalk extends AppCompatActivity {
     Owner owner;
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
+    List<Dog> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class StartWalk extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
-        List<Dog> list = dh.getAllDogs(owner.getId());
+        list = dh.getAllDogs(owner.getId());
 
         for (Dog d : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
@@ -59,7 +60,6 @@ public class StartWalk extends AppCompatActivity {
                 } else {
                     selected.add(position);
                 }
-                Log.d("Chosen", selected.toString());
             }
         });
 

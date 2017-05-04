@@ -80,8 +80,10 @@ public class Review extends AppCompatActivity {
         p5 = (ImageButton) findViewById(R.id.paw_5);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
+        final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
         tv.setText("Hours: " + hours + " Minutes: " + min);
+        tvd.setText(d);
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +98,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
+
                 //dh.add(new Walk("TEST", d, paws, com.getText().toString(), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
