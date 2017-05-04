@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,9 +48,11 @@ public class Review extends AppCompatActivity {
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
         d = getIntent().getExtras().getDouble("dis");
+        DecimalFormat df = new DecimalFormat("#.00");
 
-        dh.addOwnerWalk(owner,d);
-        dh.addDogWalk(doglist,d);
+
+        dh.addOwnerWalk(owner,Double.parseDouble(df.format(d)));
+        dh.addDogWalk(doglist,Double.parseDouble(df.format(d)));
 
         String start = s.substring(11, 18);
         String end = e.substring(11, 18);
@@ -83,7 +86,7 @@ public class Review extends AppCompatActivity {
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
         tv.setText("Hours: " + hours + " Minutes: " + min);
-        tvd.setText(d);
+        tvd.setText(df.format(d));
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override
