@@ -29,7 +29,9 @@ public class Review extends AppCompatActivity {
     ImageButton p5;
     String e;
     String s;
-    Date startDate;
+    int hours;
+    int min;
+    String d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class Review extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
+        d = getIntent().getStringExtra("dis");
 
         String start = s.substring(11, 18);
         String end = e.substring(11, 18);
@@ -53,8 +56,8 @@ public class Review extends AppCompatActivity {
         }
         long difference = endDate.getTime() - startDate.getTime();
 
-        int hours = (int) (difference / (1000 * 60 * 60));
-        int min = (int) (difference - (1000 * 60 * 60 * hours)) / (1000 * 60);
+        hours = (int) (difference / (1000 * 60 * 60));
+        min = (int) (difference - (1000 * 60 * 60 * hours)) / (1000 * 60);
 
         Log.d("Time difference", Integer.toString(hours) + Integer.toString(min));
 
@@ -85,7 +88,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                //dh.add(new Walk("TEST", "2KM", paws, com.getText().toString()));
+                dh.add(new Walk("TEST", Double.parseDouble(d), paws, com.getText().toString(), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
@@ -97,6 +100,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dh.addW(new Walk(Double.parseDouble(d), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);

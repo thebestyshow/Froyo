@@ -8,6 +8,11 @@ public class Walk {
     private int id;
     private int time;
 
+    public Walk(double length, int time) {
+        this.length = length;
+        this.time = time;
+    }
+
     public Walk(String name, double length, int rating, String comment, int time) {
         this.name = name;
         this.length = length;
