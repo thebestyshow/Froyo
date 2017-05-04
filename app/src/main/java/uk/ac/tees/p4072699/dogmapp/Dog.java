@@ -1,8 +1,12 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Dog {
+import java.io.Serializable;
+
+public class Dog implements Serializable {
 
     private String name;
     private int ownerID;
@@ -28,10 +32,8 @@ public class Dog {
     public Dog(String name, int owner) {
         this.name = name;
         this.ownerID = owner;
-        totwalks = 5;
-        totdistance = 27;
-
     }
+
 
     public int getTotwalks() {
         return totwalks;
@@ -53,7 +55,7 @@ public class Dog {
         return totdistance;
     }
 
-    public void setTotdistance(int totdistance) {
+    public void setTotdistance(double totdistance) {
         this.totdistance = totdistance;
     }
 
@@ -80,4 +82,5 @@ public class Dog {
     public void setImg(Image img) {
         this.img = img;
     }
+
 }

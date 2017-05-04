@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +85,19 @@ public class StartWalk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
+                int count = 0;
+                List<Dog> list = dh.getAllDogs(owner.getId());
+                ArrayList<Dog> passList = new ArrayList<Dog>();
+
+                for (int num : selected){
+                    list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
+                    passList.add(list.get(num));
+                }
+
+                Bundle lisbun = new Bundle();
+                lisbun.putSerializable("ARRAYLIST",(Serializable)passList);
+                i.putExtra("bundle",lisbun);
+
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
                 String s = c.getTime().toString();

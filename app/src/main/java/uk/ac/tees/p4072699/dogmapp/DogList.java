@@ -36,7 +36,6 @@ public class DogList extends AppCompatActivity {
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         List<Dog> list = dh.getAllDogs(owner.getId());
 
 
@@ -46,7 +45,7 @@ public class DogList extends AppCompatActivity {
             Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
                     + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOneOwner(cID).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOwnerHelper(owner).getName();
           
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
@@ -68,6 +67,11 @@ public class DogList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = dogsId[position];
+                List<Dog> list = dh.getAllDogs(owner.getId());
+                Intent i = new Intent(con, DogProfile.class);
+                i.putExtra("dog",list.get(position));
+                i.putExtra("owner",dh.getOwnerHelper(owner));
+                startActivity(i);
             }
         });
 

@@ -50,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location location;
     LocationManager lm;
     Owner owner;
+    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
     double totaldis;
     ArrayList<LatLng> points;
@@ -61,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        lisbun = getIntent().getExtras().getBundle("bundle");
         points = new ArrayList<LatLng>();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -81,9 +83,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
+
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
@@ -91,8 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 i.putExtra("end", e);
                 String s = getIntent().getStringExtra("start");
                 i.putExtra("start", s);
-                String d = Double.toString(totaldis);
-                i.putExtra("dis", d);
+                i.putExtra("dis", totaldis);
+                i.putExtra("bundle",lisbun);
                 startActivity(i);
             }
         });
