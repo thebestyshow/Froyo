@@ -26,8 +26,6 @@ public class StartWalk extends AppCompatActivity {
     Owner owner;
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
-    List chosen = new ArrayList<>();
-    List dids = new ArrayList<>();
     List<Dog> list = new ArrayList<>();
 
     @Override
@@ -46,7 +44,6 @@ public class StartWalk extends AppCompatActivity {
         for (Dog d : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
             dogs[dogs.length - 1] = "Name: " + d.getName();
-            dids.add(d.getId());
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
@@ -87,16 +84,23 @@ public class StartWalk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
+                int count = 0;
+                List<Dog> list = dh.getAllDogs(owner.getId());
+                ArrayList<Dog> passList = new ArrayList<Dog>();
+
+                for (int num : selected){
+                    list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
+                    passList.add(list.get(num));
+                }
+
+                Bundle lisbun = new Bundle();
+                lisbun.putSerializable("ARRAYLIST",(Serializable)passList);
+                i.putExtra("bundle",lisbun);
+
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
                 String s = c.getTime().toString();
                 i.putExtra("start", s);
-                for (int d : selected) {
-                    Log.d("dog", dids.toArray()[d].toString());
-                    chosen.add(dids.toArray()[d]);
-                }
-                i.putExtra("dogs", String.valueOf(dids));
-                Log.d("Dogs", String.valueOf(chosen));
                 startActivity(i);
             }
         });
