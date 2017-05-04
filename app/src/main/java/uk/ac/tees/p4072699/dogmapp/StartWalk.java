@@ -26,6 +26,9 @@ public class StartWalk extends AppCompatActivity {
     Owner owner;
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
+    List chosen = new ArrayList<>();
+    List dids = new ArrayList<>();
+    List<Dog> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,12 @@ public class StartWalk extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
-        List<Dog> list = dh.getAllDogs(owner.getId());
+        list = dh.getAllDogs(owner.getId());
 
         for (Dog d : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
             dogs[dogs.length - 1] = "Name: " + d.getName();
+            dids.add(d.getId());
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
@@ -58,7 +62,6 @@ public class StartWalk extends AppCompatActivity {
                 } else {
                     selected.add(position);
                 }
-                Log.d("Chosen", selected.toString());
             }
         });
 
@@ -88,6 +91,12 @@ public class StartWalk extends AppCompatActivity {
                 Calendar c = new GregorianCalendar();
                 String s = c.getTime().toString();
                 i.putExtra("start", s);
+                for (int d : selected) {
+                    Log.d("dog", dids.toArray()[d].toString());
+                    chosen.add(dids.toArray()[d]);
+                }
+                i.putExtra("dogs", String.valueOf(dids));
+                Log.d("Dogs", String.valueOf(chosen));
                 startActivity(i);
             }
         });

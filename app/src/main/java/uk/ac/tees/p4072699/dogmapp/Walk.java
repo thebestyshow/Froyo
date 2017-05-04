@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 public class Walk {
-    private String name;
     private double length;
     private int rating;
     private String comment;
@@ -13,8 +12,7 @@ public class Walk {
         this.time = time;
     }
 
-    public Walk(String name, double length, int rating, String comment, int time) {
-        this.name = name;
+    public Walk(double length, int rating, String comment, int time) {
         this.length = length;
         this.rating = rating;
         this.comment = comment;
@@ -22,8 +20,7 @@ public class Walk {
 
     }
 
-    public Walk(String name, double length, int rating, String comment, int id, int time) {
-        this.name = name;
+    public Walk(double length, int rating, String comment, int id, int time) {
         this.length = length;
         this.rating = rating;
         this.comment = comment;
@@ -61,14 +58,6 @@ public class Walk {
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Double getLength() {
