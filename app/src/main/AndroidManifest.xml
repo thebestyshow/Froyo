@@ -63,7 +63,9 @@
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
         <activity android:name=".EditDog" />
-        <activity android:name=".DogProfile"></activity>
+        <activity android:name=".DogProfile" />
+        <activity android:name=".ReviewView" />
+        <activity android:name=".EditWalk"></activity>
     </application>
 
 </manifest>

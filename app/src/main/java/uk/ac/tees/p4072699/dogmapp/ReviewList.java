@@ -51,6 +51,11 @@ public class ReviewList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = revId[position];
+                List<Walk> wlist = dh.getAllWalks();
+                Intent i = new Intent(con,ReviewView.class);
+                i.putExtra("walk",wlist.get(position));
+                i.putExtra("owner",owner);
+                startActivity(i);
             }
         });
 

@@ -26,11 +26,8 @@ public class Review extends AppCompatActivity {
     Owner owner;
     Bundle lisbun;
     ArrayList<Dog> doglist;
-    ImageButton p1;
-    ImageButton p2;
-    ImageButton p3;
-    ImageButton p4;
-    ImageButton p5;
+    ImageButton p1, p2, p3, p4, p5;
+
     String e;
     String s;
     int hours;
@@ -101,7 +98,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                dh.add(new Walk(d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
+                dh.add(new Walk("test",d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);

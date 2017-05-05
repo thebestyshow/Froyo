@@ -64,6 +64,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_COMMENT = "route_comment";
 
+    private static final String COL_ROUTE_NAME = "route_name";
+
     public String getCOL_PASS() {
         return COL_PASS;
     }
@@ -105,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
             + WALK_TABLE_NAME
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_ROUTE_NAME + " TEXT,"
             + COL_ROUTE_LEN + " TEXT,"
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
@@ -272,6 +275,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(COL_ROUTE_NAME,w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
@@ -388,12 +392,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             int idIdx = cursor.getColumnIndex(COL_ID);
+            int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             do {
                 Walk walk = new Walk(
+                        cursor.getString(nameIdx),
                         cursor.getDouble(lengthIdx),
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),

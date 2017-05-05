@@ -1,18 +1,23 @@
 package uk.ac.tees.p4072699.dogmapp;
 
-public class Walk {
+import java.io.Serializable;
+
+public class Walk implements Serializable{
     private double length;
     private int rating;
-    private String comment = null;
+    private String comment,name;
     private int id;
     private int time;
+
+
 
     public Walk(double length, int time) {
         this.length = length;
         this.time = time;
     }
 
-    public Walk(double length, int rating, String comment, int time) {
+    public Walk(String n,double length, int rating, String comment, int time) {
+        this.name = n;
         this.length = length;
         this.rating = rating;
         this.comment = comment;
@@ -20,12 +25,21 @@ public class Walk {
 
     }
 
-    public Walk(double length, int rating, String comment, int id, int time) {
+    public Walk(String n,double length, int rating, String comment, int id, int time) {
+        this.name = n;
         this.length = length;
         this.rating = rating;
         this.comment = comment;
         this.id = id;
         this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getTime() {
