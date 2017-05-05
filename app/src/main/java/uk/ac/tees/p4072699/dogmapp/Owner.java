@@ -51,7 +51,7 @@ public class Owner implements Serializable {
         return tot_dis;
     }
 
-    public void setTot_dis(float tot_dis) {
+    public void setTot_dis(double tot_dis) {
         this.tot_dis = tot_dis;
     }
 

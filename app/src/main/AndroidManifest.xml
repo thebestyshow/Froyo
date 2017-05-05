@@ -58,7 +58,12 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".ReviewList" />
         <activity android:name=".Profile" />
-        <activity android:name=".StartWalk"></activity>
+        <activity android:name=".StartWalk" />
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".EditDog" />
+        <activity android:name=".DogProfile"></activity>
     </application>
 
 </manifest>

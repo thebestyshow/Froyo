@@ -9,10 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class AddDogActivity extends AppCompatActivity {
+public class EditDog extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
-
+    Dog d;
     Owner owner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,10 @@ public class AddDogActivity extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        owner = (Owner)getIntent().getSerializableExtra("owner");
+        owner = (Owner) getIntent().getSerializableExtra("owner");
+        d = (Dog) getIntent().getSerializableExtra("dog");
+
+        dgname.setText(d.getName());
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +44,7 @@ public class AddDogActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",dh.getOwnerHelper(owner));
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
@@ -48,9 +52,9 @@ public class AddDogActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.add(new Dog(dh.getDogCount()+1,dgname.getText().toString(), owner.getId()));
+                dh.edit(d, dgname.getText().toString());
                 Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",dh.getOwnerHelper(owner));
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
