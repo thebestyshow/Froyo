@@ -388,10 +388,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void addDogWalk(ArrayList<Dog> list,double dis){
 
-        SQLiteDatabase db = getWritableDatabase();
+
         ContentValues values = new ContentValues();
 
         for (Dog d : list){
+
+            SQLiteDatabase db = getWritableDatabase();
 
             int walks = d.getTotwalks()+1;
             d.setTotwalks(walks);
@@ -406,10 +408,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     COL_ID + " = " + d.getId(),
                     null);
 
-
+            db.close();
             Log.d("Database", "DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
         }
-        db.close();
+
     }
 
     public String getOwnerLogintable() {
