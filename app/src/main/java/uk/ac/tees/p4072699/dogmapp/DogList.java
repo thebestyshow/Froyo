@@ -46,7 +46,7 @@ public class DogList extends AppCompatActivity {
                     + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
 
             dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOwnerHelper(owner).getName();
-          
+
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
@@ -81,21 +81,6 @@ public class DogList extends AppCompatActivity {
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
-            }
-        });
-
-        rem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (selected == -1) {
-                    Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
-                } else {
-                    dh.removeDog(selected);
-                    Intent intent = new Intent(con, DogList.class);
-                    intent.putExtra("owner",dh.getOwnerHelper(owner));
-                    startActivity(intent);
-                }
             }
         });
 

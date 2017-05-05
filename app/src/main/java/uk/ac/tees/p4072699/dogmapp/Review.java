@@ -101,9 +101,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-
                 dh.add(new Walk(d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
-
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);

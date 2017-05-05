@@ -180,6 +180,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public void edit(Dog d, String s) {
+        SQLiteDatabase sq = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COL_NAME, s);
+
+        sq.update(DOG_TABLE_NAME, cv, COL_ID + " = " + d.getId(), null);
+
+        Log.d("UP", "dated");
+    }
+
     public void removeDog(int i) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null);
