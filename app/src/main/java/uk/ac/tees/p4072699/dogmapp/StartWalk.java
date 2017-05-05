@@ -11,9 +11,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+
+import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class StartWalk extends AppCompatActivity {
@@ -21,6 +27,8 @@ public class StartWalk extends AppCompatActivity {
     Owner owner;
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
+    List<Dog> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,8 @@ public class StartWalk extends AppCompatActivity {
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
-        List<Dog> list = dh.getAllDogs(owner.getId());
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
+        list = dh.getAllDogs(owner.getId());
 
         for (Dog d : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
@@ -51,8 +59,17 @@ public class StartWalk extends AppCompatActivity {
                     selected.remove(Integer.valueOf(position));
                 } else {
                     selected.add(position);
+
                 }
-                Log.d("Chosen", selected.toString());
+            }
+        });
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
             }
         });
 
@@ -69,13 +86,21 @@ public class StartWalk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
+                ArrayList<Dog> passList = new ArrayList<Dog>();
+
+                for (int num : selected){
+                    list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
+                    passList.add(list.get(num));
+                }
+
+                Bundle lisbun = new Bundle();
+                lisbun.putSerializable("ARRAYLIST",(Serializable)passList);
+                i.putExtra("bundle",lisbun);
+
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-
-                SQLiteDatabase db = dh.getReadableDatabase();
-                Cursor c = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{owner.getEmail()});
-                dh.updateOwner(c);
-                //dh.updateDog(selected);
-
+                Calendar c = new GregorianCalendar();
+                String s = c.getTime().toString();
+                i.putExtra("start", s);
                 startActivity(i);
             }
         });

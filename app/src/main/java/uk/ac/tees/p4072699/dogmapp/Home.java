@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
@@ -23,10 +24,20 @@ public class Home extends AppCompatActivity {
         final Button start = (Button) findViewById(R.id.button_startwalk);
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView name = (TextView) findViewById(R.id.Name_test);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         name.setText(owner.getName());
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Settings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
 
         help.setOnClickListener(new View.OnClickListener() {
             @Override

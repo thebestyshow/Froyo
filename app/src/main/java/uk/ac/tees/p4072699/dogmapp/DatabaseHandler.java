@@ -56,11 +56,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_DOB = "DOB";
 
-    private static final String COL_ROUTE_NAME = "route_name";
-
     private static final String COL_ROUTE_LEN = "route_length";
 
     private static final String COL_ROUTE_RATING = "route_rating";
+
+    private static final String COL_ROUTE_TIME = "route_time";
 
     private static final String COL_ROUTE_COMMENT = "route_comment";
 
@@ -99,18 +99,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_TOT_DIS + " TEXT, "
             + COL_AVG_DIS + " TEXT, "
             + COL_TOT_TIME + " TEXT);";
-            /*+ "image IMAGE*/
+            /*+ "image BLOB*/
 
 
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
             + WALK_TABLE_NAME
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COL_ROUTE_NAME + " TEXT, "
             + COL_ROUTE_LEN + " TEXT,"
+            + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER);";
-    //this needs things adding to the table.
-
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -122,10 +120,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_OWNER_TABLE);
         db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
-        //db.execSQL(CREATE_FRIENDS_TABLE);
-        //add(new Owner(1,"Admin","Admin","Admin",new Date()));
         Log.d("Database", "Database Created");
-
     }
 
     public int getDogCount() {
@@ -185,10 +180,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public void edit(Dog d, String s) {
+        SQLiteDatabase sq = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COL_NAME, s);
+
+        sq.update(DOG_TABLE_NAME, cv, COL_ID + " = " + d.getId(), null);
+
+        Log.d("UP", "dated");
+    }
+
     public void removeDog(int i) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null);
         Log.d("DATABASE", "DOG DELETED");
+    }
+
+    public void addDogWalk(ArrayList<Dog> list,double dis) {
+
+
+        ContentValues values = new ContentValues();
+
+        for (Dog d : list) {
+
+            SQLiteDatabase db = getWritableDatabase();
+
+            int walks = d.getTotwalks() + 1;
+
+            double totdis = d.getTotdistance() + dis;
+
+
+            values.put(COL_TOT_WALKS, walks);
+            values.put(COL_TOT_DIS, String.valueOf(totdis));
+
+            db.update(DOG_TABLE_NAME,
+                    values,
+                    COL_ID + " = " + d.getId(),
+                    null);
+
+            db.close();
+            Log.d("Database", "DOG: " + d.getName() + " " + walks + " " + totdis);
+        }
     }
 
     public void removeWalk(int i) {
@@ -220,12 +253,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public long addW(Walk w) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COL_ROUTE_LEN, w.getLength());
+        values.put(COL_ROUTE_TIME, w.getTime());
+
+        long input = db.insert(WALK_TABLE_NAME, null, values);
+        db.close();
+
+        Log.d("DATABASE", "NEW WALK ADDED");
+
+        return input;
+    }
+
     public long add(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
+        values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
 
@@ -239,10 +287,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Owner getOwnerHelper(Owner o){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + getOwnerLogintable() + " WHERE " + getColEmail() + "=?",new String[]{o.getEmail()});
+        Cursor c = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " + COL_EMAIL + "=?",new String[]{o.getEmail()});
 
         return getOneOwner(c);
     }
+
+    public Dog getDogHelper(Dog d){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID + "=?",new String[]{d.getName()});
+
+        return getOneDog(c);
+    }
+
 
     public Dog getOneDog(Cursor c) {
 
@@ -326,23 +382,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME + " WHERE " + COL_ROUTE_COMMENT + " IS NOT NULL";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             int idIdx = cursor.getColumnIndex(COL_ID);
-            int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
+            int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             do {
                 Walk walk = new Walk(
-                        cursor.getString(nameIdx),
-                        cursor.getString(lengthIdx),
+                        cursor.getDouble(lengthIdx),
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),
-                        cursor.getInt(idIdx)
+                        cursor.getInt(idIdx),
+                        cursor.getInt(timeIdx)
                 );
                 list.add(walk);
             } while (cursor.moveToNext());
@@ -352,16 +408,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void updateOwner(Cursor c){
+    public void addOwnerWalk(Owner o,double dis){
         SQLiteDatabase db = getWritableDatabase();
 
-        Owner o = getOneOwner(c);
 
         ContentValues values = new ContentValues();
 
+        double totdis = o.getTot_dis() + dis;
+        o.setTot_dis(totdis);
         int walks = o.getTot_walks()+1;
+        o.setTot_walks(walks);
 
         values.put(COL_TOT_WALKS,walks);
+        values.put(COL_TOT_DIS,String.valueOf(totdis));
 
         db.update(OWNER_LOGIN_TABLE,
                 values,
@@ -370,36 +429,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
 
-        o = getOneOwner(c);
-        Log.d("Database", "Walk Added " + o.getName() + " " + o.getTot_walks());
+        Log.d("Database", "Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
 
-    /*public void updateDog(List<Integer> list){
 
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
 
-        for (Integer i : list){
 
-            Cursor c = db.rawQuery("SELECT *  FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID
-            + " =?",new String[]{String.valueOf(i)});
-
-            Dog d = getOneDog(c);
-
-            int walks = d.getTotwalks()+1;
-
-            values.put(COL_TOT_WALKS,walks);
-
-            db.update(DOG_TABLE_NAME,
-                    values,
-                    COL_ID + " = " + d.getId(),
-                    null);
-            db.close();
-
-            Log.d("Database", "DOG: " + d.getId() + d.getName() + " has been updated");
-        }
-
-    }*/
 
     public String getOwnerLogintable() {
         return OWNER_LOGIN_TABLE;
@@ -483,10 +518,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static String getColDob() {
         return COL_DOB;
-    }
-
-    public static String getColRouteName() {
-        return COL_ROUTE_NAME;
     }
 
     public static String getColRouteLen() {
