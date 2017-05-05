@@ -26,6 +26,8 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="totdis">Total Distance</string>
+    <string name="totTime">Total Time</string>
 
     <!-- Map Page -->
     <string name="map">Map</string>
@@ -122,4 +124,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_dog_profile">DogProfile</string>
 </resources>

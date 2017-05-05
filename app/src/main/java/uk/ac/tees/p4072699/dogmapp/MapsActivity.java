@@ -32,8 +32,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -47,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location location;
     LocationManager lm;
     Owner owner;
+    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
     double totaldis;
     ArrayList<LatLng> points;
@@ -58,18 +62,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        lisbun = getIntent().getExtras().getBundle("bundle");
         points = new ArrayList<LatLng>();
 
-        locRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10);
-
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
+            if (checkLocationPermission() == true) {
+                locRequest = LocationRequest.create()
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        .setInterval(10);
+                lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
+            }
         }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -78,11 +83,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
+
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
+                Calendar c = new GregorianCalendar();
+                String e = c.getTime().toString();
+                i.putExtra("end", e);
+                String s = getIntent().getStringExtra("start");
+                i.putExtra("start", s);
+                i.putExtra("dis", totaldis);
+                i.putExtra("bundle",lisbun);
                 startActivity(i);
             }
         });
@@ -122,9 +136,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
             if (location == null) {
-                Log.d("loc", location.toString());
             } else {
-                Log.d("loc", "not null");
                 handleNewLocation(location);
             }
         }
