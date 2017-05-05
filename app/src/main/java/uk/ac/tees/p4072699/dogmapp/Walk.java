@@ -3,7 +3,7 @@ package uk.ac.tees.p4072699.dogmapp;
 public class Walk {
     private double length;
     private int rating;
-    private String comment;
+    private String comment = null;
     private int id;
     private int time;
 

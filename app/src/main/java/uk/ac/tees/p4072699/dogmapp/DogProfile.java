@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,11 +24,13 @@ public class DogProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
+
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
         final TextView name = (TextView) findViewById(R.id.textView_dogname);
         //final TextView totWalks = (TextView) findViewById(R.id.Dog_totwalks);
         //final TextView avgWalks = (TextView) findViewById(R.id.Dog_avgwalks);
+
         final Context con = getApplicationContext();
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final Button ret = (Button) findViewById(R.id.button_return);
@@ -35,6 +38,7 @@ public class DogProfile extends AppCompatActivity {
         final Button ed = (Button) findViewById(R.id.button_edit);
 
         //totWalks.setText(Integer.toString(d.getTotwalks()));
+
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("#.00");
         String avg = df.format(d.getTotdistance()/d.getTotwalks());
