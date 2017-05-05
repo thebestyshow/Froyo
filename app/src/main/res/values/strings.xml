@@ -9,6 +9,7 @@
     <string name="remove">Remove Dog</string>
     <string name="home">Home</string>
     <string name="dogname">Dog Name</string>
+    <string name="editDog">Edit Dog</string>
 
     <!-- Strings and hints for log in and sign up-->
     <string name="sign_up">Sign up</string>

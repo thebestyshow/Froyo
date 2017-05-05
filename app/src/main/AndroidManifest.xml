@@ -62,10 +62,8 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".DogProfile"
-            android:label="@string/title_activity_dog_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".EditDog" />
+        <activity android:name=".DogProfile"></activity>
     </application>
 
 </manifest>
