@@ -29,6 +29,7 @@ public class StartWalk extends AppCompatActivity {
     List<Integer> selected = new ArrayList<Integer>();
     List<Dog> list = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,6 @@ public class StartWalk extends AppCompatActivity {
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-
         list = dh.getAllDogs(owner.getId());
 
         for (Dog d : list) {
@@ -59,6 +59,7 @@ public class StartWalk extends AppCompatActivity {
                     selected.remove(Integer.valueOf(position));
                 } else {
                     selected.add(position);
+
                 }
             }
         });
@@ -85,8 +86,6 @@ public class StartWalk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
-                int count = 0;
-                List<Dog> list = dh.getAllDogs(owner.getId());
                 ArrayList<Dog> passList = new ArrayList<Dog>();
 
                 for (int num : selected){

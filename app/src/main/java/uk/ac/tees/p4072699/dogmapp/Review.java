@@ -101,8 +101,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-
-                //dh.add(new Walk("TEST", d, paws, com.getText().toString(), (Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
+                dh.add(new Walk(d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
@@ -114,7 +113,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
+                dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);

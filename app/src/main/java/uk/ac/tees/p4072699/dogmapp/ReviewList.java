@@ -37,7 +37,7 @@ public class ReviewList extends AppCompatActivity {
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
-            reviews[reviews.length - 1] = "nRating: " + w.getRating() + "\nComment: " + w.getComment();
+            reviews[reviews.length - 1] = "Rating: " + w.getRating() + "\nComment: " + w.getComment();
             revId = Arrays.copyOf(revId, revId.length + 1);
             revId[revId.length - 1] = w.getId();
         }
