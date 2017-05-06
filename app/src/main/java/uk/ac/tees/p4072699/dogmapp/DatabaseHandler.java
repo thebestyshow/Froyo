@@ -1,6 +1,7 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -287,6 +288,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW WALK ADDED");
 
         return input;
+    }
+
+    public void editWalk(Walk w){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COL_ROUTE_NAME,w.getName());
+        values.put(COL_ROUTE_COMMENT,w.getComment());
+        values.put(COL_ROUTE_RATING,w.getRating());
+
+        db.update(WALK_TABLE_NAME,
+                values,
+                COL_ID + " = " + w.getId(),
+                null);
+
+        db.close();
+
+        Log.d("Database","Walk Updated" + w.getId() + " : " + w.getName() + " : " + w.getComment() + " : " + w.getRating());
+
     }
 
     public Owner getOwnerHelper(Owner o){

@@ -57,6 +57,8 @@
 
     <!-- Review View -->
     <string name="editRev">Edit Review</string>
+    <string name="name">Name</string>
+    <string name="distance">Distance</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

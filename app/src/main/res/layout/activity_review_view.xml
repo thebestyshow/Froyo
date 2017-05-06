@@ -25,14 +25,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button_edit" />
+        android:id="@+id/button_save" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView_Revname" />
+        android:id="@+id/textView_Revname"
+        android:textStyle="normal|bold" />
 
     <Button
         android:text="@string/rem"
@@ -46,28 +47,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_Revname"
-        android:layout_alignRight="@+id/button_return"
-        android:layout_alignEnd="@+id/button_return"
-        android:layout_marginTop="69dp"
-        android:id="@+id/textView_Review"
-        android:textAlignment="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/paw_1"
         android:layout_alignEnd="@+id/paw_1"
-        android:id="@+id/textView_dis" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView_dis"
-        android:layout_toRightOf="@+id/button_edit"
-        android:layout_toEndOf="@+id/button_edit"
-        android:id="@+id/textView_time" />
+        android:id="@+id/textView_dis"
+        android:layout_toEndOf="@+id/paw_1"
+        android:layout_toRightOf="@+id/paw_1"
+        android:textAlignment="viewEnd" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -138,4 +124,44 @@
         android:layout_alignTop="@+id/paw_4"
         android:layout_toRightOf="@+id/paw_4"
         android:layout_toEndOf="@+id/paw_4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_time"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/paw_4"
+        android:layout_toEndOf="@+id/paw_4"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:text="@string/totTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView20"
+        android:layout_alignBaseline="@+id/textView_time"
+        android:layout_alignBottom="@+id/textView_time"
+        android:layout_alignRight="@+id/button_save"
+        android:layout_alignEnd="@+id/button_save" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:id="@+id/textView_Review"
+        android:textAlignment="center"
+        android:layout_below="@+id/textView_Revname"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/totdis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

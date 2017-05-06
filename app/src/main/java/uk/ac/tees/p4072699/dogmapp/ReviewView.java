@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +28,7 @@ public class ReviewView extends AppCompatActivity {
         final TextView dis = (TextView) findViewById(R.id.textView_dis);
         final TextView time = (TextView) findViewById(R.id.textView_time);
         final Button retur = (Button) findViewById(R.id.button_return);
-        final Button edit = (Button) findViewById(R.id.button_edit);
+        final Button edit = (Button) findViewById(R.id.button_save);
         final Button remove = (Button) findViewById(R.id.button_remove);
         DecimalFormat df = new DecimalFormat("#.00");
 
@@ -49,19 +48,54 @@ public class ReviewView extends AppCompatActivity {
         imgarray.add(p4);
         imgarray.add(p5);
 
-        for (int i=0; i== imgarray.size();i++){
+        if (w.getRating() == 1){
+            p1.setImageResource(R.drawable.selected);
+            p2.setImageResource(R.drawable.paw);
+            p3.setImageResource(R.drawable.paw);
+            p4.setImageResource(R.drawable.paw);
+            p5.setImageResource(R.drawable.paw);
+        }else if(w.getRating() ==2){
+            p2.setImageResource(R.drawable.selected);
+            p1.setImageResource(R.drawable.selected);
+            p3.setImageResource(R.drawable.paw);
+            p4.setImageResource(R.drawable.paw);
+            p5.setImageResource(R.drawable.paw);
+        }else if(w.getRating() ==3){
+            p3.setImageResource(R.drawable.selected);
+            p2.setImageResource(R.drawable.selected);
+            p1.setImageResource(R.drawable.selected);
+            p4.setImageResource(R.drawable.paw);
+            p5.setImageResource(R.drawable.paw);
+        }else if(w.getRating() ==4){
+            p4.setImageResource(R.drawable.selected);
+            p2.setImageResource(R.drawable.selected);
+            p3.setImageResource(R.drawable.selected);
+            p1.setImageResource(R.drawable.selected);
+            p5.setImageResource(R.drawable.paw);
+        }else if(w.getRating() ==5){
+            p5.setImageResource(R.drawable.selected);
+            p2.setImageResource(R.drawable.selected);
+            p3.setImageResource(R.drawable.selected);
+            p4.setImageResource(R.drawable.selected);
+            p1.setImageResource(R.drawable.selected);
+        }
+
+        /*for (int i=0; i== imgarray.size();i++){
             if (i >= w.getRating()){
                 imgarray.get(i).setImageResource(R.drawable.selected);
             }
             else{
                 imgarray.get(i).setImageResource(R.drawable.paw);
             }
-        }
+        }*/
 
         retur.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                onBackPressed();
+                Intent i = new Intent(getApplicationContext(),ReviewList.class);
+                i.putExtra("walk",w);
+                i.putExtra("owner",owner);
+                startActivity(i);
             }
         });
 
@@ -70,6 +104,7 @@ public class ReviewView extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), EditWalk.class);
                 i.putExtra("walk",w);
+                i.putExtra("owner",owner);
                 startActivity(i);
             }
         });

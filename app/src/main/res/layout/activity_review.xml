@@ -12,40 +12,10 @@
     tools:context="uk.ac.tees.p4072699.dogmapp.Review">
 
     <TextView
-        android:text="@string/review_walk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TextView
-        android:text="@string/comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:id="@+id/textView2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:layout_below="@+id/textView2"
-        android:id="@+id/editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:text="@string/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/et_comm"
         android:layout_centerHorizontal="true"
         android:id="@+id/textView3" />
 
@@ -182,4 +152,45 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView_time" />
+
+    <TextView
+        android:text="@string/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/imageButton_settings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView21"
+        android:layout_alignTop="@+id/et_comm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/et_comm"
+        android:layout_height="150dp"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etname"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button_edit" />
+        android:id="@+id/button_save" />
 
     <Button
         android:text="@string/rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_edit"
+        android:layout_alignTop="@+id/button_save"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/button_remove" />
