@@ -89,12 +89,12 @@ public class StartWalk extends AppCompatActivity {
                 ArrayList<Dog> passList = new ArrayList<Dog>();
 
                 for (int num : selected){
-                    list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
+                    //list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
                     passList.add(list.get(num));
                 }
 
                 Bundle lisbun = new Bundle();
-                lisbun.putSerializable("ARRAYLIST",(Serializable)passList);
+                lisbun.putSerializable("ARRAYLIST",passList);
                 i.putExtra("bundle",lisbun);
 
                 i.putExtra("owner", dh.getOwnerHelper(owner));

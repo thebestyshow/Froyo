@@ -169,6 +169,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, new String[]{Integer.toString(owner)});
 
         if (cursor.moveToFirst()) {
+            int totwalkIdx = cursor.getColumnIndex(COL_TOT_WALKS);
+            int totDisIdx = cursor.getColumnIndex(COL_TOT_DIS);
             int ownerIdx = cursor.getColumnIndex(COL_OWNER);
             int nameIdx = cursor.getColumnIndex(COL_NAME);
             int idIdx = cursor.getColumnIndex(COL_ID);
@@ -176,7 +178,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Dog dg = new Dog(
                         cursor.getInt(idIdx),
                         cursor.getString(nameIdx),
-                        cursor.getInt(ownerIdx)
+                        cursor.getInt(ownerIdx),
+                        cursor.getInt(totwalkIdx),
+                        cursor.getDouble(totDisIdx)
                 );
                 list.add(dg);
             } while (cursor.moveToNext());
@@ -210,13 +214,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             SQLiteDatabase db = getWritableDatabase();
 
-            int walks = d.getTotwalks() + 1;
+            d.setTotwalks(d.getTotwalks()+1);
 
-            double totdis = d.getTotdistance() + dis;
+            d.setTotdistance(d.getTotdistance() + dis);
 
 
-            values.put(COL_TOT_WALKS, walks);
-            values.put(COL_TOT_DIS, String.valueOf(totdis));
+            values.put(COL_TOT_WALKS, d.getTotwalks());
+            values.put(COL_TOT_DIS, String.valueOf(d.getTotdistance()));
 
             db.update(DOG_TABLE_NAME,
                     values,
@@ -224,7 +228,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     null);
 
             db.close();
-            Log.d("Database", "DOG: " + d.getName() + " " + walks + " " + totdis);
+            Log.d("Database", d.getId() +" DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
         }
     }
 
@@ -456,7 +460,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
 
-        Log.d("Database", "Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
+        Log.d("Database", o.getId() + " Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
 
 

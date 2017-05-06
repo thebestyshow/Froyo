@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +24,6 @@ public class DogList extends AppCompatActivity {
     String[] dogs = {};
     Integer[] dogsId = {};
     Owner owner;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +36,14 @@ public class DogList extends AppCompatActivity {
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
+        DecimalFormat df = new DecimalFormat("#.00");
         List<Dog> list = dh.getAllDogs(owner.getId());
 
 
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
-            Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
-                    + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
-
-            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOwnerHelper(owner).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nTotWalks: " + dg.getTotwalks() + "    TotDis: " + df.format(dg.getTotdistance()) + "\nOwner: " + dh.getOwnerHelper(owner).getName();
 
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();

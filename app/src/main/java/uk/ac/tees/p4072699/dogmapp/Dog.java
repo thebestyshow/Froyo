@@ -27,6 +27,8 @@ public class Dog implements Serializable {
     public Dog(int id,String name, int owner) {
         this(name,owner);
         this.id = id;
+        totwalks = 0;
+        totdistance = 0.0;
     }
 
     public Dog(String name, int owner) {
