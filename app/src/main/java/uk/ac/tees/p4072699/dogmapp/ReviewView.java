@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -15,8 +16,8 @@ public class ReviewView extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Walk w;
     Owner owner;
-    ImageButton p1, p2, p3, p4, p5;
-    ArrayList<ImageButton> imgarray = new ArrayList<>();
+    ImageView p1, p2, p3, p4, p5;
+    ArrayList<ImageView> imgarray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,11 @@ public class ReviewView extends AppCompatActivity {
         comm.setText(w.getComment());
         dis.setText(df.format(w.getLength()));
         time.setText(String.valueOf(w.getTime()));
-        p1 = (ImageButton) findViewById(R.id.paw_1);
-        p2 = (ImageButton) findViewById(R.id.paw_2);
-        p3 = (ImageButton) findViewById(R.id.paw_3);
-        p4 = (ImageButton) findViewById(R.id.paw_4);
-        p5 = (ImageButton) findViewById(R.id.paw_5);
+        p1 = (ImageView) findViewById(R.id.paw_1);
+        p2 = (ImageView) findViewById(R.id.paw_2);
+        p3 = (ImageView) findViewById(R.id.paw_3);
+        p4 = (ImageView) findViewById(R.id.paw_4);
+        p5 = (ImageView) findViewById(R.id.paw_5);
 
         imgarray.add(p1);
         imgarray.add(p2);
