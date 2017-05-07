@@ -351,6 +351,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    public void editUser(Owner owner){
+        SQLiteDatabase db = getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(COL_NAME,owner.getName());
+        values.put(COL_EMAIL,owner.getEmail());
+        values.put(COL_PASS,owner.getPassword());
+
+        db.update(OWNER_LOGIN_TABLE,
+                values,
+                COL_ID + " = " + owner.getId(),
+                null);
+        db.close();
+
+        Log.d("Database", "User " + owner.getName() + " has been updated");
+    }
+
 
     public Owner getOneOwner(Cursor c) {
 

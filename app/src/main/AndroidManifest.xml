@@ -65,7 +65,9 @@
         <activity android:name=".EditDog" />
         <activity android:name=".DogProfile" />
         <activity android:name=".ReviewView" />
-        <activity android:name=".EditWalk"></activity>
+        <activity android:name=".EditWalk" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".changePass"></activity>
     </application>
 
 </manifest>
