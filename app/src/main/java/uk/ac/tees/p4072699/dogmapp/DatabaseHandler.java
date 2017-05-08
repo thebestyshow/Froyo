@@ -1,6 +1,7 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,6 +65,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_COMMENT = "route_comment";
 
+    private static final String COL_ROUTE_NAME = "route_name";
+
     public String getCOL_PASS() {
         return COL_PASS;
     }
@@ -105,6 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
             + WALK_TABLE_NAME
             + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_ROUTE_NAME + " TEXT,"
             + COL_ROUTE_LEN + " TEXT,"
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
@@ -165,6 +169,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, new String[]{Integer.toString(owner)});
 
         if (cursor.moveToFirst()) {
+            int totwalkIdx = cursor.getColumnIndex(COL_TOT_WALKS);
+            int totDisIdx = cursor.getColumnIndex(COL_TOT_DIS);
             int ownerIdx = cursor.getColumnIndex(COL_OWNER);
             int nameIdx = cursor.getColumnIndex(COL_NAME);
             int idIdx = cursor.getColumnIndex(COL_ID);
@@ -172,7 +178,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Dog dg = new Dog(
                         cursor.getInt(idIdx),
                         cursor.getString(nameIdx),
-                        cursor.getInt(ownerIdx)
+                        cursor.getInt(ownerIdx),
+                        cursor.getInt(totwalkIdx),
+                        cursor.getDouble(totDisIdx)
                 );
                 list.add(dg);
             } while (cursor.moveToNext());
@@ -206,13 +214,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             SQLiteDatabase db = getWritableDatabase();
 
-            int walks = d.getTotwalks() + 1;
+            d.setTotwalks(d.getTotwalks()+1);
 
-            double totdis = d.getTotdistance() + dis;
+            d.setTotdistance(d.getTotdistance() + dis);
 
 
-            values.put(COL_TOT_WALKS, walks);
-            values.put(COL_TOT_DIS, String.valueOf(totdis));
+            values.put(COL_TOT_WALKS, d.getTotwalks());
+            values.put(COL_TOT_DIS, String.valueOf(d.getTotdistance()));
 
             db.update(DOG_TABLE_NAME,
                     values,
@@ -220,7 +228,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     null);
 
             db.close();
-            Log.d("Database", "DOG: " + d.getName() + " " + walks + " " + totdis);
+            Log.d("Database", d.getId() +" DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
         }
     }
 
@@ -272,6 +280,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put(COL_ROUTE_NAME,w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
@@ -283,6 +292,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW WALK ADDED");
 
         return input;
+    }
+
+    public void editWalk(Walk w){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COL_ROUTE_NAME,w.getName());
+        values.put(COL_ROUTE_COMMENT,w.getComment());
+        values.put(COL_ROUTE_RATING,w.getRating());
+
+        db.update(WALK_TABLE_NAME,
+                values,
+                COL_ID + " = " + w.getId(),
+                null);
+
+        db.close();
+
+        Log.d("Database","Walk Updated" + w.getId() + " : " + w.getName() + " : " + w.getComment() + " : " + w.getRating());
+
     }
 
     public Owner getOwnerHelper(Owner o){
@@ -320,6 +349,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return null;
+    }
+
+    public void editUser(Owner owner){
+        SQLiteDatabase db = getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+        values.put(COL_NAME,owner.getName());
+        values.put(COL_EMAIL,owner.getEmail());
+        values.put(COL_PASS,owner.getPassword());
+
+        db.update(OWNER_LOGIN_TABLE,
+                values,
+                COL_ID + " = " + owner.getId(),
+                null);
+        db.close();
+
+        Log.d("Database", "User " + owner.getName() + " has been updated");
     }
 
 
@@ -388,12 +436,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             int idIdx = cursor.getColumnIndex(COL_ID);
+            int nameIdx = cursor.getColumnIndex(COL_ROUTE_NAME);
             int lengthIdx = cursor.getColumnIndex(COL_ROUTE_LEN);
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             do {
                 Walk walk = new Walk(
+                        cursor.getString(nameIdx),
                         cursor.getDouble(lengthIdx),
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),
@@ -429,7 +479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
 
-        Log.d("Database", "Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
+        Log.d("Database", o.getId() + " Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
 
 
