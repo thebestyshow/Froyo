@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -70,7 +71,7 @@ public class Review extends AppCompatActivity {
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText com = (EditText) findViewById(R.id.et_comm);
-        final EditText name = (EditText) findViewById(R.id.et_name);
+        final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
@@ -96,13 +97,26 @@ public class Review extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                comments = com.getText().toString();
-                dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
-                Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-                setContentView(R.layout.activity_home);
-                finish();
+                Toast t;
+                if  (name.getText().toString() == ""){
+                    t = Toast.makeText(getApplicationContext(),"Please enter a name", Toast.LENGTH_SHORT);
+                    t.show();
+                }else if(com.getText().toString() == ""){
+                    dh.add(new Walk(name.getText().toString(),d,paws,"",Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
+                    Intent intent = new Intent(con, Home.class);
+                    intent.putExtra("owner", dh.getOwnerHelper(owner));
+                    startActivity(intent);
+                    setContentView(R.layout.activity_home);
+                    finish();
+                }else{
+                    dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
+                    Intent intent = new Intent(con, Home.class);
+                    intent.putExtra("owner", dh.getOwnerHelper(owner));
+                    startActivity(intent);
+                    setContentView(R.layout.activity_home);
+                    finish();
+                }
+
             }
         });
 

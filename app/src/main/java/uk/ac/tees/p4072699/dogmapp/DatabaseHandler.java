@@ -430,7 +430,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME + " WHERE " + COL_ROUTE_COMMENT + " IS NOT NULL";
+        String selectQuery = "SELECT * FROM " + WALK_TABLE_NAME + " WHERE " + COL_ROUTE_COMMENT + " IS NOT NUlL AND " + COL_ROUTE_NAME + " IS NOT NULL";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
