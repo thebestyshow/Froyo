@@ -15,9 +15,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
@@ -26,11 +24,8 @@ public class Review extends AppCompatActivity {
     Owner owner;
     Bundle lisbun;
     ArrayList<Dog> doglist;
-    ImageButton p1;
-    ImageButton p2;
-    ImageButton p3;
-    ImageButton p4;
-    ImageButton p5;
+    ImageButton p1, p2, p3, p4, p5;
+
     String e;
     String s;
     int hours;
@@ -74,7 +69,8 @@ public class Review extends AppCompatActivity {
 
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_save);
-        final EditText com = (EditText) findViewById(R.id.editText);
+        final EditText com = (EditText) findViewById(R.id.et_comm);
+        final EditText name = (EditText) findViewById(R.id.et_name);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
@@ -101,7 +97,7 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 comments = com.getText().toString();
-                dh.add(new Walk(d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
+                dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
