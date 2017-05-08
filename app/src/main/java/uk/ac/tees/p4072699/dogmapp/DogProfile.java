@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,7 +33,7 @@ public class DogProfile extends AppCompatActivity {
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
-        final Button ed = (Button) findViewById(R.id.button_edit);
+        final Button ed = (Button) findViewById(R.id.button_save);
 
         //totWalks.setText(Integer.toString(d.getTotwalks()));
 

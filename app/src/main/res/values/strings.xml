@@ -3,6 +3,7 @@
     <string name="Help">Help</string>
     <string name="dogs">Dogs</string>
     <string name="profile">Profile</string>
+    <string name="editProf">Edit Profile</string>
 
     <!--String for activity_add_dog and activity_dog_list-->
     <string name="add">Add Dog</string>
@@ -32,7 +33,6 @@
 
     <!-- Map Page -->
     <string name="map">Map</string>
-
     <string name="review">Reviews</string>
     <string name="addrev">Add Review</string>
     <string name="rem">Remove</string>
@@ -53,8 +53,18 @@
 
     <string name="end">End Walk</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="changePass">Change Password</string>
 
     <!-- Strings related to Settings -->
+
+    <!-- String for changing password -->
+    <string name="oldPass">Old Password</string>
+    <string name="newPass">New Password</string>
+    <string name="conNewPass">Confirm New Password</string>
+    <!-- Review View -->
+    <string name="editRev">Edit Review</string>
+    <string name="name">Name</string>
+    <string name="distance">Distance</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

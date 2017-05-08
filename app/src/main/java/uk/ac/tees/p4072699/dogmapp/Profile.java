@@ -42,6 +42,7 @@ public class Profile extends AppCompatActivity {
         avgWalks.setText(avg + "KM");
 
         final Button home = (Button) findViewById(R.id.button_home);
+        final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 
         for (Dog dg : list) {
@@ -66,7 +67,15 @@ public class Profile extends AppCompatActivity {
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
-                setContentView(R.layout.activity_home);
+            }
+        });
+
+        editProf.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(con,EditProfile.class);
+                i.putExtra("owner",owner);
+                startActivity(i);
             }
         });
 
