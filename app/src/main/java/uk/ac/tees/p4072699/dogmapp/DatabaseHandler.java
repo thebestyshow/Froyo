@@ -67,6 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_NAME = "route_name";
 
+
     public String getCOL_PASS() {
         return COL_PASS;
     }
@@ -101,8 +102,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_TOT_WALKS + " INTEGER,"
             + COL_TOT_DIS + " TEXT, "
             + COL_AVG_DIS + " TEXT, "
-            + COL_TOT_TIME + " TEXT);";
-            /*+ "image BLOB*/
+            + COL_TOT_TIME + " TEXT, "
+            + COL_IMAGE + " BLOB);";
 
 
     private static String CREATE_WALK_TABLE = "CREATE TABLE "
@@ -112,7 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_ROUTE_LEN + " TEXT,"
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
-            + COL_ROUTE_RATING + " INTEGER);";
+            + COL_ROUTE_RATING + " INTEGER,);";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -285,6 +286,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
+        values.put(COL_IMAGE,w.getImage());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -441,6 +443,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
+            int imgIdx = cursor.getColumnIndex(COL_IMAGE);
             do {
                 Walk walk = new Walk(
                         cursor.getString(nameIdx),
@@ -448,7 +451,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),
                         cursor.getInt(idIdx),
-                        cursor.getInt(timeIdx)
+                        cursor.getInt(timeIdx),
+                        cursor.getBlob(imgIdx)
                 );
                 list.add(walk);
             } while (cursor.moveToNext());
