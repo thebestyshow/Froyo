@@ -21,42 +21,57 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="104dp"
         android:id="@+id/editText_dgname"
+        android:layout_width="550px"
+        android:layout_height="100px"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:hint="@string/dogname" />
+        android:layout_marginTop="104dp"
+        android:background="@drawable/loginback"
+        android:ems="10"
+        android:hint="@string/dogname"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
 
     <Button
-        android:text="@string/save"
+        android:id="@+id/button_save"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/button_save" />
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button"
+        android:text="@string/save" />
 
     <Button
-        android:text="@string/cancel"
+        android:id="@+id/button_cancel"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/button_cancel" />
+        android:background="@drawable/button"
+        android:text="@string/cancel" />
 
     <ImageButton
+        android:id="@+id/imageButton_settings"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton_settings"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button"
+        android:elevation="1dp"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/settings" />
 </RelativeLayout>
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>

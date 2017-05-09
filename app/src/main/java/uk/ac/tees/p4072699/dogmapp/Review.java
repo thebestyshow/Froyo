@@ -98,16 +98,9 @@ public class Review extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast t;
-                if  (name.getText().toString() == ""){
+                if  (name.getText().toString().equals("")){
                     t = Toast.makeText(getApplicationContext(),"Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
-                }else if(com.getText().toString() == ""){
-                    dh.add(new Walk(name.getText().toString(),d,paws,"",Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
-                    Intent intent = new Intent(con, Home.class);
-                    intent.putExtra("owner", dh.getOwnerHelper(owner));
-                    startActivity(intent);
-                    setContentView(R.layout.activity_home);
-                    finish();
                 }else{
                     dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                     Intent intent = new Intent(con, Home.class);

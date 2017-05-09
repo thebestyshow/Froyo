@@ -4,10 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -32,6 +34,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -100,6 +105,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(i);
             }
         });
+    }
+
+    public void takeScreenshot(){
+        try{
+            String mPath = Environment.getExternalStorageDirectory().toString();
+
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+
+            int quality =100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG,quality,outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            return imageFile;
+
+
+
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+    }
+
+    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, outputStream);
+        return outputStream.toByteArray();
     }
 
     @Override
