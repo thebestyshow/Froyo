@@ -24,6 +24,7 @@ public class Review extends AppCompatActivity {
     String comments;
     Owner owner;
     Bundle lisbun;
+    byte[] img;
     ArrayList<Dog> doglist;
     ImageButton p1, p2, p3, p4, p5;
 
@@ -40,6 +41,7 @@ public class Review extends AppCompatActivity {
         lisbun  = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
+        img = getIntent().getByteArrayExtra("bytea");
 
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
@@ -69,7 +71,7 @@ public class Review extends AppCompatActivity {
         Log.d("Time difference", Integer.toString(hours) + Integer.toString(min));
 
         final Context con = this;
-        final Button save = (Button) findViewById(R.id.button_save);
+        final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
@@ -102,6 +104,7 @@ public class Review extends AppCompatActivity {
                     t = Toast.makeText(getApplicationContext(),"Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
                 }else{
+                    //dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min)),img));
                     dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                     Intent intent = new Intent(con, Home.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));

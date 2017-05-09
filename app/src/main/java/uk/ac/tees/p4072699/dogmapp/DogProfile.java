@@ -33,7 +33,7 @@ public class DogProfile extends AppCompatActivity {
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
-        final Button ed = (Button) findViewById(R.id.button_save);
+        final Button ed = (Button) findViewById(R.id.button_savez);
 
         //totWalks.setText(Integer.toString(d.getTotwalks()));
 
@@ -77,7 +77,7 @@ public class DogProfile extends AppCompatActivity {
 //        set.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View view){
-//                Intent i = new Intent(con, Settings.class);
+//                Intent i = new Intent(con, MapSettings.class);
 //                i.putExtra("owner",dh.getOwnerHelper(owner));
 //                startActivity(i);
 //            }
