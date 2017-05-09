@@ -8,6 +8,7 @@ public class Walk implements Serializable{
     private String comment,name;
     private int id;
     private int time;
+    private byte[] image;
 
 
 
@@ -25,6 +26,15 @@ public class Walk implements Serializable{
 
     }
 
+    public Walk(String n,double length, int rating, String comment, int time,byte[] img) {
+        this.name = n;
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+        this.time = time;
+
+    }
+
     public Walk(String n,double length, int rating, String comment, int id, int time) {
         this.name = n;
         this.length = length;
@@ -32,6 +42,23 @@ public class Walk implements Serializable{
         this.comment = comment;
         this.id = id;
         this.time = time;
+    }
+
+    public Walk(String n,double length,int rating,String comment,int id,int time,byte[] img){
+        this(n,length,rating,comment,id,time);
+        this.image = img;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getName() {

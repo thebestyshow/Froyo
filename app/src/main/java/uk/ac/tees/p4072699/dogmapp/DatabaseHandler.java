@@ -286,6 +286,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
+        values.put(COL_IMAGE,w.getImage());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -442,6 +443,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int ratingIdx = cursor.getColumnIndex(COL_ROUTE_RATING);
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
+            int imgIdx = cursor.getColumnIndex(COL_IMAGE);
             do {
                 Walk walk = new Walk(
                         cursor.getString(nameIdx),
@@ -449,7 +451,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getInt(ratingIdx),
                         cursor.getString(comIdx),
                         cursor.getInt(idIdx),
-                        cursor.getInt(timeIdx)
+                        cursor.getInt(timeIdx),
+                        cursor.getBlob(imgIdx)
                 );
                 list.add(walk);
             } while (cursor.moveToNext());

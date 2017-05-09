@@ -1,6 +1,8 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,10 @@ public class ReviewView extends AppCompatActivity {
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_save);
         final Button remove = (Button) findViewById(R.id.button_remove);
+        final ImageView img = (ImageView) findViewById(R.id.map_img);
         DecimalFormat df = new DecimalFormat("#.00");
+
+        img.setImageBitmap(getImage(w.getImage()));
 
         name.setText(w.getName());
         comm.setText(w.getComment());
@@ -120,5 +125,9 @@ public class ReviewView extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 }

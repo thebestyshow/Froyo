@@ -27,7 +27,7 @@
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="104dp"
-        android:background="@drawable/loginback"
+
         android:ems="10"
         android:hint="@string/dogname"
         android:inputType="textPersonName"
@@ -40,7 +40,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/button"
+
         android:text="@string/save" />
 
     <Button
@@ -50,7 +50,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button"
         android:text="@string/cancel" />
 
     <ImageButton
@@ -60,18 +59,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/button"
         android:elevation="1dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/settings" />
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-    </RelativeLayout>
