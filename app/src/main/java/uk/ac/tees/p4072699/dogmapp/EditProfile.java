@@ -20,7 +20,7 @@ public class EditProfile extends AppCompatActivity {
         final EditText etname = (EditText) findViewById(R.id.etname);
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final Button changePass = (Button) findViewById(R.id.button_change);
-        final Button save = (Button) findViewById(R.id.button_save);
+        final Button save = (Button) findViewById(R.id.button_savez);
         final Button retur = (Button) findViewById(R.id.button_retur);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");

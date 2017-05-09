@@ -34,7 +34,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/button_savez"
         android:layout_width="120dp"
         android:layout_height="100px"
         android:layout_alignParentBottom="true"
