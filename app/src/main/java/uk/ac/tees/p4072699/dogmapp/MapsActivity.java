@@ -97,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                /*i.putExtra("bytea",getBitmapAsByteArray(takeScreenshot()));*/
+                i.putExtra("bytea",getBitmapAsByteArray(takeScreenshot()));
                 Calendar c = new GregorianCalendar();
                 String e = c.getTime().toString();
                 i.putExtra("end", e);
@@ -109,12 +109,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-
-
-
-
-   /* http://stackoverflow.com/questions/11790104/how-to-storebitmap-image-and-retrieve-image-from-sqlite-database-in-android
-
 
       public Bitmap takeScreenshot(){
         try{
@@ -130,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             FileOutputStream outputStream = new FileOutputStream(imageFile);
 
             int quality =100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG,quality,outputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG,quality,outputStream);
             outputStream.flush();
             outputStream.close();
 
@@ -143,10 +137,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
-    }*/
+        if  (bitmap == null){
+            return null;
+        }else{
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+            return outputStream.toByteArray();
+        }
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
