@@ -71,4 +71,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="LOGOUT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_reviews"
+        android:layout_alignLeft="@+id/button_reviews"
+        android:layout_alignStart="@+id/button_reviews"
+        android:id="@+id/button_logout" />
 </RelativeLayout>
