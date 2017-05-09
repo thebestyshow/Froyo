@@ -62,14 +62,15 @@
         <activity android:name=".Profile" />
         <activity android:name=".StartWalk" />
         <activity
-            android:name=".Settings"
+            android:name=".MapSettings"
             android:label="@string/title_activity_settings" />
         <activity android:name=".EditDog" />
         <activity android:name=".DogProfile" />
         <activity android:name=".ReviewView" />
         <activity android:name=".EditWalk" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".changePass"></activity>
+        <activity android:name=".changePass" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>

@@ -4,12 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.location.LocationListener;
 
@@ -29,15 +28,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayList<LatLng> points;
     Polyline line;
     LatLng oldlatlng;
+    int maptype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +80,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final Context con = this;
         final Button rev = (Button) findViewById(R.id.button_revScr);
+        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
+        maptype = getIntent().getIntExtra("map", 0);
 
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +101,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 i.putExtra("start", s);
                 i.putExtra("dis", totaldis);
                 i.putExtra("bundle",lisbun);
+                startActivity(i);
+            }
+        });
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, MapSettings.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
@@ -150,7 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        setMapType();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -162,6 +167,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             buildGoogleApiClient();
             map.setMyLocationEnabled(true);
+        }
+    }
+
+    public void setMapType() {
+        int i = maptype;
+        if (i == 0) {
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } else if (i == 1) {
+            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        } else if (i == 2) {
+            map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        } else {
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         }
     }
 

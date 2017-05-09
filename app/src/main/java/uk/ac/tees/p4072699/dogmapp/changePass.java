@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,7 @@ public class changePass extends AppCompatActivity {
         final EditText newPass = (EditText) findViewById(R.id.et_new_pass);
         final EditText conNewPass = (EditText) findViewById(R.id.et_con_new_pass);
 
-        final Button save = (Button) findViewById(R.id.button_save);
+        final Button save = (Button) findViewById(R.id.button_savez);
         final Button retur = (Button) findViewById(R.id.button_return);
 
         save.setOnClickListener(new View.OnClickListener() {

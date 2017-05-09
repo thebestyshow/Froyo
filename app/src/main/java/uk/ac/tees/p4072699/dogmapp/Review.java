@@ -71,7 +71,7 @@ public class Review extends AppCompatActivity {
         Log.d("Time difference", Integer.toString(hours) + Integer.toString(min));
 
         final Context con = this;
-        final Button save = (Button) findViewById(R.id.button_save);
+        final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);

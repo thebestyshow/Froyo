@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button_save" />
+        android:id="@+id/button_savez" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,8 +71,8 @@
         android:id="@+id/textView20"
         android:layout_alignBaseline="@+id/textView_time"
         android:layout_alignBottom="@+id/textView_time"
-        android:layout_alignRight="@+id/button_save"
-        android:layout_alignEnd="@+id/button_save" />
+        android:layout_alignRight="@+id/button_savez"
+        android:layout_alignEnd="@+id/button_savez" />
 
     <TextView
         android:layout_width="wrap_content"

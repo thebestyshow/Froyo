@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +30,7 @@ public class EditWalk extends AppCompatActivity {
         final TextView tv_dis = (TextView) findViewById(R.id.tv_distance);
         final TextView tv_time = (TextView) findViewById(R.id.tv_time);
         final Button retur = (Button) findViewById(R.id.button_return);
-        final Button save = (Button) findViewById(R.id.button_save);
+        final Button save = (Button) findViewById(R.id.button_savez);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);

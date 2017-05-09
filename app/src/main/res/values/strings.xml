@@ -36,6 +36,11 @@
     <string name="review">Reviews</string>
     <string name="addrev">Add Review</string>
     <string name="rem">Remove</string>
+    <string name="maptype">Map Type</string>
+    <string name="hybrid">Hybrid</string>
+    <string name="terrain">Terrain</string>
+    <string name="satellite">Satellite</string>
+    <string name="normal">Normal</string>
     <string name="start">Start</string>
     <string name="startw">Start Walk</string>
     <string name="choosedogs">Choose dogs for the walk</string>
@@ -55,7 +60,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="changePass">Change Password</string>
 
-    <!-- Strings related to Settings -->
+    <!-- Strings related to MapSettings -->
 
     <!-- String for changing password -->
     <string name="oldPass">Old Password</string>
