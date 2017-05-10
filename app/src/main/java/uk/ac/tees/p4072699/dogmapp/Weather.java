@@ -46,7 +46,7 @@ public class Weather extends AppCompatActivity implements Callback {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
-        service.refreshWeather("Brotton, UK");
+        service.refreshWeather("London");
 
         final Context con = this;
         owner = (Owner) getIntent().getSerializableExtra("owner");
@@ -87,5 +87,6 @@ public class Weather extends AppCompatActivity implements Callback {
     @Override
     public void serviceFailure(Exception exception) {
         Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        dialog.dismiss();
     }
 }
