@@ -25,11 +25,21 @@ public class Home extends AppCompatActivity {
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
         final Button logout = (Button) findViewById(R.id.button_logout);
+        final Button weather = (Button) findViewById(R.id.button_weather);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView name = (TextView) findViewById(R.id.Name_test);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         name.setText(owner.getName());
+
+        weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Weather.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

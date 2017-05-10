@@ -4,6 +4,9 @@
     <string name="dogs">Dogs</string>
     <string name="profile">Profile</string>
     <string name="editProf">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="weather">Weather</string>
+
 
     <!--String for activity_add_dog and activity_dog_list-->
     <string name="add">Add Dog</string>
@@ -141,4 +144,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_dog_profile">DogProfile</string>
+    <string name="temperature">Temperature</string>
+    <string name="location">Location</string>
+    <string name="condition">Condition</string>
 </resources>
