@@ -66,9 +66,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        points = new ArrayList<LatLng>();
 
         lisbun = getIntent().getExtras().getBundle("bundle");
-        points = new ArrayList<LatLng>();
+        ArrayList<Location> loc = getIntent().getParcelableArrayListExtra("locs");
+        if (loc == null){
+        }else if  (!loc.isEmpty()){
+            for (Location l : loc){
+                points.add(new LatLng(l.getLatitude(),l.getLongitude()));
+            }
+            redrawLine();
+        }else{
+            Log.d("ERROR","Empty location array");
+        }
+
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
@@ -222,17 +233,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void redrawLine(){
-        map.clear();
+        try{
+            map.clear();
 
-        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
 
-        int f = points.size();
+            PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
 
-        for (int i = 0; i < f; i++) {
-            LatLng point = points.get(i);
-            options.add(point);
+            int f = points.size();
+
+            for (int i = 0; i < f; i++) {
+                LatLng point = points.get(i);
+                options.add(point);
+            }
+            line = map.addPolyline(options);
+        }catch (RuntimeException e){
+            Log.d("ERROR","Redraw line error");
         }
-        line = map.addPolyline(options);
     }
 
 
