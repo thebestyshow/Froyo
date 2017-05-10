@@ -71,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         points = new ArrayList<LatLng>();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkLocationPermission() == true) {
+            if (checkLocationPermission()) {
                 locRequest = LocationRequest.create()
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                         .setInterval(10);
@@ -89,13 +89,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         maptype = getIntent().getIntExtra("map", 0);
+        totaldis = getIntent().getDoubleExtra("dis", 0);
+        final String s = getIntent().getStringExtra("start");
 
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ArrayList<Location> locarr = new ArrayList<Location>();
                 Location loc;
-
 
                 for (LatLng ll : points){
                     loc = new Location("");
@@ -104,14 +105,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     locarr.add(loc);
                 }
                 map.moveCamera(CameraUpdateFactory.zoomOut());
-
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
                 String e = c.getTime().toString();
                 i.putExtra("end", e);
                 i.putParcelableArrayListExtra("locs",locarr);
-                String s = getIntent().getStringExtra("start");
                 i.putExtra("start", s);
                 i.putExtra("dis", totaldis);
                 i.putExtra("bundle",lisbun);
@@ -122,7 +121,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<Location> locarr = new ArrayList<Location>();
+                Location loc;
+
+                for (LatLng ll : points) {
+                    loc = new Location("");
+                    loc.setLatitude(ll.latitude);
+                    loc.setLongitude(ll.longitude);
+                    locarr.add(loc);
+                }
                 Intent i = new Intent(con, MapSettings.class);
+                i.putExtra("dis", totaldis);
+                i.putParcelableArrayListExtra("locs", locarr);
+                i.putExtra("start", s);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 i.putExtra("bundle",lisbun);
                 startActivity(i);
@@ -221,8 +232,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng point = points.get(i);
             options.add(point);
         }
-        //Something goes here. Something to do with markers
-        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
         line = map.addPolyline(options);
     }
 
@@ -319,6 +328,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     Toast.makeText(this, "Permission Deined", Toast.LENGTH_LONG).show();
                 }
+                finish();
+                startActivity(getIntent());
                 return;
             }
         }

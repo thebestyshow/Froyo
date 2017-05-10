@@ -122,7 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_ROUTE_LEN + " TEXT,"
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
-            + COL_ROUTE_RATING + " INTEGER,"
+            + COL_ROUTE_RATING + " INTEGER, "
             + COL_POINTS + " TEXT);";
 
     public DatabaseHandler(Context context) {
