@@ -93,15 +93,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<Location> locarr = new ArrayList<Location>();
+                Location loc;
 
+
+                for (LatLng ll : points){
+                    loc = new Location("");
+                    loc.setLatitude(ll.latitude);
+                    loc.setLongitude(ll.longitude);
+                    locarr.add(loc);
+                }
                 map.moveCamera(CameraUpdateFactory.zoomOut());
 
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                i.putExtra("bytea",getBitmapAsByteArray(takeScreenshot()));
                 Calendar c = new GregorianCalendar();
                 String e = c.getTime().toString();
                 i.putExtra("end", e);
+                i.putParcelableArrayListExtra("locs",locarr);
                 String s = getIntent().getStringExtra("start");
                 i.putExtra("start", s);
                 i.putExtra("dis", totaldis);
@@ -121,42 +130,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-      public Bitmap takeScreenshot(){
-        try{
-            String mPath = Environment.getExternalStorageDirectory().toString();
-
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-
-            int quality =100;
-            bitmap.compress(Bitmap.CompressFormat.PNG,quality,outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            return bitmap;
-
-        }catch (Throwable e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        if  (bitmap == null){
-            return null;
-        }else{
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-            return outputStream.toByteArray();
-        }
-
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

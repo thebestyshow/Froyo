@@ -1,24 +1,64 @@
 package uk.ac.tees.p4072699.dogmapp;
 
+import android.*;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ReviewView extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Walk w;
+public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener  {
+
+    private GoogleMap map;
+    GoogleApiClient googleAPI;
+    LocationRequest locRequest;
+    Location location;
+    LocationManager lm;
     Owner owner;
+    Walk w;
+    Bundle lisbun;
+    DatabaseHandler dh = new DatabaseHandler(this);
+    double totaldis;
+    ArrayList<LatLng> points;
+    Polyline line;
+    LatLng oldlatlng;
+    int maptype;
     ImageView p1, p2, p3, p4, p5;
-    ArrayList<ImageView> imgarray = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +72,19 @@ public class ReviewView extends AppCompatActivity {
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        final ImageView img = (ImageView) findViewById(R.id.map_img);
         DecimalFormat df = new DecimalFormat("#.00");
+        points = w.getPoints();
 
-        img.setImageBitmap(getImage(w.getImage()));
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkLocationPermission() == true) {
+                locRequest = LocationRequest.create()
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        .setInterval(10);
+                lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, (android.location.LocationListener) this);
+            }
+        }
 
         name.setText(w.getName());
         comm.setText(w.getComment());
@@ -47,11 +96,6 @@ public class ReviewView extends AppCompatActivity {
         p4 = (ImageView) findViewById(R.id.paw_4);
         p5 = (ImageView) findViewById(R.id.paw_5);
 
-        imgarray.add(p1);
-        imgarray.add(p2);
-        imgarray.add(p3);
-        imgarray.add(p4);
-        imgarray.add(p5);
 
         if (w.getRating() == 1){
             p1.setImageResource(R.drawable.selected);
@@ -85,14 +129,6 @@ public class ReviewView extends AppCompatActivity {
             p1.setImageResource(R.drawable.selected);
         }
 
-        /*for (int i=0; i== imgarray.size();i++){
-            if (i >= w.getRating()){
-                imgarray.get(i).setImageResource(R.drawable.selected);
-            }
-            else{
-                imgarray.get(i).setImageResource(R.drawable.paw);
-            }
-        }*/
 
         retur.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -133,5 +169,136 @@ public class ReviewView extends AppCompatActivity {
             return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
 
+    }
+
+    public void redrawLine(){
+        map.clear();
+
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+
+        int f = points.size();
+
+        for (int i = 0; i < f; i++) {
+            LatLng point = points.get(i);
+            options.add(point);
+        }
+        //Something goes here. Something to do with markers
+        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
+        line = map.addPolyline(options);
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
+            if (location == null) {
+            } else {
+                redrawLine();
+            }
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        setMapType();
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                buildGoogleApiClient();
+                map.setMyLocationEnabled(true);
+            }
+        } else {
+            buildGoogleApiClient();
+            map.setMyLocationEnabled(true);
+        }
+    }
+
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public void setMapType() {
+        int i = maptype;
+        if (i == 0) {
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } else if (i == 1) {
+            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        } else if (i == 2) {
+            map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        } else {
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        googleAPI = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleAPI.connect();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        if (googleAPI == null) {
+                            buildGoogleApiClient();
+                        }
+                        map.setMyLocationEnabled(true);
+                    }
+                } else {
+                    Toast.makeText(this, "Permission Deined", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+        }
     }
 }
