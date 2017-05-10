@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 public class MapSettings extends AppCompatActivity {
     Owner owner;
     int maptype;
+    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
 
     @Override
@@ -22,7 +23,7 @@ public class MapSettings extends AppCompatActivity {
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button save = (Button) findViewById(R.id.button_savez);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
+        lisbun = getIntent().getExtras().getBundle("bundle");
         retur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +37,7 @@ public class MapSettings extends AppCompatActivity {
                 Intent i = new Intent(con, MapsActivity.class);
                 i.putExtra("map", maptype);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
+                i.putExtra("bundle",lisbun);
                 startActivity(i);
             }
         });

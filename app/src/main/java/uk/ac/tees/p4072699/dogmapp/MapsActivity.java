@@ -4,10 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -32,6 +34,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,15 +93,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<Location> locarr = new ArrayList<Location>();
+                Location loc;
 
+
+                for (LatLng ll : points){
+                    loc = new Location("");
+                    loc.setLatitude(ll.latitude);
+                    loc.setLongitude(ll.longitude);
+                    locarr.add(loc);
+                }
                 map.moveCamera(CameraUpdateFactory.zoomOut());
 
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                /*i.putExtra("bytea",getBitmapAsByteArray(takeScreenshot()));*/
                 Calendar c = new GregorianCalendar();
                 String e = c.getTime().toString();
                 i.putExtra("end", e);
+                i.putParcelableArrayListExtra("locs",locarr);
                 String s = getIntent().getStringExtra("start");
                 i.putExtra("start", s);
                 i.putExtra("dis", totaldis);
@@ -110,48 +124,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Intent i = new Intent(con, MapSettings.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
+                i.putExtra("bundle",lisbun);
                 startActivity(i);
             }
         });
     }
 
-
-
-
-   /* http://stackoverflow.com/questions/11790104/how-to-storebitmap-image-and-retrieve-image-from-sqlite-database-in-android
-
-
-      public Bitmap takeScreenshot(){
-        try{
-            String mPath = Environment.getExternalStorageDirectory().toString();
-
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-
-            int quality =100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG,quality,outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            return bitmap;
-
-        }catch (Throwable e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
-    }*/
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
