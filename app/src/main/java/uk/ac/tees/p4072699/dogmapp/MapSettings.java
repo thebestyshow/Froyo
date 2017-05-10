@@ -2,16 +2,23 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import java.util.ArrayList;
+
 public class MapSettings extends AppCompatActivity {
     Owner owner;
     int maptype;
+    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
+    Double totaldis;
+    String s;
+    ArrayList<Location> locarr = new ArrayList<Location>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,20 +29,29 @@ public class MapSettings extends AppCompatActivity {
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button save = (Button) findViewById(R.id.button_savez);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
+        lisbun = getIntent().getExtras().getBundle("bundle");
         retur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
+        totaldis = getIntent().getDoubleExtra("dis", 0);
+        s = getIntent().getStringExtra("start");
+        if (!getIntent().getParcelableArrayListExtra("locs").isEmpty()) {
+            locarr = getIntent().getParcelableArrayListExtra("locs");
+        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(con, MapsActivity.class);
+                i.putExtra("dis", totaldis);
+                i.putExtra("start", s);
+                i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("map", maptype);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
+                i.putExtra("bundle",lisbun);
                 startActivity(i);
             }
         });
