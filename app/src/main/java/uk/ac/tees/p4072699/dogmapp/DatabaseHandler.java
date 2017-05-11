@@ -488,32 +488,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
 
             ArrayList<LatLng> points = new ArrayList<LatLng>();
-            JSONObject object = new JSONObject(cursor.getString(latlngIdx));
-
-            JSONArray loc = (JSONArray) object.get("locations");
-            Log.d("JSON",loc.toString());
 
 
 
-            for (int i = 0; i < loc.length();i++){
-                JSONObject geo = (JSONObject) loc.get(i);
-                Log.d("JSON:geo",geo.toString());
-
-                JSONObject coords = (JSONObject) geo.get("geometry");
-                Log.d("JSON:coords",coords.toString());
-
-                JSONArray coord = (JSONArray) coords.get("Coords");
-                Log.d("JSON:coord", coord.toString());
-
-                double lat = Double.parseDouble(coord.get(0).toString());
-                double lng = Double.parseDouble(coord.get(1).toString());
-                points.add(new LatLng(lat,lng));
-
-            }
-
-            Log.d("LatLng Array: ", points.toString());
 
             do {
+                JSONObject object = new JSONObject(cursor.getString(latlngIdx));
+
+                JSONArray loc = (JSONArray) object.get("locations");
+                Log.d("JSON","NEW JSON....");
+
+                for (int i = 0; i < loc.length();i++){
+                    JSONObject geo = (JSONObject) loc.get(i);
+                    //Log.d("JSON:geo",geo.toString());
+
+                    JSONObject coords = (JSONObject) geo.get("geometry");
+                    //Log.d("JSON:coords",coords.toString());
+
+                    JSONArray coord = (JSONArray) coords.get("Coords");
+                    Log.d("JSON:coord", coord.toString());
+
+                    double lat = Double.parseDouble(coord.get(0).toString());
+                    double lng = Double.parseDouble(coord.get(1).toString());
+                    points.add(new LatLng(lat,lng));
+
+
+                }
+                Log.d("LatLng Array: ", points.toString());
+                Log.d("", "");
                 Walk walk = new Walk(
                         cursor.getString(nameIdx),
                         cursor.getDouble(lengthIdx),
@@ -524,6 +526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         points
                 );
                 list.add(walk);
+                points.clear();
             } while (cursor.moveToNext());
         }
 
