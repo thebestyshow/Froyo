@@ -55,6 +55,7 @@ public class StartWalk extends AppCompatActivity {
                 } else {
                     selected.add(position);
 
+
                 }
             }
         });

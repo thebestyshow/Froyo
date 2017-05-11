@@ -12,14 +12,6 @@
     tools:context="uk.ac.tees.p4072699.dogmapp.Weather">
 
 
-    <Button
-        android:text="@string/home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button_home" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,4 +55,24 @@
         android:layout_marginTop="25dp"
         android:layout_below="@+id/temperatureTextView"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/locationTextView"
+        android:layout_toEndOf="@+id/locationTextView"
+        android:id="@+id/button_refresh" />
+
+    <Button
+        android:text="@string/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_home"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/button_refresh"
+        android:layout_toStartOf="@+id/button_refresh"
+        android:layout_marginRight="42dp"
+        android:layout_marginEnd="42dp" />
 </RelativeLayout>
