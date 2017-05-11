@@ -38,15 +38,12 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
         final EditText p2 = (EditText) findViewById(R.id.Pass_con_sign);
 
         switch (v.getId()) {
-
             case R.id.Sign_Up_btn_sign:
                 String name = n.getText().toString();
                 String email = e.getText().toString();
                 String pass = p1.getText().toString();
                 String conPass = p2.getText().toString();
-
                 SQLiteDatabase db = dh.getReadableDatabase();
-
                 Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?", new String[]{email});
 
                 if (cursor != null) {

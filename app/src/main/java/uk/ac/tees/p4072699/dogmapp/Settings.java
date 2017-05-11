@@ -11,7 +11,6 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
-
         final Button retur = (Button) findViewById(R.id.button_return);
 
         retur.setOnClickListener(new View.OnClickListener() {

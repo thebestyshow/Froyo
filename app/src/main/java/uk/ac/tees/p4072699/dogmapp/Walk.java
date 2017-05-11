@@ -13,8 +13,6 @@ public class Walk implements Serializable{
     private int time;
     private ArrayList<LatLng> points;
 
-
-
     public Walk(double length, int time,ArrayList<LatLng> points) {
         this.length = length;
         this.time = time;
@@ -27,7 +25,6 @@ public class Walk implements Serializable{
         this.rating = rating;
         this.comment = comment;
         this.time = time;
-
     }
 
     public Walk(String n, double length, int rating, String comment, int time, ArrayList<LatLng> points) {
@@ -37,7 +34,6 @@ public class Walk implements Serializable{
         this.comment = comment;
         this.time = time;
         this.points = points;
-
     }
 
     public Walk(String n,double length, int rating, String comment, int id, int time) {

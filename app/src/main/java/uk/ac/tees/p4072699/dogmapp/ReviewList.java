@@ -97,6 +97,5 @@ public class ReviewList extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 }

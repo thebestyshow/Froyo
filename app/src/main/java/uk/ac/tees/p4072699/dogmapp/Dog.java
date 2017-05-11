@@ -7,15 +7,12 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Dog implements Serializable {
-
     private String name;
     private int ownerID;
     private Image img;
     private int totwalks;
     private double totdistance;
     private int id;
-
-
 
     public Dog(int id,String name, int owner,int totWalks, double totdistance) {
         this(name,owner);
@@ -35,7 +32,6 @@ public class Dog implements Serializable {
         this.name = name;
         this.ownerID = owner;
     }
-
 
     public int getTotwalks() {
         return totwalks;

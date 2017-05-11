@@ -55,7 +55,6 @@ public class Review extends AppCompatActivity {
             points.add(ltlg);
         }
 
-
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
         d = getIntent().getExtras().getDouble("dis");
@@ -129,7 +128,6 @@ public class Review extends AppCompatActivity {
                     setContentView(R.layout.activity_home);
                     finish();
                 }
-
             }
         });
 
@@ -176,7 +174,6 @@ public class Review extends AppCompatActivity {
                 p1.setImageResource(R.drawable.selected);
                 p4.setImageResource(R.drawable.paw);
                 p5.setImageResource(R.drawable.paw);
-
             }
         });
 
