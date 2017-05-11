@@ -13,6 +13,16 @@ public class Owner implements Serializable {
     private String Password;
     private Date dob;
     private Image img;
+    private String city;
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCity() {
+
+        return city;
+    }
 
     public int getId() {
         return id;
@@ -45,7 +55,6 @@ public class Owner implements Serializable {
         this.tot_dis = dis;
         this.tot_walks = tw;
     }
-
 
     public double getTot_dis() {
         return tot_dis;

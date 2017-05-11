@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
@@ -21,14 +22,33 @@ public class Home extends AppCompatActivity {
         final Context con = this;
         final Button add = (Button) findViewById(R.id.button_doglist);
         final Button help = (Button) findViewById(R.id.home_btn_help);
-        final Button start = (Button) findViewById(R.id.button_startwalk);
+        final Button start = (Button) findViewById(R.id.button_start);
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
+        final Button logout = (Button) findViewById(R.id.button_logout);
+        final Button weather = (Button) findViewById(R.id.button_weather);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView name = (TextView) findViewById(R.id.Name_test);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         name.setText(owner.getName());
+
+        weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Weather.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(con, Login.class);
+                startActivity(i);
+            }
+        });
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override

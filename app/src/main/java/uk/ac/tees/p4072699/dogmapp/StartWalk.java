@@ -2,11 +2,8 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,8 +11,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -28,7 +23,6 @@ public class StartWalk extends AppCompatActivity {
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
     List<Dog> list = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +53,6 @@ public class StartWalk extends AppCompatActivity {
                     selected.remove(Integer.valueOf(position));
                 } else {
                     selected.add(position);
-
                 }
             }
         });
@@ -96,7 +89,7 @@ public class StartWalk extends AppCompatActivity {
                 Bundle lisbun = new Bundle();
                 lisbun.putSerializable("ARRAYLIST",passList);
                 i.putExtra("bundle",lisbun);
-
+                i.putExtra("map", 0);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 Calendar c = new GregorianCalendar();
                 String s = c.getTime().toString();

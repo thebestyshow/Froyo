@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import org.json.JSONException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,12 @@ public class ReviewList extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
-        List<Walk> list = dh.getAllWalks();
+        List<Walk> list = null;
+        try {
+            list = dh.getAllWalks();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
@@ -51,7 +57,12 @@ public class ReviewList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = revId[position];
-                List<Walk> wlist = dh.getAllWalks();
+                List<Walk> wlist = null;
+                try {
+                    wlist = dh.getAllWalks();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Intent i = new Intent(con,ReviewView.class);
                 i.putExtra("walk",wlist.get(position));
                 i.putExtra("owner",owner);
@@ -86,6 +97,5 @@ public class ReviewList extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 }

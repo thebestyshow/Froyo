@@ -12,6 +12,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -60,14 +62,16 @@
         <activity android:name=".Profile" />
         <activity android:name=".StartWalk" />
         <activity
-            android:name=".Settings"
+            android:name=".MapSettings"
             android:label="@string/title_activity_settings" />
         <activity android:name=".EditDog" />
         <activity android:name=".DogProfile" />
         <activity android:name=".ReviewView" />
         <activity android:name=".EditWalk" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".changePass"></activity>
+        <activity android:name=".changePass" />
+        <activity android:name=".Settings" />
+        <activity android:name=".Weather"></activity>
     </application>
 
 </manifest>
