@@ -53,6 +53,9 @@ public class Weather extends AppCompatActivity implements Callback {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         home = (Button) findViewById(R.id.button_home);
         refresh = (Button) findViewById(R.id.button_refresh);
+        refresh.performClick();
+        
+
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override

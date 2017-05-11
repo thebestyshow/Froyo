@@ -52,10 +52,8 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
     Walk w;
     Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
-    double totaldis;
     ArrayList<LatLng> points;
     Polyline line;
-    LatLng oldlatlng;
     int maptype;
     ImageView p1, p2, p3, p4, p5;
 
