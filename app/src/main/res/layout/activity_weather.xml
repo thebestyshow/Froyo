@@ -12,14 +12,14 @@
     tools:context="uk.ac.tees.p4072699.dogmapp.Weather">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/yahoo_logo"
-        android:layout_above="@+id/button_home"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
-        android:id="@+id/imageView2" />
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:srcCompat="@drawable/yahoo_logo"-->
+    <!--android:layout_above="@+id/button_home"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="27dp"-->
+    <!--android:id="@+id/imageView2" />-->
 
     <ImageView
         android:layout_width="wrap_content"
