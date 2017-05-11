@@ -2,6 +2,7 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,10 +27,10 @@ import java.util.Date;
 public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     int paws;
-    String comments;
     Owner owner;
     Bundle lisbun;
-    byte[] img;
+    ArrayList<Location> loc;
+    ArrayList<LatLng> points = new ArrayList<LatLng>();
     ArrayList<Dog> doglist;
     ImageButton p1, p2, p3, p4, p5;
 
@@ -41,7 +47,14 @@ public class Review extends AppCompatActivity {
         lisbun  = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
-        img = getIntent().getByteArrayExtra("bytea");
+        loc = getIntent().getParcelableArrayListExtra("locs");
+        LatLng ltlg;
+
+        for (Location l : loc){
+            ltlg = new LatLng(l.getLatitude(),l.getLongitude());
+            points.add(ltlg);
+        }
+
 
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
@@ -104,8 +117,12 @@ public class Review extends AppCompatActivity {
                     t = Toast.makeText(getApplicationContext(),"Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
                 }else{
-                    //dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min)),img));
-                    dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
+                    try {
+                        dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min)),points));
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                    //dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                     Intent intent = new Intent(con, Home.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
@@ -119,7 +136,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min)))));
+                dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min))),points));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);

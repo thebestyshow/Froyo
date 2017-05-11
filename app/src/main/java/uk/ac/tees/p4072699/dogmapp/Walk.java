@@ -1,6 +1,9 @@
 package uk.ac.tees.p4072699.dogmapp;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Walk implements Serializable{
     private double length;
@@ -8,13 +11,14 @@ public class Walk implements Serializable{
     private String comment,name;
     private int id;
     private int time;
-    private byte[] image;
+    private ArrayList<LatLng> points;
 
 
 
-    public Walk(double length, int time) {
+    public Walk(double length, int time,ArrayList<LatLng> points) {
         this.length = length;
         this.time = time;
+        this.points = points;
     }
 
     public Walk(String n,double length, int rating, String comment, int time) {
@@ -26,39 +30,36 @@ public class Walk implements Serializable{
 
     }
 
-    public Walk(String n,double length, int rating, String comment, int time,byte[] img) {
+    public Walk(String n, double length, int rating, String comment, int time, ArrayList<LatLng> points) {
         this.name = n;
         this.length = length;
         this.rating = rating;
         this.comment = comment;
         this.time = time;
+        this.points = points;
 
     }
 
     public Walk(String n,double length, int rating, String comment, int id, int time) {
-        this.name = n;
-        this.length = length;
-        this.rating = rating;
-        this.comment = comment;
+        this(n,length,rating,comment,time);
         this.id = id;
-        this.time = time;
     }
 
-    public Walk(String n,double length,int rating,String comment,int id,int time,byte[] img){
+    public Walk(String n,double length,int rating,String comment,int id,int time,ArrayList<LatLng> points){
         this(n,length,rating,comment,id,time);
-        this.image = img;
+        this.points = points;
     }
 
     public void setLength(double length) {
         this.length = length;
     }
 
-    public byte[] getImage() {
-        return image;
+    public ArrayList<LatLng> getPoints() {
+        return points;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImage(ArrayList<LatLng> image) {
+        this.points = image;
     }
 
     public String getName() {
