@@ -30,17 +30,35 @@ public class MapSettings extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.button_savez);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         lisbun = getIntent().getExtras().getBundle("bundle");
+
+        totaldis = getIntent().getDoubleExtra("dis", 0);
+        s = getIntent().getStringExtra("start");
+        if (!getIntent().getParcelableArrayListExtra("locs").isEmpty()) {
+            locarr = getIntent().getParcelableArrayListExtra("locs");
+        }
+        maptype = getIntent().getIntExtra("mt", 0);
+
+        RadioButton n = (RadioButton) findViewById(R.id.radioButton_normal);
+        RadioButton t = (RadioButton) findViewById(R.id.radioButton_terrain);
+        RadioButton sa = (RadioButton) findViewById(R.id.radioButton_satellite);
+        RadioButton h = (RadioButton) findViewById(R.id.radioButton_hybrid);
+
+        if(maptype == 0) {
+            n.setChecked(true);
+        } else if (maptype == 1) {
+            sa.setChecked(true);
+        } else if (maptype == 2) {
+            t.setChecked(true);
+        } else {
+            h.setChecked(true);
+        }
+
         retur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        totaldis = getIntent().getDoubleExtra("dis", 0);
-        s = getIntent().getStringExtra("start");
-        if (!getIntent().getParcelableArrayListExtra("locs").isEmpty()) {
-            locarr = getIntent().getParcelableArrayListExtra("locs");
-        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -30,13 +30,11 @@ public class DogList extends AppCompatActivity {
         final Context con = this;
         final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
-        final Button rem = (Button) findViewById(R.id.button_remove);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         DecimalFormat df = new DecimalFormat("#.00");
         List<Dog> list = dh.getAllDogs(owner.getId());
-
 
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);

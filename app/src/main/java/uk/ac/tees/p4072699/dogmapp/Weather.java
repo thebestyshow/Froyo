@@ -19,7 +19,6 @@ import uk.ac.tees.p4072699.dogmapp.weatherservice.Callback;
 import uk.ac.tees.p4072699.dogmapp.weatherservice.YahooWeatherService;
 
 public class Weather extends AppCompatActivity implements Callback {
-
     Button home;
     Button refresh;
     Owner owner;
@@ -53,6 +52,7 @@ public class Weather extends AppCompatActivity implements Callback {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         home = (Button) findViewById(R.id.button_home);
         refresh = (Button) findViewById(R.id.button_refresh);
+        refresh.performClick();
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,18 +78,13 @@ public class Weather extends AppCompatActivity implements Callback {
 
     @Override
     public void serviceSuccess(Channel channel) {
-
         dialog.hide();
-
         Item item = channel.getItem();
         int resourceId = getResources().getIdentifier("drawable/weather_icon_" + item.getCondition().getCode(), null, getPackageName());
 
         @SuppressWarnings("deprecation")
         Drawable weatherIconDrawable = getResources().getDrawable(resourceId);
-
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
-
-
         temperatureTextView.setText(item.getCondition().getTemperature()+ "\u00b0 " + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
         locationTextView.setText(service.getLocation());

@@ -28,7 +28,6 @@ public class EditProfile extends AppCompatActivity {
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
 
-
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -67,7 +66,5 @@ public class EditProfile extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
-
 }

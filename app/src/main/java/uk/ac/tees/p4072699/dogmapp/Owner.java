@@ -56,7 +56,6 @@ public class Owner implements Serializable {
         this.tot_walks = tw;
     }
 
-
     public double getTot_dis() {
         return tot_dis;
     }

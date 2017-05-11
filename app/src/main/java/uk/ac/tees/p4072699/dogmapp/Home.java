@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Home extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class Home extends AppCompatActivity {
         final Context con = this;
         final Button add = (Button) findViewById(R.id.button_doglist);
         final Button help = (Button) findViewById(R.id.home_btn_help);
-        final Button start = (Button) findViewById(R.id.button_startwalk);
+        final Button start = (Button) findViewById(R.id.button_start);
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
         final Button logout = (Button) findViewById(R.id.button_logout);

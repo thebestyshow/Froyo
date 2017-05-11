@@ -28,14 +28,6 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/button_profile" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_revScr"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
-        android:id="@+id/Name_test" />
-
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -82,7 +74,7 @@
         android:layout_above="@+id/button_reviews"
         android:layout_alignLeft="@+id/button_reviews"
         android:layout_alignStart="@+id/button_reviews"
-        android:id="@+id/button_logout" />
+        android:id="@+id/button_start" />
 
     <Button
         android:text="@string/weather"
@@ -92,4 +84,13 @@
         android:layout_alignLeft="@+id/button_logout"
         android:layout_alignStart="@+id/button_logout"
         android:id="@+id/button_weather" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Name_test"
+        android:layout_alignBottom="@+id/imageButton_settings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp" />
+
 </RelativeLayout>

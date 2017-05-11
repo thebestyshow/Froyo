@@ -12,32 +12,23 @@
     tools:context="uk.ac.tees.p4072699.dogmapp.DogList">
 
     <Button
-        android:text="@string/add"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/button_home"
+        android:layout_width="300px"
+        android:layout_height="100px"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_add" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/lv_dgs"
-        android:layout_above="@+id/button_add"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:listSelector="#11FFFF"
-        android:layout_below="@+id/imageButton_settings" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:text="@string/home" />
 
     <ImageButton
+        android:id="@+id/imageButton_settings"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton_settings"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/settings" />
 
     <TextView
@@ -50,11 +41,33 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/home"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_home"
-        android:layout_width="120dp"
+        android:id="@+id/button_remove"
+        android:layout_width="300px"
+        android:layout_height="100px"
+        android:background="@drawable/button"
+        android:text="@string/remove"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:elevation="0dp" />
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="300px"
+        android:layout_height="100px"
+        android:background="@drawable/button"
+        android:text="@string/add"
+        android:elevation="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/lv_dgs"
+        android:listSelector="#11FFFF"
+        android:layout_below="@+id/imageButton_settings"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

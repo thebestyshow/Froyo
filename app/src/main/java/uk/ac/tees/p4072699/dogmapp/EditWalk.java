@@ -43,7 +43,6 @@ public class EditWalk extends AppCompatActivity {
         tv_dis.setText(df.format(w.getLength()));
         tv_time.setText(String.valueOf(w.getTime()));
 
-
         if (w.getRating() == 1){
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
@@ -86,7 +85,6 @@ public class EditWalk extends AppCompatActivity {
                 p5.setImageResource(R.drawable.paw);
             }
         });
-
 
         p2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

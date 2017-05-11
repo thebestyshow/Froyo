@@ -34,7 +34,6 @@ public class DogProfile extends AppCompatActivity {
         final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
-
         //totWalks.setText(Integer.toString(d.getTotwalks()));
 
         name.setText(d.getName());

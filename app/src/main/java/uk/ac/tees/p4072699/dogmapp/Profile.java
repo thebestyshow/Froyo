@@ -28,7 +28,6 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         final TextView name = (TextView) findViewById(R.id.Prof_name);
         final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
         final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
