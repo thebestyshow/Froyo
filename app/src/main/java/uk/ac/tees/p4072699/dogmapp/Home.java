@@ -21,7 +21,7 @@ public class Home extends AppCompatActivity {
         final Context con = this;
         final Button add = (Button) findViewById(R.id.button_doglist);
         final Button help = (Button) findViewById(R.id.home_btn_help);
-        final Button start = (Button) findViewById(R.id.button_startwalk);
+        final Button start = (Button) findViewById(R.id.button_start);
         final Button rev = (Button) findViewById(R.id.button_reviews);
         final Button prof = (Button) findViewById(R.id.button_profile);
         final Button logout = (Button) findViewById(R.id.button_logout);

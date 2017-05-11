@@ -82,7 +82,7 @@
         android:layout_above="@+id/button_reviews"
         android:layout_alignLeft="@+id/button_reviews"
         android:layout_alignStart="@+id/button_reviews"
-        android:id="@+id/button_logout" />
+        android:id="@+id/button_start" />
 
     <Button
         android:text="@string/weather"
