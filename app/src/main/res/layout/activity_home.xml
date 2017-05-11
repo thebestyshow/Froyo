@@ -79,9 +79,17 @@
         android:text="@string/startw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_startwalk"
-        android:background="@drawable/round_button"
-        android:layout_below="@+id/button_reviews"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp" />
+        android:layout_above="@+id/button_reviews"
+        android:layout_alignLeft="@+id/button_reviews"
+        android:layout_alignStart="@+id/button_reviews"
+        android:id="@+id/button_logout" />
+
+    <Button
+        android:text="@string/weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_logout"
+        android:layout_alignLeft="@+id/button_logout"
+        android:layout_alignStart="@+id/button_logout"
+        android:id="@+id/button_weather" />
 </RelativeLayout>
