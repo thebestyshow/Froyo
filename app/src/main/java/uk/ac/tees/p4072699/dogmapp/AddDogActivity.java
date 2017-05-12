@@ -23,7 +23,7 @@ public class AddDogActivity extends AppCompatActivity {
 
         final Context con = this;
         final Button cancel = (Button) findViewById(R.id.button_cancel);
-        final Button save = (Button) findViewById(R.id.button_savez);
+        final Button save = (Button) findViewById(R.id.button_save);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         owner = (Owner)getIntent().getSerializableExtra("owner");
