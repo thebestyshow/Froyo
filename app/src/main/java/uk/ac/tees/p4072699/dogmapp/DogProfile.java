@@ -20,6 +20,7 @@ public class DogProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Dog Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
 
@@ -34,7 +35,6 @@ public class DogProfile extends AppCompatActivity {
         final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
-
         //totWalks.setText(Integer.toString(d.getTotwalks()));
 
         name.setText(d.getName());

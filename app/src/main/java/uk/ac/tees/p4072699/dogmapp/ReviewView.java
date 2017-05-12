@@ -73,7 +73,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         DecimalFormat df = new DecimalFormat("#.00");
         points = w.getPoints();
 
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission() == true) {
                 locRequest = LocationRequest.create()
@@ -93,7 +92,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         p3 = (ImageView) findViewById(R.id.paw_3);
         p4 = (ImageView) findViewById(R.id.paw_4);
         p5 = (ImageView) findViewById(R.id.paw_5);
-
 
         if (w.getRating() == 1){
             p1.setImageResource(R.drawable.selected);
@@ -127,7 +125,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             p1.setImageResource(R.drawable.selected);
         }
 
-
         retur.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -157,7 +154,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                 startActivity(intent);
             }
         });
-
     }
 
     public static Bitmap getImage(byte[] image) {
@@ -166,14 +162,11 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         }else{
             return BitmapFactory.decodeByteArray(image, 0, image.length);
         }
-
     }
 
     public void redrawLine(){
         map.clear();
-
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
-
         int f = points.size();
 
         for (int i = 0; i < f; i++) {

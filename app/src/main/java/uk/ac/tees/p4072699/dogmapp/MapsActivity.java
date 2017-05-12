@@ -64,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Map");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         points = new ArrayList<LatLng>();
@@ -79,7 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }else{
             Log.d("ERROR","Empty location array");
         }
-
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
@@ -142,6 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     locarr.add(loc);
                 }
                 Intent i = new Intent(con, MapSettings.class);
+                i.putExtra("mt", maptype);
                 i.putExtra("dis", totaldis);
                 i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("start", s);
@@ -235,10 +236,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void redrawLine(){
         try{
             map.clear();
-
-
             PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
-
             int f = points.size();
 
             for (int i = 0; i < f; i++) {

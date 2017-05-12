@@ -15,12 +15,12 @@ import java.util.Date;
 import java.util.List;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-
     DatabaseHandler dh = new DatabaseHandler(this);
     Button sign, log, datashow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Login");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -62,11 +62,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.Log_in_btn_log:
                 String email = emailtxt.getText().toString();
                 String pass = passtxt.getText().toString().trim();
-
                 SQLiteDatabase db = dh.getReadableDatabase();
 
                 Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{email});
-
                 Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
 
                 if (cursor != null) {

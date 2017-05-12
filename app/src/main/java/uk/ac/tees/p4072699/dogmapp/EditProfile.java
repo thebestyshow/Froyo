@@ -14,6 +14,7 @@ public class EditProfile extends AppCompatActivity {
     Toast t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Edit Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
@@ -27,7 +28,6 @@ public class EditProfile extends AppCompatActivity {
 
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
-
 
         save.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,7 +67,5 @@ public class EditProfile extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
-
 }

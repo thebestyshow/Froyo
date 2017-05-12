@@ -76,6 +76,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_NAME = "route_name";
 
+    private static final String COL_ROUTE_DATE = "route_date";
 
     public String getCOL_PASS() {
         return COL_PASS;
@@ -123,7 +124,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER, "
-            + COL_POINTS + " TEXT);";
+            + COL_POINTS + " TEXT, "
+            + COL_ROUTE_DATE + "DATE);";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -216,19 +218,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "DOG DELETED");
     }
 
-    public void addDogWalk(ArrayList<Dog> list,double dis) {
-
-
+    public void addDogWalk(ArrayList<Dog> list, double dis) {
         ContentValues values = new ContentValues();
-
         for (Dog d : list) {
 
             SQLiteDatabase db = getWritableDatabase();
 
-            d.setTotwalks(d.getTotwalks()+1);
+            d.setTotwalks(d.getTotwalks() + 1);
 
             d.setTotdistance(d.getTotdistance() + dis);
-
 
             values.put(COL_TOT_WALKS, d.getTotwalks());
             values.put(COL_TOT_DIS, String.valueOf(d.getTotdistance()));
@@ -239,7 +237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     null);
 
             db.close();
-            Log.d("Database", d.getId() +" DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
+            Log.d("Database", d.getId() + " DOG: " + d.getName() + " " + d.getTotwalks() + " " + d.getTotdistance());
         }
     }
 
@@ -276,8 +274,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
+        values.put(COL_ROUTE_DATE, df.format(w.getDate()));
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -293,27 +293,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         JSONObject coll = new JSONObject();
 
-        try{
-            coll.put("type","coll");
+        try {
+            coll.put("type", "coll");
             JSONArray collList = new JSONArray();
 
-            for (LatLng obj : w.getPoints()){
+            for (LatLng obj : w.getPoints()) {
                 JSONObject point = new JSONObject();
 
-                JSONArray coord = new JSONArray("["+ obj.latitude+ "," +obj.longitude + "]");
-                point.put("Coords",coord);
+                JSONArray coord = new JSONArray("[" + obj.latitude + "," + obj.longitude + "]");
+                point.put("Coords", coord);
 
                 JSONObject location = new JSONObject();
 
-                location.put("geometry",point);
+                location.put("geometry", point);
                 collList.put(location);
-                coll.put("locations",collList);
+                coll.put("locations", collList);
             }
-        }catch (JSONException e){
-            Log.d("JSON","cant save JSON object: " + e.toString());
+        } catch (JSONException e) {
+            Log.d("JSON", "cant save JSON object: " + e.toString());
         }
-        Log.d("JSON","Location Collection" + coll.toString());
-
+        Log.d("JSON", "Location Collection" + coll.toString());
 
 /*        Log.d("Array",w.getPoints().toString());
         JSONObject json = new JSONObject();
@@ -321,57 +320,53 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String latlngArr = json.toString();
 
         Log.d("JSON",latlngArr);*/
+        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
 
-        values.put(COL_ROUTE_NAME,w.getName());
+        values.put(COL_ROUTE_TIME, df.format(w.getDate()));
+        values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
         values.put(COL_ROUTE_RATING, w.getRating());
         values.put(COL_ROUTE_COMMENT, w.getComment());
-        values.put(COL_POINTS,coll.toString());
-
+        values.put(COL_POINTS, coll.toString());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
 
         Log.d("DATABASE", "NEW WALK ADDED");
-
         return input;
     }
 
-    public void editWalk(Walk w){
+    public void editWalk(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
-
         ContentValues values = new ContentValues();
 
-        values.put(COL_ROUTE_NAME,w.getName());
-        values.put(COL_ROUTE_COMMENT,w.getComment());
-        values.put(COL_ROUTE_RATING,w.getRating());
+        values.put(COL_ROUTE_NAME, w.getName());
+        values.put(COL_ROUTE_COMMENT, w.getComment());
+        values.put(COL_ROUTE_RATING, w.getRating());
 
         db.update(WALK_TABLE_NAME,
                 values,
                 COL_ID + " = " + w.getId(),
                 null);
-
         db.close();
 
-        Log.d("Database","Walk Updated" + w.getId() + " : " + w.getName() + " : " + w.getComment() + " : " + w.getRating());
-
+        Log.d("Database", "Walk Updated" + w.getId() + " : " + w.getName() + " : " + w.getComment() + " : " + w.getRating());
     }
 
-    public Owner getOwnerHelper(Owner o){
+    public Owner getOwnerHelper(Owner o) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " + COL_EMAIL + "=?",new String[]{o.getEmail()});
+        Cursor c = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " + COL_EMAIL + "=?", new String[]{o.getEmail()});
 
         return getOneOwner(c);
     }
 
-    public Dog getDogHelper(Dog d){
+    public Dog getDogHelper(Dog d) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID + "=?",new String[]{d.getName()});
+        Cursor c = db.rawQuery("SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID + "=?", new String[]{d.getName()});
 
         return getOneDog(c);
     }
-
 
     public Dog getOneDog(Cursor c) {
 
@@ -395,15 +390,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public void editUser(Owner owner){
+    public void editUser(Owner owner) {
         SQLiteDatabase db = getWritableDatabase();
-
 
         ContentValues values = new ContentValues();
 
-        values.put(COL_NAME,owner.getName());
-        values.put(COL_EMAIL,owner.getEmail());
-        values.put(COL_PASS,owner.getPassword());
+        values.put(COL_NAME, owner.getName());
+        values.put(COL_EMAIL, owner.getEmail());
+        values.put(COL_PASS, owner.getPassword());
 
         db.update(OWNER_LOGIN_TABLE,
                 values,
@@ -486,19 +480,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
+            int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
             ArrayList<LatLng> points = new ArrayList<LatLng>();
-
-
-
 
             do {
                 JSONObject object = new JSONObject(cursor.getString(latlngIdx));
 
                 JSONArray loc = (JSONArray) object.get("locations");
-                Log.d("JSON","NEW JSON....");
+                Log.d("JSON", "NEW JSON....");
 
-                for (int i = 0; i < loc.length();i++){
+                for (int i = 0; i < loc.length(); i++) {
                     JSONObject geo = (JSONObject) loc.get(i);
                     //Log.d("JSON:geo",geo.toString());
 
@@ -510,9 +502,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     double lat = Double.parseDouble(coord.get(0).toString());
                     double lng = Double.parseDouble(coord.get(1).toString());
-                    points.add(new LatLng(lat,lng));
-
-
+                    points.add(new LatLng(lat, lng));
                 }
                 Log.d("LatLng Array: ", points.toString());
                 Log.d("", "");
@@ -529,37 +519,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 points.clear();
             } while (cursor.moveToNext());
         }
-
         return list;
     }
 
 
-    public void addOwnerWalk(Owner o,double dis){
+    public void addOwnerWalk(Owner o, double dis) {
         SQLiteDatabase db = getWritableDatabase();
-
 
         ContentValues values = new ContentValues();
 
         double totdis = o.getTot_dis() + dis;
         o.setTot_dis(totdis);
-        int walks = o.getTot_walks()+1;
+        int walks = o.getTot_walks() + 1;
         o.setTot_walks(walks);
 
-        values.put(COL_TOT_WALKS,walks);
-        values.put(COL_TOT_DIS,String.valueOf(totdis));
+        values.put(COL_TOT_WALKS, walks);
+        values.put(COL_TOT_DIS, String.valueOf(totdis));
 
         db.update(OWNER_LOGIN_TABLE,
                 values,
                 COL_ID + " = " + o.getId(),
                 null);
-
         db.close();
 
         Log.d("Database", o.getId() + " Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
-
-
-
 
 
     public String getOwnerLogintable() {

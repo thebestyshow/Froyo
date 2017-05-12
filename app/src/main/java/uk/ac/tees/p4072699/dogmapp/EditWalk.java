@@ -20,6 +20,7 @@ public class EditWalk extends AppCompatActivity {
     ImageButton p1, p2, p3, p4, p5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Edit Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_walk);
         owner = (Owner) getIntent().getSerializableExtra("owner");
@@ -42,7 +43,6 @@ public class EditWalk extends AppCompatActivity {
         etcomm.setText(w.getComment());
         tv_dis.setText(df.format(w.getLength()));
         tv_time.setText(String.valueOf(w.getTime()));
-
 
         if (w.getRating() == 1){
             p1.setImageResource(R.drawable.selected);
@@ -86,7 +86,6 @@ public class EditWalk extends AppCompatActivity {
                 p5.setImageResource(R.drawable.paw);
             }
         });
-
 
         p2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

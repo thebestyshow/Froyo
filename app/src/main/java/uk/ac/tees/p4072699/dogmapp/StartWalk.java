@@ -24,9 +24,9 @@ public class StartWalk extends AppCompatActivity {
     List<Integer> selected = new ArrayList<Integer>();
     List<Dog> list = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Start Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_walk);
 
@@ -54,8 +54,6 @@ public class StartWalk extends AppCompatActivity {
                     selected.remove(Integer.valueOf(position));
                 } else {
                     selected.add(position);
-
-
                 }
             }
         });

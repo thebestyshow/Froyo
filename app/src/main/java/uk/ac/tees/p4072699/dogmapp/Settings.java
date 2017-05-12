@@ -9,9 +9,9 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Settings");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
-
         final Button retur = (Button) findViewById(R.id.button_return);
 
         retur.setOnClickListener(new View.OnClickListener() {

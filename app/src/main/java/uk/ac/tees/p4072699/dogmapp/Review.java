@@ -42,6 +42,7 @@ public class Review extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Review Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         lisbun  = getIntent().getExtras().getBundle("bundle");
@@ -54,7 +55,6 @@ public class Review extends AppCompatActivity {
             ltlg = new LatLng(l.getLatitude(),l.getLongitude());
             points.add(ltlg);
         }
-
 
         e = getIntent().getStringExtra("end");
         s = getIntent().getStringExtra("start");
@@ -129,7 +129,6 @@ public class Review extends AppCompatActivity {
                     setContentView(R.layout.activity_home);
                     finish();
                 }
-
             }
         });
 
@@ -176,7 +175,6 @@ public class Review extends AppCompatActivity {
                 p1.setImageResource(R.drawable.selected);
                 p4.setImageResource(R.drawable.paw);
                 p5.setImageResource(R.drawable.paw);
-
             }
         });
 
