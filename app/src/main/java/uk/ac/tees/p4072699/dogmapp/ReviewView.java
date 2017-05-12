@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -50,7 +51,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
     LocationManager lm;
     Owner owner;
     Walk w;
-    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
     ArrayList<LatLng> points;
     Polyline line;
@@ -61,6 +61,8 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_view);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapo);
+        mapFragment.getMapAsync(this);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
@@ -73,15 +75,10 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         DecimalFormat df = new DecimalFormat("#.00");
         points = w.getPoints();
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkLocationPermission() == true) {
-                locRequest = LocationRequest.create()
-                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                        .setInterval(10);
-                lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, (android.location.LocationListener) this);
-            }
-        }
+        locRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         name.setText(w.getName());
         comm.setText(w.getComment());
@@ -225,28 +222,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         }
     }
 
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
     public void setMapType() {
         int i = maptype;
         if (i == 0) {
@@ -267,29 +242,5 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                 .addApi(LocationServices.API)
                 .build();
         googleAPI.connect();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        if (googleAPI == null) {
-                            buildGoogleApiClient();
-                        }
-                        map.setMyLocationEnabled(true);
-                    }
-                } else {
-                    Toast.makeText(this, "Permission Deined", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
     }
 }

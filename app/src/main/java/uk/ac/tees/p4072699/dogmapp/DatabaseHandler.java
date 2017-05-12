@@ -277,7 +277,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
-        values.put(COL_ROUTE_DATE, df.format(w.getDate()));
+        //values.put(COL_ROUTE_DATE, df.format(w.getDate()));
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -322,7 +322,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("JSON",latlngArr);*/
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
 
-        values.put(COL_ROUTE_TIME, df.format(w.getDate()));
+        //values.put(COL_ROUTE_DATE, df.format(w.getDate()));
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());

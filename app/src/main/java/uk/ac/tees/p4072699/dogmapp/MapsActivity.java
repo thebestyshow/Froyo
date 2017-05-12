@@ -174,6 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void setMapType() {
         int i = maptype;
+        Log.d("maptype", Integer.toString(i));
         if (i == 0) {
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         } else if (i == 1) {

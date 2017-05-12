@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -84,18 +85,23 @@ public class MapSettings extends AppCompatActivity {
                 if (checked) {
                     maptype = 0;
                 }
+                break;
             case R.id.radioButton_hybrid:
                 if (checked) {
                     maptype = 3;
                 }
+                break;
             case R.id.radioButton_terrain:
                 if (checked) {
                     maptype = 2;
                 }
+                break;
             case R.id.radioButton_satellite:
                 if (checked) {
                     maptype = 1;
                 }
+                break;
         }
+        Log.d("maptype", Integer.toString(maptype));
     }
 }
