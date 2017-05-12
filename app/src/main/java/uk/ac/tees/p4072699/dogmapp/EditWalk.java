@@ -20,6 +20,7 @@ public class EditWalk extends AppCompatActivity {
     ImageButton p1, p2, p3, p4, p5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Edit Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_walk);
         owner = (Owner) getIntent().getSerializableExtra("owner");

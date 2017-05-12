@@ -19,6 +19,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Sign Up");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 

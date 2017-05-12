@@ -34,6 +34,7 @@ public class Weather extends AppCompatActivity implements Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Weather");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 

@@ -24,6 +24,7 @@ public class Profile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 

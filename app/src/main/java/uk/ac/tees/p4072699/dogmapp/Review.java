@@ -42,6 +42,7 @@ public class Review extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Review Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         lisbun  = getIntent().getExtras().getBundle("bundle");
