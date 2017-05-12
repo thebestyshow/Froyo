@@ -87,13 +87,14 @@
         <!--android:layout_alignStart="@+id/button_logout"-->
         <!--android:id="@+id/button_weather" />-->
 
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Name_test"
         android:layout_alignBottom="@+id/imageButton_settings"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp" />
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
