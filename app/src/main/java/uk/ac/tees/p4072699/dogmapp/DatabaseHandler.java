@@ -277,7 +277,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
-        //values.put(COL_ROUTE_DATE, df.format(w.getDate()));
+        values.put(COL_ROUTE_DATE, df.format(w.getDate()));
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -504,6 +504,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     double lng = Double.parseDouble(coord.get(1).toString());
                     points.add(new LatLng(lat, lng));
                 }
+
+
                 Log.d("LatLng Array: ", points.toString());
                 Log.d("", "");
                 Walk walk = new Walk(
@@ -517,6 +519,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 );
                 list.add(walk);
                 points.clear();
+                Log.d("Debug", points.toString());
             } while (cursor.moveToNext());
         }
         return list;

@@ -11,7 +11,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context="uk.ac.tees.p4072699.dogmapp.MapsActivity"
     android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="465dp" />
 
     <Button
         android:text="@string/end"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,10 +62,12 @@ public class ReviewList extends AppCompatActivity {
                 List<Walk> wlist = null;
                 try {
                     wlist = dh.getAllWalks();
+                    Log.d("DATABASE",wlist.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Intent i = new Intent(con,ReviewView.class);
+                Log.d("Debug",wlist.get(position).getPoints().toString());
                 i.putExtra("walk",wlist.get(position));
                 i.putExtra("owner",owner);
                 startActivity(i);
