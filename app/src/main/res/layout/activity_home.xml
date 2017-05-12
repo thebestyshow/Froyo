@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/mappground">
+        android:background="@drawable/mappground"
+        android:baselineAligned="false">
     <!--<Button-->
         <!--android:text="@string/Help"-->
         <!--android:layout_width="wrap_content"-->
@@ -87,14 +88,29 @@
         <!--android:layout_alignStart="@+id/button_logout"-->
         <!--android:id="@+id/button_weather" />-->
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Name_test"
-        android:layout_alignBottom="@+id/imageButton_settings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ListView
+                android:layout_centerHorizontal="true"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                android:id="@+id/lv_walks"
+                android:elevation="19dp"
+                android:visibility="visible" />
+
+            <Button
+                android:text="@string/startw"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/button_startw"
+                android:layout_marginBottom="43dp"
+                android:background="@drawable/roundedbutton"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -107,7 +123,6 @@
 
 
     </android.support.design.widget.NavigationView>
-
 
 
 </android.support.v4.widget.DrawerLayout>

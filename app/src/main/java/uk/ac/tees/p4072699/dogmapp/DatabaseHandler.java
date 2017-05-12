@@ -485,6 +485,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ArrayList<LatLng> points = new ArrayList<LatLng>();
 
             do {
+                points.clear();
                 JSONObject object = new JSONObject(cursor.getString(latlngIdx));
 
                 JSONArray loc = (JSONArray) object.get("locations");
@@ -498,7 +499,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     //Log.d("JSON:coords",coords.toString());
 
                     JSONArray coord = (JSONArray) coords.get("Coords");
-                    Log.d("JSON:coord", coord.toString());
+                    //Log.d("JSON:coord", coord.toString());
 
                     double lat = Double.parseDouble(coord.get(0).toString());
                     double lng = Double.parseDouble(coord.get(1).toString());
@@ -518,8 +519,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         points
                 );
                 list.add(walk);
-                points.clear();
-                Log.d("Debug", points.toString());
+
+                //Log.d("Debug", points.toString());
             } while (cursor.moveToNext());
         }
         return list;

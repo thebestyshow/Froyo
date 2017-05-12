@@ -12,14 +12,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ReviewList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Owner owner;
+    Walk w;
     int selected;
     String[] reviews = {};
     Integer[] revId = {};
@@ -35,6 +39,14 @@ public class ReviewList extends AppCompatActivity {
         final Button rem = (Button) findViewById(R.id.button_removerev);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
+        ArrayList<LatLng> tempP;
+        if (getIntent().getSerializableExtra("walk")==null){
+
+        }else{
+            tempP = getIntent().getParcelableArrayListExtra("pointsarray");
+            w = (Walk)getIntent().getSerializableExtra("walk");
+            w.setPoints(tempP);
+        }
 
         List<Walk> list = null;
         try {
@@ -67,7 +79,10 @@ public class ReviewList extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent i = new Intent(con,ReviewView.class);
-                Log.d("Debug",wlist.get(position).getPoints().toString());
+                Log.d("SELECTED WALK",wlist.get(position).getName());
+                Log.d("SELECTED ARRAY",wlist.get(position).getPoints().toString());
+                i.putParcelableArrayListExtra("pointsarray",wlist.get(position).getPoints());
+                wlist.get(position).setPoints(null);
                 i.putExtra("walk",wlist.get(position));
                 i.putExtra("owner",owner);
                 startActivity(i);
