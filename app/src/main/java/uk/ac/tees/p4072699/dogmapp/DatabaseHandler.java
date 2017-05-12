@@ -76,6 +76,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COL_ROUTE_NAME = "route_name";
 
+    private static final String COL_ROUTE_DATE = "route_date";
+
     public String getCOL_PASS() {
         return COL_PASS;
     }
@@ -122,7 +124,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_ROUTE_TIME + " TEXT, "
             + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER, "
-            + COL_POINTS + " TEXT);";
+            + COL_POINTS + " TEXT, "
+            + COL_ROUTE_DATE + "DATE);";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -271,8 +274,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
+        values.put(COL_ROUTE_DATE, df.format(w.getDate()));
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -315,6 +320,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String latlngArr = json.toString();
 
         Log.d("JSON",latlngArr);*/
+        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
+
+        values.put(COL_ROUTE_TIME, df.format(w.getDate()));
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
@@ -472,6 +480,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
+            int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
             ArrayList<LatLng> points = new ArrayList<LatLng>();
 

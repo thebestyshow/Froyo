@@ -14,6 +14,7 @@ public class changePass extends AppCompatActivity {
     Toast t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Change Password");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pass);
 

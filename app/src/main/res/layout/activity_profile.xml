@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        app:srcCompat="@drawable/settings" />
+        app:srcCompat="@mipmap/ic_settings_black_24dp" />
 
     <TextView
         android:text="TextView"

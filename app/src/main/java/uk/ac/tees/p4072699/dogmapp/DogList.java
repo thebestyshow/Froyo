@@ -24,6 +24,7 @@ public class DogList extends AppCompatActivity {
     Owner owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Dogs");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_list);
 
