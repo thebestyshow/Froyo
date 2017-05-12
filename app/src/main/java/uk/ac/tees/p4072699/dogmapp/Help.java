@@ -15,6 +15,7 @@ public class Help extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Help");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 

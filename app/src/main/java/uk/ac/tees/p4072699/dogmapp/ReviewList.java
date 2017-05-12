@@ -25,6 +25,7 @@ public class ReviewList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Reviews");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_list);
 

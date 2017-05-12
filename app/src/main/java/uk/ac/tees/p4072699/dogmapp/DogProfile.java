@@ -20,6 +20,7 @@ public class DogProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Dog Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
 

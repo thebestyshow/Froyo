@@ -64,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Map");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         points = new ArrayList<LatLng>();
@@ -173,6 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void setMapType() {
         int i = maptype;
+        Log.d("maptype", Integer.toString(i));
         if (i == 0) {
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         } else if (i == 1) {
