@@ -29,16 +29,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/button"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/settings" />
-
-    <TextView
-        android:text="@string/dogs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        app:srcCompat="@mipmap/ic_settings_black_24dp" />
 
     <Button
         android:id="@+id/button_remove"

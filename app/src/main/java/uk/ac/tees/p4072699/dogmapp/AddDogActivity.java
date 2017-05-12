@@ -15,6 +15,7 @@ public class AddDogActivity extends AppCompatActivity {
     Owner owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Add Dog Activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
 

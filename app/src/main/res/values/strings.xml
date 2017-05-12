@@ -6,6 +6,8 @@
     <string name="editProf">Edit Profile</string>
     <string name="logout">Logout</string>
     <string name="weather">Weather</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 
     <!--String for activity_add_dog and activity_dog_list-->
