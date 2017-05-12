@@ -16,6 +16,7 @@ public class EditDog extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Add Dog");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
 

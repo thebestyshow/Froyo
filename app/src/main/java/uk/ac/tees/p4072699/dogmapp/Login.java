@@ -20,6 +20,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Login");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

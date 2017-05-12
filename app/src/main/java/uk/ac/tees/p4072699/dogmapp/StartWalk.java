@@ -26,6 +26,7 @@ public class StartWalk extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Start Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_walk);
 

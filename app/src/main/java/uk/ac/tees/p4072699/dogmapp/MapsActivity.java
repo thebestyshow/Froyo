@@ -64,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Map");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         points = new ArrayList<LatLng>();

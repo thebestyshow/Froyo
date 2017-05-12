@@ -22,6 +22,7 @@ public class MapSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Map Settings");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
