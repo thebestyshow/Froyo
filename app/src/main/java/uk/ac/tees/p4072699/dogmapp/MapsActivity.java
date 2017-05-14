@@ -87,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                         .setInterval(10);
                 lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, this);
+                lm.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 400, 1, this);
             }
         }
 
@@ -174,6 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void setMapType() {
         int i = maptype;
+        Log.d("maptype", Integer.toString(i));
         if (i == 0) {
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         } else if (i == 1) {

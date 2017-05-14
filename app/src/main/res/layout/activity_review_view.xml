@@ -10,6 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.ReviewView">
+
     <Button
         android:text="@string/retur"
         android:layout_width="wrap_content"
@@ -27,14 +28,6 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/button_savez" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView_Revname"
-        android:textStyle="normal|bold" />
-
     <Button
         android:text="@string/rem"
         android:layout_width="wrap_content"
@@ -44,56 +37,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/paw_1"
-        android:layout_alignEnd="@+id/paw_1"
-        android:id="@+id/textView_dis"
-        android:layout_toEndOf="@+id/paw_1"
-        android:layout_toRightOf="@+id/paw_1"
-        android:textAlignment="viewEnd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_time"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/paw_4"
-        android:layout_toEndOf="@+id/paw_4"
-        android:textAlignment="viewEnd" />
-
-    <TextView
-        android:text="@string/totTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView20"
-        android:layout_alignBaseline="@+id/textView_time"
-        android:layout_alignBottom="@+id/textView_time"
-        android:layout_alignRight="@+id/button_savez"
-        android:layout_alignEnd="@+id/button_savez" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="69dp"
-        android:id="@+id/textView_Review"
-        android:textAlignment="center"
-        android:layout_below="@+id/textView_Revname"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="@string/totdis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView18"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="50dp"
@@ -162,21 +105,91 @@
         android:elevation="0dp"
         android:scaleType="fitCenter"
         android:onClick="paw1"
-        android:layout_marginBottom="59dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
         android:layout_above="@+id/button_return"
         android:layout_alignRight="@+id/button_return"
         android:layout_alignEnd="@+id/button_return" />
 
-    <com.google.android.gms.maps.MapFragment
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
+    <TextView
+        android:text="@string/totdis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_above="@+id/paw_2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/review_map"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/textView_Review"
+        android:textAlignment="center"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView18"
+        android:layout_below="@+id/frameLayout"
+        android:layout_height="70dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_time"
+        android:textAlignment="viewEnd"
+        android:text="#4514869"
+        android:layout_below="@+id/textView_Review"
+        android:layout_alignRight="@+id/paw_5"
+        android:layout_alignEnd="@+id/paw_5" />
+
+    <TextView
+        android:text="@string/totTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/textView_Review"
+        android:layout_toLeftOf="@+id/textView_time"
+        android:layout_toStartOf="@+id/textView_time"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_dis"
+        android:text="546565465"
+        android:layout_below="@+id/textView_Review"
+        android:layout_toRightOf="@+id/textView18"
+        android:layout_toEndOf="@+id/textView18"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_Revname"
+        android:textStyle="normal|bold"
+        android:text="nfvh vbhbv"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_Revname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp">
+
+        <fragment
+            android:id="@+id/mapo"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            tools:context="uk.ac.tees.p4072699.dogmapp.ReviewView"
+            android:layout_width="match_parent"
+            android:layout_height="288dp"
+            android:layout_above="@+id/textView_dis" />
+    </FrameLayout>
 
 </RelativeLayout>

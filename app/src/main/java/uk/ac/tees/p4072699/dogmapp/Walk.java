@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Walk implements Serializable{
     private double length;
@@ -12,19 +13,32 @@ public class Walk implements Serializable{
     private int id;
     private int time;
     private ArrayList<LatLng> points;
+    private Date date;
 
-    public Walk(double length, int time,ArrayList<LatLng> points) {
+    public Walk(double length, int time, ArrayList<LatLng> points) {
         this.length = length;
         this.time = time;
         this.points = points;
     }
 
-    public Walk(String n,double length, int rating, String comment, int time) {
+    public Walk(String name, double length, int rating, String comment, int time, int id, ArrayList<LatLng> points, Date date) {
+        this.length = length;
+        this.rating = rating;
+        this.comment = comment;
+        this.name = name;
+        this.id = id;
+        this.time = time;
+        this.points = points;
+        this.date = date;
+    }
+
+    public Walk(String n, double length, int rating, String comment, int time) {
         this.name = n;
         this.length = length;
         this.rating = rating;
         this.comment = comment;
         this.time = time;
+
     }
 
     public Walk(String n, double length, int rating, String comment, int time, ArrayList<LatLng> points) {
@@ -44,6 +58,18 @@ public class Walk implements Serializable{
     public Walk(String n,double length,int rating,String comment,int id,int time,ArrayList<LatLng> points){
         this(n,length,rating,comment,id,time);
         this.points = points;
+    }
+
+    public void setPoints(ArrayList<LatLng> points) {
+        this.points = points;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setLength(double length) {

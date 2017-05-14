@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,9 +30,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -50,19 +55,20 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
     LocationManager lm;
     Owner owner;
     Walk w;
-    Bundle lisbun;
     DatabaseHandler dh = new DatabaseHandler(this);
     ArrayList<LatLng> points;
     Polyline line;
-    int maptype;
     ImageView p1, p2, p3, p4, p5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_view);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapo);
+        mapFragment.getMapAsync(this);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
+
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
         final TextView dis = (TextView) findViewById(R.id.textView_dis);
@@ -71,22 +77,24 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
         DecimalFormat df = new DecimalFormat("#.00");
-        points = w.getPoints();
+        points = getIntent().getParcelableArrayListExtra("pointsarray");
+        w.setPoints(points);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkLocationPermission() == true) {
-                locRequest = LocationRequest.create()
-                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                        .setInterval(10);
-                lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 400, 1, (android.location.LocationListener) this);
-            }
-        }
+        Log.d("dsa","CURRENT LATLONGS : " + points.toString());
+        //points.add(l1);
+        //points.add(l2);
+
+        locRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10);
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         name.setText(w.getName());
         comm.setText(w.getComment());
-        dis.setText(df.format(w.getLength()));
+        dis.setText(df.format(w.getLength()) + "km");
         time.setText(String.valueOf(w.getTime()));
+
+
         p1 = (ImageView) findViewById(R.id.paw_1);
         p2 = (ImageView) findViewById(R.id.paw_2);
         p3 = (ImageView) findViewById(R.id.paw_3);
@@ -129,8 +137,10 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onClick(View view){
                 Intent i = new Intent(getApplicationContext(),ReviewList.class);
-                i.putExtra("walk",w);
                 i.putExtra("owner",owner);
+                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                w.setPoints(null);
+                i.putExtra("walk",w);
                 startActivity(i);
             }
         });
@@ -139,6 +149,8 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), EditWalk.class);
+                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                w.setPoints(null);
                 i.putExtra("walk",w);
                 i.putExtra("owner",owner);
                 startActivity(i);
@@ -156,15 +168,9 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         });
     }
 
-    public static Bitmap getImage(byte[] image) {
-        if (image == null){
-            return null;
-        }else{
-            return BitmapFactory.decodeByteArray(image, 0, image.length);
-        }
-    }
 
     public void redrawLine(){
+        Log.d("Redraw","Redraw line start");
         map.clear();
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
         int f = points.size();
@@ -176,6 +182,10 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         //Something goes here. Something to do with markers
         //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
         line = map.addPolyline(options);
+        zoomRoute(map,points);
+        points.clear();
+        Log.d("DEBUG","Array after draw: " + points.toString());
+        Log.d("Redraw","Redraw line finish");
     }
 
 
@@ -185,10 +195,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
-            if (location == null) {
-            } else {
-                redrawLine();
-            }
+
         }
     }
 
@@ -210,7 +217,8 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        setMapType();
+
+        redrawLine();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -223,42 +231,63 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             buildGoogleApiClient();
             map.setMyLocationEnabled(true);
         }
+
+        map.getUiSettings().setScrollGesturesEnabled(false);
     }
 
+    public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+        Log.d("Zoom","Zoom start");
+        if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()){
+            return;
+        }
 
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+        LatLngBounds currentLatLongBounds = googleMap.getProjection().getVisibleRegion().latLngBounds;
+        boolean updateBounds = false;
+        for (LatLng latlng : lstLatLngRoute){
+            if (!currentLatLongBounds.contains(latlng)){
+                updateBounds = true;
             }
-            return false;
-        } else {
-            return true;
         }
-    }
-    public void setMapType() {
-        int i = maptype;
-        if (i == 0) {
-            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        } else if (i == 1) {
-            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        } else if (i == 2) {
-            map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        } else {
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+        if (updateBounds){
+            CameraUpdate cameraUpdate;
+
+            if (lstLatLngRoute.size()==1){
+                LatLng latlng = lstLatLngRoute.iterator().next();
+
+                cameraUpdate = CameraUpdateFactory.newLatLng(latlng);
+            }else {
+                LatLngBounds.Builder builder = LatLngBounds.builder();
+                for (LatLng latlng : lstLatLngRoute){
+                    builder.include(latlng);
+                }
+
+                LatLngBounds latLongBounds = builder.build();
+
+                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,90);
+
+                try{
+                    googleMap.animateCamera(cameraUpdate,500,
+                            new GoogleMap.CancelableCallback(){
+                                @Override
+                                public void onFinish(){
+
+                                }
+
+                                @Override
+                                public void onCancel(){
+
+                                }
+                            });
+                } catch (IllegalStateException ex){
+                }
+            }
         }
+
+        Log.d("Zoom","Zoom Finish");
     }
+
 
     protected synchronized void buildGoogleApiClient() {
         googleAPI = new GoogleApiClient.Builder(this)
@@ -267,29 +296,5 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                 .addApi(LocationServices.API)
                 .build();
         googleAPI.connect();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        if (googleAPI == null) {
-                            buildGoogleApiClient();
-                        }
-                        map.setMyLocationEnabled(true);
-                    }
-                } else {
-                    Toast.makeText(this, "Permission Deined", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
     }
 }
