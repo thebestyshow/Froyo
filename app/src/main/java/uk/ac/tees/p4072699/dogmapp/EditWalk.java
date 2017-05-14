@@ -9,15 +9,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class EditWalk extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Walk w;
     Owner owner;
     int rating;
-    String comm,name;
+    String name;
     ImageButton p1, p2, p3, p4, p5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Walk");
@@ -26,6 +30,8 @@ public class EditWalk extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
         rating = w.getRating();
+        ArrayList<LatLng> tempP = getIntent().getParcelableArrayListExtra("pointsarray");
+        w.setPoints(tempP);
         final EditText etname = (EditText) findViewById(R.id.et_name);
         final EditText etcomm = (EditText) findViewById(R.id.et_comm);
         final TextView tv_dis = (TextView) findViewById(R.id.tv_distance);
@@ -140,6 +146,8 @@ public class EditWalk extends AppCompatActivity {
                 w.setRating(rating);
                 dh.editWalk(w);
                 Intent i = new Intent(getApplicationContext(),ReviewView.class);
+                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                w.setPoints(null);
                 i.putExtra("walk",w);
                 i.putExtra("owner",owner);
                 startActivity(i);
