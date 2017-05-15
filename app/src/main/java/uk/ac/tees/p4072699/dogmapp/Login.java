@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Date;
 import java.util.List;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {

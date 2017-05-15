@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
-
 import java.io.Serializable;
 import java.util.Date;
 

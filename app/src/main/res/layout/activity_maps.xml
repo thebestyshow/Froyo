@@ -11,7 +11,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context="uk.ac.tees.p4072699.dogmapp.MapsActivity"
     android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="465dp" />
 
     <Button
         android:text="@string/end"
@@ -27,4 +27,22 @@
         android:scaleType="fitCenter"
         app:srcCompat="@mipmap/ic_settings_black_24dp"
         android:contentDescription="Settings" />
+
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="113dp"
+        android:layout_height="42dp"
+        android:id="@+id/progressBar2"
+        android:layout_gravity="bottom|left" />
+
+    <TextView
+        android:text="00:00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timer"
+        android:textStyle="bold"
+        android:layout_gravity="bottom|right"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp" />
+
 </FrameLayout>

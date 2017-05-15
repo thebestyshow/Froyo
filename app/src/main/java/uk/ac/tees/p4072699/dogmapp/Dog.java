@@ -1,8 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.Serializable;
 

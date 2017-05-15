@@ -1,26 +1,19 @@
 package uk.ac.tees.p4072699.dogmapp;
 
-
-import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -125,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + COL_ROUTE_COMMENT + " TEXT, "
             + COL_ROUTE_RATING + " INTEGER, "
             + COL_POINTS + " TEXT, "
-            + COL_ROUTE_DATE + "DATE);";
+            + COL_ROUTE_DATE + " TEXT);";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -133,7 +126,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(CREATE_OWNER_TABLE);
         db.execSQL(CREATE_DOG_TABLE);
         db.execSQL(CREATE_WALK_TABLE);
@@ -221,13 +213,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addDogWalk(ArrayList<Dog> list, double dis) {
         ContentValues values = new ContentValues();
         for (Dog d : list) {
-
             SQLiteDatabase db = getWritableDatabase();
-
             d.setTotwalks(d.getTotwalks() + 1);
-
             d.setTotdistance(d.getTotdistance() + dis);
-
             values.put(COL_TOT_WALKS, d.getTotwalks());
             values.put(COL_TOT_DIS, String.valueOf(d.getTotdistance()));
 
@@ -267,17 +255,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("DATABASE", "NEW OWNER ADDED");
 
         return input;
-
     }
 
     public long addW(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
-        //values.put(COL_ROUTE_DATE, df.format(w.getDate()));
+        values.put(COL_ROUTE_DATE, w.getDate());
 
         long input = db.insert(WALK_TABLE_NAME, null, values);
         db.close();
@@ -296,15 +282,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         try {
             coll.put("type", "coll");
             JSONArray collList = new JSONArray();
-
             for (LatLng obj : w.getPoints()) {
                 JSONObject point = new JSONObject();
-
                 JSONArray coord = new JSONArray("[" + obj.latitude + "," + obj.longitude + "]");
                 point.put("Coords", coord);
-
                 JSONObject location = new JSONObject();
-
                 location.put("geometry", point);
                 collList.put(location);
                 coll.put("locations", collList);
@@ -320,9 +302,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String latlngArr = json.toString();
 
         Log.d("JSON",latlngArr);*/
-        SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd");
-
-        //values.put(COL_ROUTE_DATE, df.format(w.getDate()));
+        values.put(COL_ROUTE_DATE, w.getDate());
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
         values.put(COL_ROUTE_TIME, w.getTime());
@@ -485,6 +465,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ArrayList<LatLng> points = new ArrayList<LatLng>();
 
             do {
+                points.clear();
                 JSONObject object = new JSONObject(cursor.getString(latlngIdx));
 
                 JSONArray loc = (JSONArray) object.get("locations");
@@ -498,12 +479,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     //Log.d("JSON:coords",coords.toString());
 
                     JSONArray coord = (JSONArray) coords.get("Coords");
-                    Log.d("JSON:coord", coord.toString());
+                    //Log.d("JSON:coord", coord.toString());
 
                     double lat = Double.parseDouble(coord.get(0).toString());
                     double lng = Double.parseDouble(coord.get(1).toString());
                     points.add(new LatLng(lat, lng));
                 }
+
+
                 Log.d("LatLng Array: ", points.toString());
                 Log.d("", "");
                 Walk walk = new Walk(
@@ -516,7 +499,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         points
                 );
                 list.add(walk);
-                points.clear();
+
+                //Log.d("Debug", points.toString());
             } while (cursor.moveToNext());
         }
         return list;

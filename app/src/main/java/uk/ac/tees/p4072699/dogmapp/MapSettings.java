@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-
 import java.util.ArrayList;
 
 public class MapSettings extends AppCompatActivity {
