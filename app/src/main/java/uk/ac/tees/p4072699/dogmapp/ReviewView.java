@@ -84,8 +84,19 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         name.setText(w.getName());
         comm.setText(w.getComment());
         dis.setText(df.format(w.getLength()) + "km");
-        time.setText(String.valueOf(w.getTime()));
 
+        int Hours, Minutes, Seconds;
+        String h, m, s;
+        Seconds = w.getTime();
+        Minutes = Seconds / 60;
+        Hours = Minutes / 60;
+        Seconds = Seconds % 60;
+
+        h = String.format("%02d", Integer.valueOf(Hours));
+        s = String.format("%02d", Integer.valueOf(Seconds));
+        m = String.format("%02d", Integer.valueOf(Minutes));
+
+        time.setText(h + ":" + m + ":" + s);
 
         p1 = (ImageView) findViewById(R.id.paw_1);
         p2 = (ImageView) findViewById(R.id.paw_2);

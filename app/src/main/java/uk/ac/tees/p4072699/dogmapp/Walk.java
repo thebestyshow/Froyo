@@ -12,7 +12,7 @@ public class Walk implements Serializable{
     private int id;
     private int time;
     private ArrayList<LatLng> points;
-    private Date date;
+    private String date;
 
     public Walk(double length, int time, ArrayList<LatLng> points) {
         this.length = length;
@@ -20,12 +20,11 @@ public class Walk implements Serializable{
         this.points = points;
     }
 
-    public Walk(String name, double length, int rating, String comment, int time, int id, ArrayList<LatLng> points, Date date) {
+    public Walk(String name, double length, int rating, String comment, int time, ArrayList<LatLng> points, String date) {
         this.length = length;
         this.rating = rating;
         this.comment = comment;
         this.name = name;
-        this.id = id;
         this.time = time;
         this.points = points;
         this.date = date;
@@ -63,11 +62,11 @@ public class Walk implements Serializable{
         this.points = points;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
