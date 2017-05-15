@@ -461,10 +461,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
             do {
-                points.clear();
 
                 JSONObject o = new JSONObject(cursor.getString(latlngIdx));
-                Log.d("JSON CHECK0",o.toString());
+                //Log.d("JSON CHECK",o.toString());
                 JSONArray loc;
                 if (!o.has("locations")){
                     break;
@@ -504,6 +503,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         points
                 );
                 list.add(walk);
+
+                points.clear();
 
                 Log.d("Debug", list.toString());
             } while (cursor.moveToNext());

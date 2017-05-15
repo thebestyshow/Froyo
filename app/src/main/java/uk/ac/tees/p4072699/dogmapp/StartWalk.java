@@ -2,6 +2,7 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.renderscript.RenderScript;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,13 +25,14 @@ public class StartWalk extends AppCompatActivity {
     String[] dogs = {};
     List<Integer> selected = new ArrayList<Integer>();
     List<Dog> list = new ArrayList<>();
-
+    StringBuilder sb = new StringBuilder();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Start Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_walk);
 
+        final TextView dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
         final Context con = this;
         final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
@@ -51,9 +55,33 @@ public class StartWalk extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selected.contains(position)) {
                     selected.remove(Integer.valueOf(position));
+
+                    if (selected.isEmpty()){
+                        dogs_tv.setText("");
+                        return;
+                    }
+                    for (int i : selected){
+                        if (i == selected.get(selected.size()-1))
+                            sb.append(list.get(i).getName());
+                        else{
+                            sb.append(list.get(i).getName() + ", ");
+                        }
+                        dogs_tv.setText(sb.toString());
+                        sb.setLength(0);
+                    }
                 } else {
                     selected.add(position);
+                    for (int i : selected){
+                        if (i == selected.get(selected.size()-1))
+                            sb.append(list.get(i).getName());
+                        else{
+                            sb.append(list.get(i).getName() + ", ");
+                        }
+                    }
+                    dogs_tv.setText(sb.toString());
+                    sb.setLength(0);
                 }
+
             }
         });
 

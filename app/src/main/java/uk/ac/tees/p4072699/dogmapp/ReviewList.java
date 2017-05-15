@@ -20,7 +20,6 @@ import java.util.List;
 public class ReviewList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Owner owner;
-    Walk w;
     int selected;
     String[] reviews = {};
     Integer[] revId = {};
@@ -36,13 +35,6 @@ public class ReviewList extends AppCompatActivity {
         final Button rem = (Button) findViewById(R.id.button_removerev);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        ArrayList<LatLng> tempP;
-        if (getIntent().getSerializableExtra("walk")!=null){
-            tempP = getIntent().getParcelableArrayListExtra("pointsarray");
-            w = (Walk)getIntent().getSerializableExtra("walk");
-            w.setPoints(tempP);
-        }
-
 
 
         List<Walk> list = new ArrayList<>();
@@ -52,8 +44,10 @@ public class ReviewList extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        for (Walk w : list){
+            Log.d("LIST CHECK",w.getId() + " : " + w.getPoints().toString());
+        }
 
-        Log.d("LIST CHECK", list.toString());
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
