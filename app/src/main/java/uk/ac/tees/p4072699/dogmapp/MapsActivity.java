@@ -4,12 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
 
@@ -34,13 +34,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -61,6 +56,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Polyline line;
     LatLng oldlatlng;
     int maptype;
+    TextView tv;
+    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
+    int Seconds, Minutes, Hours, MilliSeconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         points = new ArrayList<LatLng>();
+
+        tv = (TextView) findViewById(R.id.timer);
+        StartTime = SystemClock.uptimeMillis();
+        tv.postDelayed(runnable, 0);
 
         lisbun = getIntent().getExtras().getBundle("bundle");
         ArrayList<Location> loc = getIntent().getParcelableArrayListExtra("locs");
@@ -109,6 +111,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ArrayList<Location> locarr = new ArrayList<Location>();
                 Location loc;
 
+                TimeBuff += MillisecondTime;
+                tv.removeCallbacks(runnable);
+
                 for (LatLng ll : points){
                     loc = new Location("");
                     loc.setLatitude(ll.latitude);
@@ -118,13 +123,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 map.moveCamera(CameraUpdateFactory.zoomOut());
                 Intent i = new Intent(con, Review.class);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                Calendar c = new GregorianCalendar();
-                String e = c.getTime().toString();
-                i.putExtra("end", e);
+                i.putExtra("hours", Integer.toString(Hours));
+                i.putExtra("mins", Integer.toString(Minutes));
+                i.putExtra("secs", Integer.toString(Seconds));
                 i.putParcelableArrayListExtra("locs",locarr);
-                i.putExtra("start", s);
                 i.putExtra("dis", totaldis);
                 i.putExtra("bundle",lisbun);
+                MillisecondTime = 0L;
+                StartTime = 0L;
+                TimeBuff = 0L;
+                UpdateTime = 0L;
+                Seconds = 0;
+                Minutes = 0;
+                MilliSeconds = 0;
                 startActivity(i);
             }
         });
@@ -349,4 +360,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+
+    //Time from http://www.android-examples.com/android-create-stopwatch-example-tutorial-in-android-studio/
+    public Runnable runnable = new Runnable() {
+        public void run() {
+            MillisecondTime = SystemClock.uptimeMillis() - StartTime;
+            UpdateTime = TimeBuff + MillisecondTime;
+            Seconds = (int) (UpdateTime / 1000);
+            Minutes = Seconds / 60;
+            Hours = Minutes / 60;
+            Seconds = Seconds % 60;
+            MilliSeconds = (int) (UpdateTime % 1000);
+            tv.setText("" + Hours + ":"
+                    + String.format("%02d", Minutes) + ":"
+                    + String.format("%02d", Seconds));
+            tv.postDelayed(this, 0);
+        }
+    };
 }

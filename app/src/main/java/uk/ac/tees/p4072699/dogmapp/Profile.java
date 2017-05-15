@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
