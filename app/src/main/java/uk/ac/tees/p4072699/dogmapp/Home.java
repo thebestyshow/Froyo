@@ -13,9 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import org.json.JSONException;
-
 import java.util.Arrays;
 import java.util.List;
 

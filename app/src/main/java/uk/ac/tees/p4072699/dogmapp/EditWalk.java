@@ -8,9 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 

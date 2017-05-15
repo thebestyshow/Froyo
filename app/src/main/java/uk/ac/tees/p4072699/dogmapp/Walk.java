@@ -1,7 +1,6 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
