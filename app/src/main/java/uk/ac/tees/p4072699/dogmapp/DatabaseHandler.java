@@ -504,7 +504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 );
                 list.add(walk);
 
-                points.clear();
+                points = new ArrayList<LatLng>();
 
                 Log.d("Debug", list.toString());
             } while (cursor.moveToNext());
