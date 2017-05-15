@@ -35,6 +35,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="totdis">Total Distance</string>
     <string name="totTime">Total Time</string>
+    <string name="share">Share</string>
 
     <!-- Map Page -->
     <string name="map">Map</string>
@@ -149,4 +150,6 @@
     <string name="temperature">Temperature</string>
     <string name="location">Location</string>
     <string name="condition">Condition</string>
+
+    <string name="facebook_app_id">425469464497203</string>
 </resources>

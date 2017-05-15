@@ -45,7 +45,7 @@ public class Weather extends AppCompatActivity implements Callback {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
-        service.refreshWeather("Paris, France");
+        service.refreshWeather("Paris");
 
         final Context con = this;
         owner = (Owner) getIntent().getSerializableExtra("owner");
