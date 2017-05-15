@@ -1,24 +1,31 @@
 package uk.ac.tees.p4072699.dogmapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
+import org.json.JSONException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
-    Owner owner;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     DatabaseHandler dh = new DatabaseHandler(this);
+    Owner owner;
+    Walk w;
+    int selected;
+    String[] walks = {};
+    Integer[] walkID = {};
 
 
     @Override
@@ -35,31 +42,32 @@ public class Home extends AppCompatActivity {
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
 
+        List<Walk> list = null;
+        try {
+            list = dh.getAllWalks();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 10; i++) {
+            if (i > walks.length-1){
+                break;
+            }else{
+                walks = Arrays.copyOf(walks, walks.length + 1);
+                walks[walks.length - 1] = "Name: " + list.get(i).getName() +"\nRating: " + list.get(i).getRating() + "\nComment: " + list.get(i).getComment();
+                walkID = Arrays.copyOf(walkID, walkID.length + 1);
+                walkID[walkID.length - 1] = list.get(i).getId();
+            }
 
+        }
 
-//        switch (MenuItem.getItemId()){
-//            case (R.id.nv1):
-//                Intent in = new Intent(getApplicationContext(), Profile.class);
-//                startActivity(in);
-//                break;
-//            case (R.id.ITEM2_ID):
-//                in = new Intent(getApplicationContext(), ACTIVITY2_NAME.class);
-//                startActivity(in);
-//        }
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
 
-//        final Context con = this;
-//        final Button add = (Button) findViewById(R.id.button_doglist);
-//        final Button help = (Button) findViewById(R.id.home_btn_help);
-//        final Button start = (Button) findViewById(R.id.button_start);
-//        final Button rev = (Button) findViewById(R.id.button_reviews);
-//        final Button prof = (Button) findViewById(R.id.button_profile);
-//        final Button logout = (Button) findViewById(R.id.button_logout);
-//        final Button weather = (Button) findViewById(R.id.button_weather);
-//        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        final TextView name = (TextView) findViewById(R.id.Name_test);
+        ListView walkList = (ListView) findViewById(R.id.lv_walks);
+        walkList.setAdapter(adapter);
+
+        final Button start = (Button) findViewById(R.id.button_startw);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        name.setText(owner.getName());
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
@@ -110,6 +118,37 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), StartWalk.class);
+                i.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(i);
+            }
+        });
+
+        walkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selected = walkID[position];
+                List<Walk> wlist = null;
+                try {
+                    wlist = dh.getAllWalks();
+                    Log.d("DATABASE",wlist.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Intent i = new Intent(getApplicationContext(),ReviewView.class);
+                Log.d("SELECTED WALK",wlist.get(position).getName());
+                Log.d("SELECTED ARRAY",wlist.get(position).getPoints().toString());
+                i.putParcelableArrayListExtra("pointsarray",wlist.get(position).getPoints());
+                wlist.get(position).setPoints(null);
+                i.putExtra("walk",wlist.get(position));
+                i.putExtra("owner",owner);
+                startActivity(i);
+            }
+        });
+
 
 //        weather.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -146,14 +185,7 @@ public class Home extends AppCompatActivity {
 //            }
 //        });
 //
-//        start.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, StartWalk.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
+
 //
 //        rev.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -5,21 +5,15 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONException;
-
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,12 +27,12 @@ public class Review extends AppCompatActivity {
     ArrayList<LatLng> points = new ArrayList<LatLng>();
     ArrayList<Dog> doglist;
     ImageButton p1, p2, p3, p4, p5;
-
-    String e;
-    String s;
-    int hours;
-    int min;
+    int time;
+    String hours;
+    String mins;
+    String secs;
     double d;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,39 +44,21 @@ public class Review extends AppCompatActivity {
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
+        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         for (Location l : loc){
             ltlg = new LatLng(l.getLatitude(),l.getLongitude());
             points.add(ltlg);
         }
 
-        e = getIntent().getStringExtra("end");
-        s = getIntent().getStringExtra("start");
+        hours = getIntent().getStringExtra("hours");
+        mins = getIntent().getStringExtra("mins");
+        secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
         DecimalFormat df = new DecimalFormat("#.00");
 
-
         dh.addOwnerWalk(owner,Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist,Double.parseDouble(df.format(d)));
-
-        String start = s.substring(11, 18);
-        String end = e.substring(11, 18);
-
-        SimpleDateFormat smpl = new SimpleDateFormat("HH:mm");
-        Date startDate = null;
-        Date endDate = null;
-        try {
-            startDate = smpl.parse(start);
-            endDate = smpl.parse(end);
-        } catch (ParseException e1) {
-        }
-        long difference = endDate.getTime() - startDate.getTime();
-
-        hours = (int) (difference / (1000 * 60 * 60));
-        min = (int) (difference - (1000 * 60 * 60 * hours)) / (1000 * 60);
-
-        Log.d("Time difference", Integer.toString(hours) + Integer.toString(min));
-
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
@@ -97,7 +73,12 @@ public class Review extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
-        tv.setText("Hours: " + hours + " Minutes: " + min);
+        int h, m, s;
+        hours = String.format("%02d", Integer.valueOf(hours));
+        secs = String.format("%02d", Integer.valueOf(secs));
+        mins = String.format("%02d", Integer.valueOf(mins));
+        time = Integer.parseInt(hours) + Integer.parseInt(mins) + Integer.parseInt(secs);
+        tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
         set.setOnClickListener(new View.OnClickListener() {
@@ -118,11 +99,10 @@ public class Review extends AppCompatActivity {
                     t.show();
                 }else{
                     try {
-                        dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min)),points));
+                        dh.add(new Walk(name.getText().toString(), d, paws, com.getText().toString(), time, points, date));
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
-                    //dh.add(new Walk(name.getText().toString(),d,paws,com.getText().toString(),Integer.valueOf(String.valueOf(hours) + String.valueOf(min))));
                     Intent intent = new Intent(con, Home.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
@@ -135,7 +115,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.addW(new Walk(d,(Integer.valueOf(String.valueOf(hours) + String.valueOf(min))),points));
+                dh.addW(new Walk(d, time, points));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
