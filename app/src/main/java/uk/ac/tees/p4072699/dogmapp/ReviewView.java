@@ -141,9 +141,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             public void onClick(View view){
                 Intent i = new Intent(getApplicationContext(),ReviewList.class);
                 i.putExtra("owner",owner);
-                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
-                w.setPoints(null);
-                i.putExtra("walk",w);
                 startActivity(i);
             }
         });
@@ -235,7 +232,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             map.setMyLocationEnabled(true);
         }
 
-        map.getUiSettings().setScrollGesturesEnabled(false);
+        //map.getUiSettings().setScrollGesturesEnabled(false);
     }
 
     public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {
