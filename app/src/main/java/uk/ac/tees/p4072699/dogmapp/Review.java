@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Review extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
@@ -30,6 +32,7 @@ public class Review extends AppCompatActivity {
     String mins;
     String secs;
     double d;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class Review extends AppCompatActivity {
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
+        date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         for (Location l : loc){
             ltlg = new LatLng(l.getLatitude(),l.getLongitude());
@@ -95,7 +99,7 @@ public class Review extends AppCompatActivity {
                     t.show();
                 }else{
                     try {
-                        dh.add(new Walk(name.getText().toString(), d, paws, com.getText().toString(), time, points));
+                        dh.add(new Walk(name.getText().toString(), d, paws, com.getText().toString(), time, points, date));
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
