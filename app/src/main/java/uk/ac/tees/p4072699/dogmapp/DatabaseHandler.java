@@ -457,11 +457,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
             //int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
-            ArrayList<LatLng> points = new ArrayList<LatLng>();
+
 
 
             do {
-
+                ArrayList<LatLng> points = new ArrayList<LatLng>();
                 JSONObject o = new JSONObject(cursor.getString(latlngIdx));
                 //Log.d("JSON CHECK",o.toString());
                 JSONArray loc;
@@ -504,7 +504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 );
                 list.add(walk);
 
-                points = new ArrayList<LatLng>();
+                //points = new ArrayList<LatLng>();
 
                 Log.d("Debug", list.toString());
             } while (cursor.moveToNext());
