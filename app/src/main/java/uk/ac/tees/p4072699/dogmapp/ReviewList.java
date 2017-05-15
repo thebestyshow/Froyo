@@ -20,7 +20,6 @@ import java.util.List;
 public class ReviewList extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Owner owner;
-    Walk w;
     int selected;
     String[] reviews = {};
     Integer[] revId = {};
@@ -36,21 +35,19 @@ public class ReviewList extends AppCompatActivity {
         final Button rem = (Button) findViewById(R.id.button_removerev);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        ArrayList<LatLng> tempP;
-        if (getIntent().getSerializableExtra("walk")==null){
 
-        }else{
-            tempP = getIntent().getParcelableArrayListExtra("pointsarray");
-            w = (Walk)getIntent().getSerializableExtra("walk");
-            w.setPoints(tempP);
-        }
 
-        List<Walk> list = null;
+        List<Walk> list = new ArrayList<>();
         try {
             list = dh.getAllWalks();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        for (Walk w : list){
+            Log.d("LIST CHECK",w.getId() + " : " + w.getPoints().toString());
+        }
+
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
@@ -75,6 +72,7 @@ public class ReviewList extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Log.d("list check",wlist.toString());
                 Intent i = new Intent(con,ReviewView.class);
                 Log.d("SELECTED WALK",wlist.get(position).getName());
                 Log.d("SELECTED ARRAY",wlist.get(position).getPoints().toString());
