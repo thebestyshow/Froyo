@@ -390,7 +390,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     + String.format("%02d", Minutes) + ":"
                     + String.format("%02d", Seconds));
             tv.postDelayed(this, 0);
-            dist.setText(Double.toString(totaldis));
+            String n = String.format("%.2f", totaldis);
+            dist.setText(n);
         }
     };
 }
