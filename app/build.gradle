@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "uk.ac.tees.p4072699.dogmapp"
+        applicationId "uk.ac.tees.Froyo.dogmapp"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
