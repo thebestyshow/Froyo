@@ -66,6 +66,7 @@ public class Review extends AppCompatActivity {
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
+        final Button share = (Button) findViewById(R.id.button_share);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
@@ -84,6 +85,16 @@ public class Review extends AppCompatActivity {
 
 
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(con, FacebookShare.class);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(intent);
+                setContentView(R.layout.activity_facebook_share);
+                finish();
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
