@@ -69,7 +69,7 @@ public class Review extends AppCompatActivity {
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
-        final Button share = (Button) findViewById(R.id.button_share);
+        //final Button share = (Button) findViewById(R.id.button_share);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
@@ -86,8 +86,7 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-
-        share.setOnClickListener(new View.OnClickListener() {
+/*        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, FacebookShare.class);
@@ -96,7 +95,7 @@ public class Review extends AppCompatActivity {
                 setContentView(R.layout.activity_facebook_share);
                 finish();
             }
-        });
+        });*/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

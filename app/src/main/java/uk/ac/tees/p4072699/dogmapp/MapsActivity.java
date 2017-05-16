@@ -57,8 +57,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Polyline line;
     LatLng oldlatlng;
     int maptype;
-    TextView tv;
-    TextView dist;
+    TextView tv,dist;
+
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     int Seconds, Minutes, Hours, MilliSeconds;
 
@@ -71,7 +71,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv = (TextView) findViewById(R.id.timer);
-        dist = (TextView) findViewById(R.id.distance);
+        dist = (TextView)findViewById(R.id.tv_distance);
         StartTime = SystemClock.uptimeMillis();
         tv.postDelayed(runnable, 0);
         dist.postDelayed(runnable, 0);
@@ -88,7 +88,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("ERROR", "Empty location array");
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
                 locRequest = LocationRequest.create()
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
