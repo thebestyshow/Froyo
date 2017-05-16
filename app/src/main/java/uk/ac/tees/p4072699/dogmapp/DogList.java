@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,11 +27,11 @@ public class DogList extends AppCompatActivity {
         setTitle("Dogs");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-        final Button home = (Button) findViewById(R.id.button_home);
+        //final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         DecimalFormat df = new DecimalFormat("#.00");
@@ -48,15 +49,6 @@ public class DogList extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
         listView.setAdapter(adapter);
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
-
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,14 +61,7 @@ public class DogList extends AppCompatActivity {
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-            }
-        });
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,5 +71,16 @@ public class DogList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent i = new Intent(getApplicationContext(),Home.class);
+            i.putExtra("owner",owner);
+            startActivity(i);
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

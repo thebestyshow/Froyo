@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class Profile extends AppCompatActivity {
         setTitle("Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final TextView name = (TextView) findViewById(R.id.Prof_name);
@@ -40,7 +42,7 @@ public class Profile extends AppCompatActivity {
         String avg = df.format(owner.getTot_dis()/owner.getTot_walks());
         avgWalks.setText(avg + "KM");
 
-        final Button home = (Button) findViewById(R.id.button_home);
+//        final Button home = (Button) findViewById(R.id.button_home);
         final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 
@@ -60,14 +62,14 @@ public class Profile extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.Prof_dogList);
         lv.setAdapter(adapter);
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-            }
-        });
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(con, Home.class);
+//                intent.putExtra("owner", dh.getOwnerHelper(owner));
+//                startActivity(intent);
+//            }
+//        });
 
         editProf.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,5 +88,14 @@ public class Profile extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

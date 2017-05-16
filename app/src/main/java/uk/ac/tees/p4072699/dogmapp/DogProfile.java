@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,6 +23,7 @@ public class DogProfile extends AppCompatActivity {
         setTitle("Dog Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
@@ -30,8 +32,7 @@ public class DogProfile extends AppCompatActivity {
         //final TextView avgWalks = (TextView) findViewById(R.id.Dog_avgwalks);
 
         final Context con = getApplicationContext();
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        final Button ret = (Button) findViewById(R.id.button_return);
+//        final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
         //totWalks.setText(Integer.toString(d.getTotwalks()));
@@ -39,14 +40,7 @@ public class DogProfile extends AppCompatActivity {
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("#.00");
         String avg = df.format(d.getTotdistance()/d.getTotwalks());
-        //avgWalks.setText(avg + "KM");
 
-        ret.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                onBackPressed();
-            }
-        });
 
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +67,17 @@ public class DogProfile extends AppCompatActivity {
             }
         });
 
-//        set.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                Intent i = new Intent(con, MapSettings.class);
-//                i.putExtra("owner",dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent i = new Intent(getApplicationContext(),DogList.class);
+            i.putExtra("owner",owner);
+            startActivity(i);
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
 

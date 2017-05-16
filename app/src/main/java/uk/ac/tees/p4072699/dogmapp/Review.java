@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class Review extends AppCompatActivity {
         setTitle("Review Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lisbun  = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
@@ -55,7 +57,7 @@ public class Review extends AppCompatActivity {
         mins = getIntent().getStringExtra("mins");
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
 
         dh.addOwnerWalk(owner,Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist,Double.parseDouble(df.format(d)));
@@ -70,7 +72,6 @@ public class Review extends AppCompatActivity {
         p3 = (ImageButton) findViewById(R.id.paw_3);
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
@@ -82,14 +83,7 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
+
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +120,7 @@ public class Review extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.addW(new Walk(d, time, points));
+                dh.addW(new Walk(d, time, points,date));
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
@@ -190,5 +184,14 @@ public class Review extends AppCompatActivity {
                 p1.setImageResource(R.drawable.selected);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

@@ -13,7 +13,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
+public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener  {
@@ -60,6 +62,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
@@ -68,7 +71,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
@@ -167,6 +170,15 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             }
         });
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
 
     public void redrawLine(){
@@ -179,8 +191,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             LatLng point = points.get(i);
             options.add(point);
         }
-        //Something goes here. Something to do with markers
-        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
         line = map.addPolyline(options);
         zoomRoute(map,points);
         points.clear();
@@ -265,7 +275,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
 
                 LatLngBounds latLongBounds = builder.build();
 
-                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,90);
+                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,700,600,0);
 
                 try{
                     googleMap.animateCamera(cameraUpdate,500,
@@ -281,10 +291,11 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                                 }
                             });
                 } catch (IllegalStateException ex){
+                    ex.printStackTrace();
                 }
             }
         }
-
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("Zoom","Zoom Finish");
     }
 

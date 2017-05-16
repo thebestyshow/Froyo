@@ -10,10 +10,11 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,7 +38,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -57,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng oldlatlng;
     int maptype;
     TextView tv;
+    TextView dist;
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     int Seconds, Minutes, Hours, MilliSeconds;
 
@@ -66,10 +68,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         points = new ArrayList<LatLng>();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv = (TextView) findViewById(R.id.timer);
+        dist = (TextView) findViewById(R.id.distance);
         StartTime = SystemClock.uptimeMillis();
         tv.postDelayed(runnable, 0);
+        dist.postDelayed(runnable, 0);
 
         lisbun = getIntent().getExtras().getBundle("bundle");
         ArrayList<Location> loc = getIntent().getParcelableArrayListExtra("locs");
@@ -113,6 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 TimeBuff += MillisecondTime;
                 tv.removeCallbacks(runnable);
+                dist.removeCallbacks(runnable);
 
                 for (LatLng ll : points){
                     loc = new Location("");
@@ -162,6 +168,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(i);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
 
@@ -375,6 +390,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     + String.format("%02d", Minutes) + ":"
                     + String.format("%02d", Seconds));
             tv.postDelayed(this, 0);
+            String n = String.format("%.2f", totaldis);
+            dist.setText(n);
         }
     };
 }
