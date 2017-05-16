@@ -32,7 +32,6 @@ public class DogProfile extends AppCompatActivity {
         //final TextView avgWalks = (TextView) findViewById(R.id.Dog_avgwalks);
 
         final Context con = getApplicationContext();
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 //        final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
@@ -41,14 +40,7 @@ public class DogProfile extends AppCompatActivity {
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("#.00");
         String avg = df.format(d.getTotdistance()/d.getTotwalks());
-        //avgWalks.setText(avg + "KM");
 
-//        ret.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick (View view){
-//                onBackPressed();
-//            }
-//        });
 
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +67,6 @@ public class DogProfile extends AppCompatActivity {
             }
         });
 
-//        set.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                Intent i = new Intent(con, MapSettings.class);
-//                i.putExtra("owner",dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

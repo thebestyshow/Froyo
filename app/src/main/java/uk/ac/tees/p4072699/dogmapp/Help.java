@@ -26,14 +26,6 @@ public class Help extends AppCompatActivity {
 //        home = (Button) findViewById(R.id.help_btn_home);
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
 
 //        home.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -11,19 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Help">
 
-    <ImageButton
-        android:id="@+id/imageButton_settings"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/button"
-        android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/ic_settings_black_24dp" />
-
     <TextView
-        android:text="@string/Help_content"
+        android:text="@string/help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
@@ -31,4 +20,21 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/imageButton_settings" />
+
+    <ImageView
+        android:layout_width="200dp"
+        app:srcCompat="@drawable/purelogo"
+        android:id="@+id/imageView2"
+        android:layout_height="125dp"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/About"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:id="@+id/textView6"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
