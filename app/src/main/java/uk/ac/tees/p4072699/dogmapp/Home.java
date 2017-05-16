@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,25 +45,28 @@ public class Home extends AppCompatActivity {
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
 
-        List<Walk> list = null;
+        List<Walk> list = new ArrayList<>();
+
         try {
             list = dh.getAllWalks();
+            Log.d("'list' array",list.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < 10; i++) {
-            if (i > walks.length - 1) {
-                break;
-            } else {
-                walks = Arrays.copyOf(walks, walks.length + 1);
-                walks[walks.length - 1] = "Name: " + list.get(i).getName() + "\nRating: " + list.get(i).getRating() + "\nComment: " + list.get(i).getComment();
-                walkID = Arrays.copyOf(walkID, walkID.length + 1);
-                walkID[walkID.length - 1] = list.get(i).getId();
-            }
 
+        for (Walk w :list) {
+
+                walks = Arrays.copyOf(walks, walks.length + 1);
+                walks[walks.length - 1] = "Name: " + w.getName() + "\nRating: " + w.getRating() + "\nComment: " + w.getComment();
+                walkID = Arrays.copyOf(walkID, walkID.length + 1);
+                walkID[walkID.length - 1] = w.getId();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
+
+        for (String s : walks){
+            Log.d("List object Strings: ", s.toString());
+        }
 
         ListView walkList = (ListView) findViewById(R.id.lv_walks);
         walkList.setAdapter(adapter);
@@ -108,6 +112,11 @@ public class Home extends AppCompatActivity {
                         break;
                     case (R.id.nav_help):
                         accountActivity = new Intent(getApplicationContext(), Help.class);
+                        accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
+                        startActivity(accountActivity);
+                        break;
+                    case (R.id.nav_about):
+                        accountActivity = new Intent(getApplicationContext(), About.class);
                         accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
                         startActivity(accountActivity);
                         break;

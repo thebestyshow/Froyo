@@ -457,7 +457,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
-            //int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
+            int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
 
             do {
@@ -499,7 +499,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(comIdx),
                         cursor.getInt(idIdx),
                         cursor.getInt(timeIdx),
-                        points
+                        points,
+                        cursor.getString(dateIDx)
                 );
                 list.add(walk);
 
