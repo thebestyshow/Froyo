@@ -23,6 +23,9 @@ public class Profile extends AppCompatActivity {
     Integer[] dogsId = {};
     Owner owner;
 
+    /*Initialises all TextView and buttons. Constructs an ArrayAdapter to populate the ListView with data. Displays the users stats, such as total walks
+    * and total distance.
+    * If Edit Profile button is pressed then the user is taken to the edit profile activity. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Profile");
@@ -35,7 +38,6 @@ public class Profile extends AppCompatActivity {
         final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
         final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
         final Context con = this;
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
         totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
@@ -43,7 +45,6 @@ public class Profile extends AppCompatActivity {
         String avg = df.format(owner.getTot_dis() / owner.getTot_walks());
         avgWalks.setText(avg + "KM");
 
-//        final Button home = (Button) findViewById(R.id.button_home);
         final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 
@@ -63,14 +64,6 @@ public class Profile extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.Prof_dogList);
         lv.setAdapter(adapter);
 
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(con, Home.class);
-//                intent.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(intent);
-//            }
-//        });
 
         editProf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,16 +74,8 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
     }
-
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

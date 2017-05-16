@@ -18,6 +18,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     DatabaseHandler dh = new DatabaseHandler(this);
     Button sign, log;
 
+    /*Initialises all buttons on this activity and sets onClickListeners to them */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Sign Up");
@@ -31,7 +32,7 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
         sign.setOnClickListener(this);
         log.setOnClickListener(this);
     }
-
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -42,6 +43,15 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /* Initialises EditTexts on this activity
+     * If the sign up button is pressed, details entered into the EditTexts is checked.
+     * If the email EditText was empty, an appropriate toast message is created and displayed
+     * If the cursor Query returns a match then the email already exists and an appropriate toast message is created and displayed
+     * If any of the fields are empty, an appropriate toast message is created and displayed
+     * If the two passwords entered do not match, an appropriate toast message is created and displayed
+     * If the cursor query returns 0 matches and all fields are filled then the Owner is created. An appropriate toast
+     * message is created and displayed, the user is then taken to the login activity where they can now login
+     * If the login button is pressed then the user is taken to the login activity*/
     @Override
     public void onClick(View v) {
         Intent i;
