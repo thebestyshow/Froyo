@@ -87,7 +87,9 @@ public class DogProfile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
+            Intent i = new Intent(getApplicationContext(),DogList.class);
+            i.putExtra("owner",owner);
+            startActivity(i);
             return  true;
         }
         return super.onOptionsItemSelected(item);

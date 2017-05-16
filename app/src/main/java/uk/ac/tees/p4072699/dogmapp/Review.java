@@ -57,7 +57,7 @@ public class Review extends AppCompatActivity {
         mins = getIntent().getStringExtra("mins");
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
 
         dh.addOwnerWalk(owner,Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist,Double.parseDouble(df.format(d)));
@@ -65,13 +65,12 @@ public class Review extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
-//        final Button cancel = (Button) findViewById(R.id.button_cancel);
+        final Button cancel = (Button) findViewById(R.id.button_cancel);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
@@ -83,14 +82,7 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,17 +106,17 @@ public class Review extends AppCompatActivity {
             }
         });
 
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dh.addW(new Walk(d, time, points));
-//                Intent intent = new Intent(con, Home.class);
-//                intent.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(intent);
-//                setContentView(R.layout.activity_home);
-//                finish();
-//            }
-//        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dh.addW(new Walk(d, time, points,date));
+                Intent intent = new Intent(con, Home.class);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(intent);
+                setContentView(R.layout.activity_home);
+                finish();
+            }
+        });
 
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
