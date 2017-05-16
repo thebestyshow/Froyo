@@ -275,7 +275,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
 
                 LatLngBounds latLongBounds = builder.build();
 
-                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,90);
+                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,700,600,0);
 
                 try{
                     googleMap.animateCamera(cameraUpdate,500,
@@ -291,10 +291,11 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
                                 }
                             });
                 } catch (IllegalStateException ex){
+                    ex.printStackTrace();
                 }
             }
         }
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d("Zoom","Zoom Finish");
     }
 

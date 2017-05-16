@@ -56,11 +56,11 @@ public class StartWalk extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selected.contains(position)) {
                     selected.remove(Integer.valueOf(position));
-
                     if (selected.isEmpty()){
                         dogs_tv.setText("");
                         return;
                     }
+
                     for (int i : selected){
                         if (i == selected.get(selected.size()-1))
                             sb.append(list.get(i).getName());
