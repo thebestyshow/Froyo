@@ -3,6 +3,7 @@ package uk.ac.tees.p4072699.dogmapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ public class changePass extends AppCompatActivity {
         setTitle("Change Password");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pass);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final EditText oldPass = (EditText) findViewById(R.id.et_old_pass);
@@ -24,7 +26,7 @@ public class changePass extends AppCompatActivity {
         final EditText conNewPass = (EditText) findViewById(R.id.et_con_new_pass);
 
         final Button save = (Button) findViewById(R.id.button_savez);
-        final Button retur = (Button) findViewById(R.id.button_return);
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +54,15 @@ public class changePass extends AppCompatActivity {
             }
         });
 
-        retur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),EditProfile.class);
-                i.putExtra("owner",owner);
-                startActivity(i);
-            }
-        });
+
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

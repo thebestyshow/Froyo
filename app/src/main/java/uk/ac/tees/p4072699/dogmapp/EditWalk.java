@@ -3,6 +3,7 @@ package uk.ac.tees.p4072699.dogmapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class EditWalk extends AppCompatActivity {
         setTitle("Edit Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_walk);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
         rating = w.getRating();
@@ -157,5 +159,14 @@ public class EditWalk extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

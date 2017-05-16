@@ -102,13 +102,13 @@
 
             <Button
                 android:text="@string/startw"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="wrap_content"
                 android:id="@+id/button_startw"
                 android:layout_marginBottom="43dp"
                 android:background="@drawable/roundedbutton"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
     </LinearLayout>

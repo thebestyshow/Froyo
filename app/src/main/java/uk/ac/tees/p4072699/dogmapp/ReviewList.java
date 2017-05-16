@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,9 +30,10 @@ public class ReviewList extends AppCompatActivity {
         setTitle("Reviews");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-        final Button home = (Button) findViewById(R.id.button_home);
+//        final Button home = (Button) findViewById(R.id.button_home);
         final Button rem = (Button) findViewById(R.id.button_removerev);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
@@ -84,14 +86,14 @@ public class ReviewList extends AppCompatActivity {
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Home.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(con, Home.class);
+//                i.putExtra("owner", dh.getOwnerHelper(owner));
+//                startActivity(i);
+//            }
+//        });
 
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,5 +113,14 @@ public class ReviewList extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

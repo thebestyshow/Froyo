@@ -10,70 +10,82 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Sign_up">
 
-    <Button
-        android:text="@string/sign_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Sign_Up_btn_sign"
-        android:layout_below="@+id/Pass_con_sign"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="80dp" />
-
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/Pass_con_sign"
-        android:hint="@string/p_con_hint"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/Pass_sign"
-        android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/Pass_sign"
         android:hint="@string/p_hint"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/email_sign"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/loginback"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress|textPersonName"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/email_sign"
-        android:hint="@string/e_hint"
-        android:layout_marginTop="78dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/Pass_con_sign"
+        android:hint="@string/p_con_hint"
+        android:background="@drawable/loginback"
+        android:fontFamily="sans-serif-condensed"
+        android:textAlignment="center"
+        android:layout_below="@+id/Pass_sign"
         android:layout_alignLeft="@+id/Pass_sign"
         android:layout_alignStart="@+id/Pass_sign" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:inputType="textEmailAddress|textPersonName"
+        android:ems="10"
+        android:id="@+id/email_sign"
+        android:hint="@string/e_hint"
+        android:layout_height="50dp"
+        android:background="@drawable/loginback"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_below="@+id/name_sign"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/name_sign"
+        android:hint="@string/n_hint"
+        android:textAlignment="center"
+        android:background="@drawable/loginback"
+        android:fontFamily="sans-serif-condensed"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/email_sign"
         android:layout_alignStart="@+id/email_sign"
-        android:hint="@string/n_hint" />
+        android:layout_marginTop="61dp" />
 
     <Button
         android:text="@string/retur"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:id="@+id/Log_in_btn_sign"
         android:visibility="visible"
+        android:background="@drawable/button"
         android:layout_below="@+id/Sign_Up_btn_sign"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/Sign_Up_btn_sign"
+        android:layout_alignStart="@+id/Sign_Up_btn_sign" />
+
+    <Button
+        android:text="@string/sign_up"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:id="@+id/Sign_Up_btn_sign"
+        android:layout_marginTop="63dp"
+        android:background="@drawable/button"
+        android:layout_below="@+id/Pass_con_sign"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
