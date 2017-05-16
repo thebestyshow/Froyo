@@ -30,9 +30,8 @@ public class DogList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-//        final Button home = (Button) findViewById(R.id.button_home);
+        //final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         DecimalFormat df = new DecimalFormat("#.00");
@@ -49,15 +48,6 @@ public class DogList extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
         listView.setAdapter(adapter);
-
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -85,7 +75,9 @@ public class DogList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
+            Intent i = new Intent(getApplicationContext(),Home.class);
+            i.putExtra("owner",owner);
+            startActivity(i);
             return  true;
         }
         return super.onOptionsItemSelected(item);

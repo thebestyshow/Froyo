@@ -71,7 +71,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
@@ -191,8 +191,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             LatLng point = points.get(i);
             options.add(point);
         }
-        //Something goes here. Something to do with markers
-        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
         line = map.addPolyline(options);
         zoomRoute(map,points);
         points.clear();
@@ -296,7 +294,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
                 }
             }
         }
-
+        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         Log.d("Zoom","Zoom Finish");
     }
 

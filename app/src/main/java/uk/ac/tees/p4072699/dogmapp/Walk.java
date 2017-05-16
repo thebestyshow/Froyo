@@ -14,10 +14,11 @@ public class Walk implements Serializable{
     private ArrayList<LatLng> points;
     private String date;
 
-    public Walk(double length, int time, ArrayList<LatLng> points) {
+    public Walk(double length, int time, ArrayList<LatLng> points,String date) {
         this.length = length;
         this.time = time;
         this.points = points;
+        this.date = date;
     }
 
     public Walk(String name, double length, int rating, String comment, int time, ArrayList<LatLng> points, String date) {
