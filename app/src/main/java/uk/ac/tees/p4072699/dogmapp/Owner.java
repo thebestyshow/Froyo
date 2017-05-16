@@ -1,6 +1,7 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import android.media.Image;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -44,12 +45,12 @@ public class Owner implements Serializable {
         this.img = i;
     }
 
-    Owner(int id, String n, String e, String p, Date d,int tw) {
+    Owner(int id, String n, String e, String p, Date d, int tw) {
         this(id, n, e, p, d);
         this.tot_walks = tw;
     }
 
-    Owner(int id, String n, String e, String p, Date d,int tw,double dis) {
+    Owner(int id, String n, String e, String p, Date d, int tw, double dis) {
         this(id, n, e, p, d);
         this.tot_dis = dis;
         this.tot_walks = tw;

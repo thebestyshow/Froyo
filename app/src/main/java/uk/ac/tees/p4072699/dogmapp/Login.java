@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.util.List;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -62,8 +63,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String pass = passtxt.getText().toString().trim();
                 SQLiteDatabase db = dh.getReadableDatabase();
 
-                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?",new String[]{email});
-                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email,pass});
+                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?", new String[]{email});
+                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email, pass});
 
                 if (cursor != null) {
                     if (email.equals("")) {

@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -34,13 +35,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener  {
+        LocationListener {
 
     private GoogleMap map;
     GoogleApiClient googleAPI;
@@ -75,7 +77,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
-        Log.d("dsa","CURRENT LATLONGS : " + points.toString());
+        Log.d("dsa", "CURRENT LATLONGS : " + points.toString());
         //points.add(l1);
         //points.add(l2);
 
@@ -107,31 +109,31 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         p4 = (ImageView) findViewById(R.id.paw_4);
         p5 = (ImageView) findViewById(R.id.paw_5);
 
-        if (w.getRating() == 1){
+        if (w.getRating() == 1) {
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==2){
+        } else if (w.getRating() == 2) {
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==3){
+        } else if (w.getRating() == 3) {
             p3.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==4){
+        } else if (w.getRating() == 4) {
             p4.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==5){
+        } else if (w.getRating() == 5) {
             p5.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
@@ -139,23 +141,23 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             p1.setImageResource(R.drawable.selected);
         }
 
-        retur.setOnClickListener(new View.OnClickListener(){
+        retur.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent i = new Intent(getApplicationContext(),ReviewList.class);
-                i.putExtra("owner",owner);
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ReviewList.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener(){
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), EditWalk.class);
-                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                i.putParcelableArrayListExtra("pointsarray", w.getPoints());
                 w.setPoints(null);
-                i.putExtra("walk",w);
-                i.putExtra("owner",owner);
+                i.putExtra("walk", w);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -170,19 +172,20 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
     }
 
 
-    public void redrawLine(){
-        Log.d("Redraw","Redraw line start");
+    public void redrawLine() {
+        Log.d("Redraw", "Redraw line start");
         map.clear();
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
         int f = points.size();
@@ -192,10 +195,10 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             options.add(point);
         }
         line = map.addPolyline(options);
-        zoomRoute(map,points);
+        zoomRoute(map, points);
         points.clear();
-        Log.d("DEBUG","Array after draw: " + points.toString());
-        Log.d("Redraw","Redraw line finish");
+        Log.d("DEBUG", "Array after draw: " + points.toString());
+        Log.d("Redraw", "Redraw line finish");
     }
 
 
@@ -247,56 +250,56 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
 
     public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {
 
-        Log.d("Zoom","Zoom start");
-        if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()){
+        Log.d("Zoom", "Zoom start");
+        if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()) {
             return;
         }
 
         LatLngBounds currentLatLongBounds = googleMap.getProjection().getVisibleRegion().latLngBounds;
         boolean updateBounds = false;
-        for (LatLng latlng : lstLatLngRoute){
-            if (!currentLatLongBounds.contains(latlng)){
+        for (LatLng latlng : lstLatLngRoute) {
+            if (!currentLatLongBounds.contains(latlng)) {
                 updateBounds = true;
             }
         }
 
-        if (updateBounds){
+        if (updateBounds) {
             CameraUpdate cameraUpdate;
 
-            if (lstLatLngRoute.size()==1){
+            if (lstLatLngRoute.size() == 1) {
                 LatLng latlng = lstLatLngRoute.iterator().next();
 
                 cameraUpdate = CameraUpdateFactory.newLatLng(latlng);
-            }else {
+            } else {
                 LatLngBounds.Builder builder = LatLngBounds.builder();
-                for (LatLng latlng : lstLatLngRoute){
+                for (LatLng latlng : lstLatLngRoute) {
                     builder.include(latlng);
                 }
 
                 LatLngBounds latLongBounds = builder.build();
 
-                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,700,600,0);
+                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds, 700, 600, 0);
 
-                try{
-                    googleMap.animateCamera(cameraUpdate,500,
-                            new GoogleMap.CancelableCallback(){
+                try {
+                    googleMap.animateCamera(cameraUpdate, 500,
+                            new GoogleMap.CancelableCallback() {
                                 @Override
-                                public void onFinish(){
+                                public void onFinish() {
 
                                 }
 
                                 @Override
-                                public void onCancel(){
+                                public void onCancel() {
 
                                 }
                             });
-                } catch (IllegalStateException ex){
+                } catch (IllegalStateException ex) {
                     ex.printStackTrace();
                 }
             }
         }
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        Log.d("Zoom","Zoom Finish");
+        Log.d("Zoom", "Zoom Finish");
     }
 
 

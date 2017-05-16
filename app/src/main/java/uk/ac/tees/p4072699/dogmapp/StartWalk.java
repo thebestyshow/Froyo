@@ -24,6 +24,7 @@ public class StartWalk extends AppCompatActivity {
     List<Integer> selected = new ArrayList<Integer>();
     List<Dog> list = new ArrayList<>();
     StringBuilder sb = new StringBuilder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Start Walk");
@@ -53,15 +54,15 @@ public class StartWalk extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selected.contains(position)) {
                     selected.remove(Integer.valueOf(position));
-                    if (selected.isEmpty()){
+                    if (selected.isEmpty()) {
                         dogs_tv.setText("");
                         return;
                     }
 
-                    for (int i : selected){
-                        if (i == selected.get(selected.size()-1))
+                    for (int i : selected) {
+                        if (i == selected.get(selected.size() - 1))
                             sb.append(list.get(i).getName());
-                        else{
+                        else {
                             sb.append(list.get(i).getName() + ", ");
                         }
                         dogs_tv.setText(sb.toString());
@@ -69,10 +70,10 @@ public class StartWalk extends AppCompatActivity {
                     }
                 } else {
                     selected.add(position);
-                    for (int i : selected){
-                        if (i == selected.get(selected.size()-1))
+                    for (int i : selected) {
+                        if (i == selected.get(selected.size() - 1))
                             sb.append(list.get(i).getName());
-                        else{
+                        else {
                             sb.append(list.get(i).getName() + ", ");
                         }
                     }
@@ -99,26 +100,27 @@ public class StartWalk extends AppCompatActivity {
                 Intent i = new Intent(con, MapsActivity.class);
                 ArrayList<Dog> passList = new ArrayList<Dog>();
 
-                for (int num : selected){
+                for (int num : selected) {
                     //list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
                     passList.add(list.get(num));
                 }
 
                 Bundle lisbun = new Bundle();
-                lisbun.putSerializable("ARRAYLIST",passList);
-                i.putExtra("bundle",lisbun);
+                lisbun.putSerializable("ARRAYLIST", passList);
+                i.putExtra("bundle", lisbun);
                 i.putExtra("map", 0);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

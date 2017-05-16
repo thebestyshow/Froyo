@@ -13,6 +13,7 @@ public class EditProfile extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Owner owner;
     Toast t;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Profile");
@@ -31,23 +32,23 @@ public class EditProfile extends AppCompatActivity {
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
 
-        save.setOnClickListener(new View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                if (etname.getText().toString() == ""){
-                    t= Toast.makeText(getApplicationContext(),"Please enter a name",Toast.LENGTH_SHORT);
+            public void onClick(View view) {
+                if (etname.getText().toString() == "") {
+                    t = Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
-                }else if (etEmail.getText().toString() == ""){
-                    t= Toast.makeText(getApplicationContext(), "Please Enter a email", Toast.LENGTH_SHORT);
+                } else if (etEmail.getText().toString() == "") {
+                    t = Toast.makeText(getApplicationContext(), "Please Enter a email", Toast.LENGTH_SHORT);
                     t.show();
-                }else{
+                } else {
                     owner.setName(etname.getText().toString());
                     owner.setEmail(etEmail.getText().toString());
                     dh.editUser(owner);
                 }
 
-                Intent i = new Intent(getApplicationContext(),Profile.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -64,17 +65,18 @@ public class EditProfile extends AppCompatActivity {
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),changePass.class);
-                i.putExtra("owner",owner);
+                Intent i = new Intent(getApplicationContext(), changePass.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

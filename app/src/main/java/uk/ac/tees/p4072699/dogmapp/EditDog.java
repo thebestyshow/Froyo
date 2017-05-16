@@ -39,8 +39,8 @@ public class EditDog extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dh.removeDog(d.getId());
-                Intent i = new Intent(getApplicationContext(),DogList.class);
-                Toast t = Toast.makeText(getApplicationContext(),d.getName() + " has been removed",Toast.LENGTH_SHORT);
+                Intent i = new Intent(getApplicationContext(), DogList.class);
+                Toast t = Toast.makeText(getApplicationContext(), d.getName() + " has been removed", Toast.LENGTH_SHORT);
                 t.show();
                 startActivity(i);
             }
@@ -57,13 +57,13 @@ public class EditDog extends AppCompatActivity {
         });
 
 
-
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

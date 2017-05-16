@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -458,17 +460,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             //int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
 
-
-
             do {
                 ArrayList<LatLng> points = new ArrayList<LatLng>();
                 JSONObject o = new JSONObject(cursor.getString(latlngIdx));
                 //Log.d("JSON CHECK",o.toString());
                 JSONArray loc;
-                if (!o.has("locations")){
+                if (!o.has("locations")) {
                     break;
-                }else{
-                     loc =  (JSONArray) o.get("locations");
+                } else {
+                    loc = (JSONArray) o.get("locations");
                 }
 
                 Log.d("JSON", "NEW JSON....");
@@ -488,7 +488,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     double lng = Double.parseDouble(coord.get(1).toString());
                     points.add(new LatLng(lat, lng));
                 }
-
 
 
                 Log.d("LatLng Array: ", points.toString());

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,7 @@ public class DogList extends AppCompatActivity {
     String[] dogs = {};
     Integer[] dogsId = {};
     Owner owner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Dogs");
@@ -40,7 +42,7 @@ public class DogList extends AppCompatActivity {
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nTotWalks: " + dg.getTotwalks() + "    TotDis: " + df.format(dg.getTotdistance()) + "\nOwner: " + dh.getOwnerHelper(owner).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nTotWalks: " + dg.getTotwalks() + "    TotDis: " + df.format(dg.getTotdistance()) + "\nOwner: " + dh.getOwnerHelper(owner).getName();
 
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
@@ -55,30 +57,30 @@ public class DogList extends AppCompatActivity {
                 selected = dogsId[position];
                 List<Dog> list = dh.getAllDogs(owner.getId());
                 Intent i = new Intent(con, DogProfile.class);
-                i.putExtra("dog",list.get(position));
-                i.putExtra("owner",dh.getOwnerHelper(owner));
+                i.putExtra("dog", list.get(position));
+                i.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
-
 
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, AddDogActivity.class);
-                intent.putExtra("owner",dh.getOwnerHelper(owner));
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent i = new Intent(getApplicationContext(),Home.class);
-            i.putExtra("owner",owner);
+            Intent i = new Intent(getApplicationContext(), Home.class);
+            i.putExtra("owner", owner);
             startActivity(i);
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

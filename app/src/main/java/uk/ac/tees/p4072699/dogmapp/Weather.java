@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import uk.ac.tees.p4072699.dogmapp.weatherdata.Channel;
 import uk.ac.tees.p4072699.dogmapp.weatherdata.Item;
 import uk.ac.tees.p4072699.dogmapp.weatherservice.Callback;
@@ -38,10 +39,10 @@ public class Weather extends AppCompatActivity implements Callback {
         setContentView(R.layout.activity_weather);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        weatherIconImageView = (ImageView)findViewById(R.id.weatherIconImageView);
-        temperatureTextView = (TextView)findViewById(R.id.temperatureTextView);
-        locationTextView = (TextView)findViewById(R.id.locationTextView);
-        conditionTextView = (TextView)findViewById(R.id.conditionTextView);
+        weatherIconImageView = (ImageView) findViewById(R.id.weatherIconImageView);
+        temperatureTextView = (TextView) findViewById(R.id.temperatureTextView);
+        locationTextView = (TextView) findViewById(R.id.locationTextView);
+        conditionTextView = (TextView) findViewById(R.id.conditionTextView);
 
         service = new YahooWeatherService(this);
         dialog = new ProgressDialog(this);
@@ -76,13 +77,14 @@ public class Weather extends AppCompatActivity implements Callback {
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent i = new Intent(getApplicationContext(),Home.class);
-            i.putExtra("owner",owner);
+            Intent i = new Intent(getApplicationContext(), Home.class);
+            i.putExtra("owner", owner);
             startActivity(i);
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
@@ -97,7 +99,7 @@ public class Weather extends AppCompatActivity implements Callback {
         @SuppressWarnings("deprecation")
         Drawable weatherIconDrawable = getResources().getDrawable(resourceId);
         weatherIconImageView.setImageDrawable(weatherIconDrawable);
-        temperatureTextView.setText(item.getCondition().getTemperature()+ "\u00b0 " + channel.getUnits().getTemperature());
+        temperatureTextView.setText(item.getCondition().getTemperature() + "\u00b0 " + channel.getUnits().getTemperature());
         conditionTextView.setText(item.getCondition().getDescription());
         locationTextView.setText(service.getLocation());
     }
