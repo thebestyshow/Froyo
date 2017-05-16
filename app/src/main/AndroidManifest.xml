@@ -73,16 +73,10 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-
-            />
-
-
+            android:label="@string/title_activity_maps" />
         <activity android:name=".ReviewList" />
         <activity android:name=".Profile" />
-        <activity android:name=".StartWalk"
-            />
-
+        <activity android:name=".StartWalk" />
         <activity
             android:name=".MapSettings"
             android:label="@string/title_activity_settings" />
@@ -95,6 +89,8 @@
         <activity android:name=".Settings" />
         <activity android:name=".Weather" />
         <activity android:name=".FacebookShare"></activity>
+        <activity android:name=".About"></activity>
+
     </application>
 
 </manifest>

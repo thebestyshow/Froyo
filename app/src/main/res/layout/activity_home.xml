@@ -94,8 +94,8 @@
 
             <ListView
                 android:layout_centerHorizontal="true"
-                android:layout_width="350dp"
-                android:layout_height="300dp"
+                android:layout_width="match_parent"
+                android:layout_height="331dp"
                 android:id="@+id/lv_walks"
                 android:elevation="19dp"
                 android:visibility="visible" />
@@ -108,8 +108,8 @@
                 android:background="@drawable/roundedbutton"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </RelativeLayout>
     </LinearLayout>
 
