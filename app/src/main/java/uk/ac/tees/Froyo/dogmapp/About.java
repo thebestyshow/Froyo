@@ -1,4 +1,4 @@
-package uk.ac.tees.p4072699.dogmapp;
+package uk.ac.tees.Froyo.dogmapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

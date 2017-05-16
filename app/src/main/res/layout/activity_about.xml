@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/FroyoLogo"
+        app:srcCompat="@drawable/froyologo"
         android:id="@+id/imageView3"
         android:layout_marginBottom="37dp"
         android:layout_above="@+id/textView5"
