@@ -83,20 +83,13 @@ public class ReviewList extends AppCompatActivity {
                 Log.d("SELECTED ARRAY", wlist.get(position).getPoints().toString());
                 i.putParcelableArrayListExtra("pointsarray", wlist.get(position).getPoints());
                 wlist.get(position).setPoints(null);
+                i.putExtra("revlist","revlist");
                 i.putExtra("walk", wlist.get(position));
                 i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
 
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override

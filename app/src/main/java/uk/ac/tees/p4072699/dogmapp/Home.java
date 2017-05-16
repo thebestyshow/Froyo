@@ -154,6 +154,7 @@ public class Home extends AppCompatActivity {
                 Log.d("SELECTED ARRAY", wlist.get(position).getPoints().toString());
                 i.putParcelableArrayListExtra("pointsarray", wlist.get(position).getPoints());
                 wlist.get(position).setPoints(null);
+                i.putExtra("home","home");
                 i.putExtra("walk", wlist.get(position));
                 i.putExtra("owner", owner);
                 startActivity(i);
