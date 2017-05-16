@@ -13,6 +13,7 @@ public class changePass extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Owner owner;
     Toast t;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Change Password");
@@ -31,21 +32,21 @@ public class changePass extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Profile.class);
-                i.putExtra("owner",owner);
-                if (!oldPass.getText().toString().equals(owner.getPassword())){
-                    t = Toast.makeText(getApplicationContext(),"Please Enter your current password Correctly",Toast.LENGTH_SHORT);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
+                i.putExtra("owner", owner);
+                if (!oldPass.getText().toString().equals(owner.getPassword())) {
+                    t = Toast.makeText(getApplicationContext(), "Please Enter your current password Correctly", Toast.LENGTH_SHORT);
                     t.show();
                     oldPass.setText("");
                     newPass.setText("");
                     conNewPass.setText("");
-                }else{
-                    if (!newPass.getText().toString().equals(conNewPass.getText().toString())){
-                        t = Toast.makeText(getApplicationContext(),"Please ensure new passwords match",Toast.LENGTH_SHORT);
+                } else {
+                    if (!newPass.getText().toString().equals(conNewPass.getText().toString())) {
+                        t = Toast.makeText(getApplicationContext(), "Please ensure new passwords match", Toast.LENGTH_SHORT);
                         t.show();
                         newPass.setText("");
                         conNewPass.setText("");
-                    }else{
+                    } else {
                         owner.setPassword(conNewPass.getText().toString());
                         dh.editUser(owner);
                         startActivity(i);
@@ -56,11 +57,12 @@ public class changePass extends AppCompatActivity {
 
 
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

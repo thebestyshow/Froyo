@@ -78,14 +78,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         lisbun = getIntent().getExtras().getBundle("bundle");
         ArrayList<Location> loc = getIntent().getParcelableArrayListExtra("locs");
-        if (loc == null){
-        }else if  (!loc.isEmpty()){
-            for (Location l : loc){
-                points.add(new LatLng(l.getLatitude(),l.getLongitude()));
+        if (loc == null) {
+        } else if (!loc.isEmpty()) {
+            for (Location l : loc) {
+                points.add(new LatLng(l.getLatitude(), l.getLongitude()));
             }
             redrawLine();
-        }else{
-            Log.d("ERROR","Empty location array");
+        } else {
+            Log.d("ERROR", "Empty location array");
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -120,7 +120,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 tv.removeCallbacks(runnable);
                 dist.removeCallbacks(runnable);
 
-                for (LatLng ll : points){
+                for (LatLng ll : points) {
                     loc = new Location("");
                     loc.setLatitude(ll.latitude);
                     loc.setLongitude(ll.longitude);
@@ -132,9 +132,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 i.putExtra("hours", Integer.toString(Hours));
                 i.putExtra("mins", Integer.toString(Minutes));
                 i.putExtra("secs", Integer.toString(Seconds));
-                i.putParcelableArrayListExtra("locs",locarr);
+                i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("dis", totaldis);
-                i.putExtra("bundle",lisbun);
+                i.putExtra("bundle", lisbun);
                 MillisecondTime = 0L;
                 StartTime = 0L;
                 TimeBuff = 0L;
@@ -164,16 +164,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("start", s);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                i.putExtra("bundle",lisbun);
+                i.putExtra("bundle", lisbun);
                 startActivity(i);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
@@ -260,8 +261,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         prevLocation = location;
     }
 
-    public void redrawLine(){
-        try{
+    public void redrawLine() {
+        try {
             map.clear();
             PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
             int f = points.size();
@@ -271,8 +272,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 options.add(point);
             }
             line = map.addPolyline(options);
-        }catch (RuntimeException e){
-            Log.d("ERROR","Redraw line error");
+        } catch (RuntimeException e) {
+            Log.d("ERROR", "Redraw line error");
         }
     }
 

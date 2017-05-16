@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.text.DecimalFormat;
 
 public class DogProfile extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class DogProfile extends AppCompatActivity {
 
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("#.00");
-        String avg = df.format(d.getTotdistance()/d.getTotwalks());
+        String avg = df.format(d.getTotdistance() / d.getTotwalks());
 
 
         rem.setOnClickListener(new View.OnClickListener() {
@@ -68,13 +69,14 @@ public class DogProfile extends AppCompatActivity {
         });
 
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            Intent i = new Intent(getApplicationContext(),DogList.class);
-            i.putExtra("owner",owner);
+            Intent i = new Intent(getApplicationContext(), DogList.class);
+            i.putExtra("owner", owner);
             startActivity(i);
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

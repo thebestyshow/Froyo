@@ -21,6 +21,7 @@ public class FacebookShare extends AppCompatActivity {
 
     LoginButton login_button;
     CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

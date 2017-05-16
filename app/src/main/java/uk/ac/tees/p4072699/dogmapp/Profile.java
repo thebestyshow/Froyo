@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Profile extends AppCompatActivity {
         totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
         DecimalFormat df = new DecimalFormat("#.00");
-        String avg = df.format(owner.getTot_dis()/owner.getTot_walks());
+        String avg = df.format(owner.getTot_dis() / owner.getTot_walks());
         avgWalks.setText(avg + "KM");
 
 //        final Button home = (Button) findViewById(R.id.button_home);
@@ -50,9 +51,9 @@ public class Profile extends AppCompatActivity {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
             Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
-                    + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
+                    + " WHERE " + dh.getColId() + "=?", new String[]{Integer.toString(dg.getOwnerID())});
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOneOwner(cID).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nOwner: " + dh.getOneOwner(cID).getName();
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
@@ -71,11 +72,11 @@ public class Profile extends AppCompatActivity {
 //            }
 //        });
 
-        editProf.setOnClickListener(new View.OnClickListener(){
+        editProf.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent i = new Intent(con,EditProfile.class);
-                i.putExtra("owner",owner);
+            public void onClick(View view) {
+                Intent i = new Intent(con, EditProfile.class);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -89,11 +90,12 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

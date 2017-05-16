@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -50,31 +52,31 @@ public class EditWalk extends AppCompatActivity {
         tv_dis.setText(df.format(w.getLength()));
         tv_time.setText(String.valueOf(w.getTime()));
 
-        if (w.getRating() == 1){
+        if (w.getRating() == 1) {
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==2){
+        } else if (w.getRating() == 2) {
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==3){
+        } else if (w.getRating() == 3) {
             p3.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==4){
+        } else if (w.getRating() == 4) {
             p4.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==5){
+        } else if (w.getRating() == 5) {
             p5.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
@@ -138,33 +140,34 @@ public class EditWalk extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 w.setComment(etcomm.getText().toString());
                 w.setName(etname.getText().toString());
                 w.setRating(rating);
                 dh.editWalk(w);
-                Intent i = new Intent(getApplicationContext(),ReviewView.class);
-                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                Intent i = new Intent(getApplicationContext(), ReviewView.class);
+                i.putParcelableArrayListExtra("pointsarray", w.getPoints());
                 w.setPoints(null);
-                i.putExtra("walk",w);
-                i.putExtra("owner",owner);
+                i.putExtra("walk", w);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
-        retur.setOnClickListener(new View.OnClickListener(){
+        retur.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 onBackPressed();
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

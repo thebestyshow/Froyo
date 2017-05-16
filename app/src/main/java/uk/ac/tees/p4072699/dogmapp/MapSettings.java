@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+
 import java.util.ArrayList;
 
 public class MapSettings extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class MapSettings extends AppCompatActivity {
         RadioButton sa = (RadioButton) findViewById(R.id.radioButton_satellite);
         RadioButton h = (RadioButton) findViewById(R.id.radioButton_hybrid);
 
-        if(maptype == 0) {
+        if (maptype == 0) {
             n.setChecked(true);
         } else if (maptype == 1) {
             sa.setChecked(true);
@@ -72,16 +73,17 @@ public class MapSettings extends AppCompatActivity {
                 i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("map", maptype);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                i.putExtra("bundle",lisbun);
+                i.putExtra("bundle", lisbun);
                 startActivity(i);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
