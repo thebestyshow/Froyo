@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="uk.ac.tees.p4072699.dogmapp">
+    package="uk.ac.tees.Froyo.dogmapp">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
