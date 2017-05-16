@@ -13,7 +13,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
+public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener  {
@@ -60,6 +62,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         w = (Walk) getIntent().getSerializableExtra("walk");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
@@ -141,9 +144,6 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             public void onClick(View view){
                 Intent i = new Intent(getApplicationContext(),ReviewList.class);
                 i.putExtra("owner",owner);
-                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
-                w.setPoints(null);
-                i.putExtra("walk",w);
                 startActivity(i);
             }
         });
@@ -169,6 +169,15 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
                 startActivity(intent);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
 
@@ -235,7 +244,7 @@ public class ReviewView extends FragmentActivity implements OnMapReadyCallback,
             map.setMyLocationEnabled(true);
         }
 
-        map.getUiSettings().setScrollGesturesEnabled(false);
+        //map.getUiSettings().setScrollGesturesEnabled(false);
     }
 
     public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {

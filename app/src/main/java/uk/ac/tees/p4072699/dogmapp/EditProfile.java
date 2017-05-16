@@ -3,6 +3,7 @@ package uk.ac.tees.p4072699.dogmapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,13 @@ public class EditProfile extends AppCompatActivity {
         setTitle("Edit Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final EditText etname = (EditText) findViewById(R.id.etname);
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final Button changePass = (Button) findViewById(R.id.button_change);
         final Button save = (Button) findViewById(R.id.button_savez);
-        final Button retur = (Button) findViewById(R.id.button_retur);
+//        final Button retur = (Button) findViewById(R.id.button_retur);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
@@ -50,14 +52,14 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        retur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),Profile.class);
-                i.putExtra("owner",owner);
-                startActivity(i);
-            }
-        });
+//        retur.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(),Profile.class);
+//                i.putExtra("owner",owner);
+//                startActivity(i);
+//            }
+//        });
 
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,5 +69,14 @@ public class EditProfile extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

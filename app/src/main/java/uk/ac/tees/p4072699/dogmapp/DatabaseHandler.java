@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -296,12 +297,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         Log.d("JSON", "Location Collection" + coll.toString());
 
-/*        Log.d("Array",w.getPoints().toString());
-        JSONObject json = new JSONObject();
-        json.put("latlngArr", new JSONArray(w.getPoints()));
-        String latlngArr = json.toString();
-
-        Log.d("JSON",latlngArr);*/
         values.put(COL_ROUTE_DATE, w.getDate());
         values.put(COL_ROUTE_NAME, w.getName());
         values.put(COL_ROUTE_LEN, w.getLength());
@@ -460,16 +455,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
-            int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
+            //int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
-            ArrayList<LatLng> points = new ArrayList<LatLng>();
+
+
 
             do {
-                points.clear();
-                JSONObject object = new JSONObject(cursor.getString(latlngIdx));
+                ArrayList<LatLng> points = new ArrayList<LatLng>();
+                JSONObject o = new JSONObject(cursor.getString(latlngIdx));
+                //Log.d("JSON CHECK",o.toString());
+                JSONArray loc;
+                if (!o.has("locations")){
+                    break;
+                }else{
+                     loc =  (JSONArray) o.get("locations");
+                }
 
-                JSONArray loc = (JSONArray) object.get("locations");
                 Log.d("JSON", "NEW JSON....");
+
 
                 for (int i = 0; i < loc.length(); i++) {
                     JSONObject geo = (JSONObject) loc.get(i);
@@ -487,6 +490,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
 
 
+
                 Log.d("LatLng Array: ", points.toString());
                 Log.d("", "");
                 Walk walk = new Walk(
@@ -500,7 +504,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 );
                 list.add(walk);
 
-                //Log.d("Debug", points.toString());
+                //points = new ArrayList<LatLng>();
+
+                Log.d("Debug", list.toString());
             } while (cursor.moveToNext());
         }
         return list;
