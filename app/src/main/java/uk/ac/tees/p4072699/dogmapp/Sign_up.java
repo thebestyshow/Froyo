@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.*;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.util.*;
 
 public class Sign_up extends AppCompatActivity implements View.OnClickListener {
@@ -30,11 +31,12 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
         sign.setOnClickListener(this);
         log.setOnClickListener(this);
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

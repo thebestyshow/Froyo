@@ -6,18 +6,19 @@ import org.json.JSONObject;
  * Created by besty on 09/05/2017.
  */
 
-public class Channel implements JSONPopulator{
+public class Channel implements JSONPopulator {
     private Item item;
     private Units units;
 
-    public Units getUnits(){
+    public Units getUnits() {
         return units;
     }
 
-    public Item getItem(){
+    public Item getItem() {
         return item;
     }
-        @Override
+
+    @Override
     public void populate(JSONObject data) {
         units = new Units();
         units.populate(data.optJSONObject("units"));

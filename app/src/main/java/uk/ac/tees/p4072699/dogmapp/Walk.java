@@ -1,23 +1,25 @@
 package uk.ac.tees.p4072699.dogmapp;
 
 import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Walk implements Serializable{
+public class Walk implements Serializable {
     private double length;
     private int rating;
-    private String comment,name;
+    private String comment, name;
     private int id;
     private int time;
     private ArrayList<LatLng> points;
     private String date;
 
-    public Walk(double length, int time, ArrayList<LatLng> points) {
+    public Walk(double length, int time, ArrayList<LatLng> points, String date) {
         this.length = length;
         this.time = time;
         this.points = points;
+        this.date = date;
     }
 
     public Walk(String name, double length, int rating, String comment, int time, ArrayList<LatLng> points, String date) {
@@ -39,23 +41,19 @@ public class Walk implements Serializable{
 
     }
 
-    public Walk(String n, double length, int rating, String comment, int time, ArrayList<LatLng> points) {
-        this.name = n;
-        this.length = length;
-        this.rating = rating;
-        this.comment = comment;
-        this.time = time;
+    public Walk(String n, double length, int rating, String comment,int id, int time, ArrayList<LatLng> points) {
+        this(n, length, rating, comment, id, time);
         this.points = points;
     }
 
-    public Walk(String n,double length, int rating, String comment, int id, int time) {
-        this(n,length,rating,comment,time);
+    public Walk(String n, double length, int rating, String comment, int id, int time) {
+        this(n, length, rating, comment, time);
         this.id = id;
     }
 
-    public Walk(String n,double length,int rating,String comment,int id,int time,ArrayList<LatLng> points){
-        this(n,length,rating,comment,id,time);
-        this.points = points;
+    public Walk(String n, double length, int rating, String comment, int id, int time, ArrayList<LatLng> points,String date) {
+        this(n, length, rating, comment, id, time,points);
+        this.date = date;
     }
 
     public void setPoints(ArrayList<LatLng> points) {

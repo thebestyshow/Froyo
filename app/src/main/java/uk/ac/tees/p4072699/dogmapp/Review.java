@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,15 +44,15 @@ public class Review extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lisbun  = getIntent().getExtras().getBundle("bundle");
+        lisbun = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        for (Location l : loc){
-            ltlg = new LatLng(l.getLatitude(),l.getLongitude());
+        for (Location l : loc) {
+            ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
         }
 
@@ -57,21 +60,21 @@ public class Review extends AppCompatActivity {
         mins = getIntent().getStringExtra("mins");
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
 
-        dh.addOwnerWalk(owner,Double.parseDouble(df.format(d)));
-        dh.addDogWalk(doglist,Double.parseDouble(df.format(d)));
+        dh.addOwnerWalk(owner, Double.parseDouble(df.format(d)));
+        dh.addDogWalk(doglist, Double.parseDouble(df.format(d)));
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
-//        final Button cancel = (Button) findViewById(R.id.button_cancel);
+        final Button cancel = (Button) findViewById(R.id.button_cancel);
+        //final Button share = (Button) findViewById(R.id.button_share);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
@@ -83,23 +86,24 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-        set.setOnClickListener(new View.OnClickListener() {
+/*        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
+                Intent intent = new Intent(con, FacebookShare.class);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(intent);
+                setContentView(R.layout.activity_facebook_share);
+                finish();
             }
-        });
-
+        });*/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast t;
-                if  (name.getText().toString().equals("")){
-                    t = Toast.makeText(getApplicationContext(),"Please enter a name", Toast.LENGTH_SHORT);
+                if (name.getText().toString().equals("")) {
+                    t = Toast.makeText(getApplicationContext(), "Please enter a name", Toast.LENGTH_SHORT);
                     t.show();
-                }else{
+                } else {
                     try {
                         dh.add(new Walk(name.getText().toString(), d, paws, com.getText().toString(), time, points, date));
                     } catch (JSONException e1) {
@@ -114,17 +118,17 @@ public class Review extends AppCompatActivity {
             }
         });
 
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dh.addW(new Walk(d, time, points));
-//                Intent intent = new Intent(con, Home.class);
-//                intent.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(intent);
-//                setContentView(R.layout.activity_home);
-//                finish();
-//            }
-//        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dh.addW(new Walk(d, time, points, date));
+                Intent intent = new Intent(con, Home.class);
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
+                startActivity(intent);
+                setContentView(R.layout.activity_home);
+                finish();
+            }
+        });
 
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -182,11 +186,12 @@ public class Review extends AppCompatActivity {
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

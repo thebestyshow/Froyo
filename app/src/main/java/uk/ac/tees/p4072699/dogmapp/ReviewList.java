@@ -12,8 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,32 +36,32 @@ public class ReviewList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-//        final Button home = (Button) findViewById(R.id.button_home);
-        final Button rem = (Button) findViewById(R.id.button_removerev);
+        final Button home = (Button) findViewById(R.id.Rev_home);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
 
 
         List<Walk> list = new ArrayList<>();
         try {
             list = dh.getAllWalks();
+            Log.d("WALK ARRAY", list.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-
-        for (Walk w : list){
-            Log.d("LIST CHECK",w.getId() + " : " + w.getPoints().toString());
         }
 
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
-            reviews[reviews.length - 1] = "Name: " + w.getName() +"\nRating: " + w.getRating() + "\nComment: " + w.getComment();
+
+            reviews[reviews.length - 1] = "Name: " + w.getName() + "\nRating: " + w.getRating() + "\nComment: " + w.getComment();
             revId = Arrays.copyOf(revId, revId.length + 1);
             revId[revId.length - 1] = w.getId();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reviews);
+
+        for (Walk w : list) {
+            Log.d("LIST CHECK", w.getId() + " : " + w.getPoints().toString());
+        }
 
         ListView listView = (ListView) findViewById(R.id.lv_rev);
         listView.setAdapter(adapter);
@@ -70,55 +73,43 @@ public class ReviewList extends AppCompatActivity {
                 List<Walk> wlist = null;
                 try {
                     wlist = dh.getAllWalks();
-                    Log.d("DATABASE",wlist.toString());
+                    Log.d("DATABASE", wlist.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("list check",wlist.toString());
-                Intent i = new Intent(con,ReviewView.class);
-                Log.d("SELECTED WALK",wlist.get(position).getName());
-                Log.d("SELECTED ARRAY",wlist.get(position).getPoints().toString());
-                i.putParcelableArrayListExtra("pointsarray",wlist.get(position).getPoints());
+                Log.d("list check", wlist.toString());
+                Intent i = new Intent(con, ReviewView.class);
+                Log.d("SELECTED WALK", wlist.get(position).getName());
+                Log.d("SELECTED ARRAY", wlist.get(position).getPoints().toString());
+                i.putParcelableArrayListExtra("pointsarray", wlist.get(position).getPoints());
                 wlist.get(position).setPoints(null);
-                i.putExtra("walk",wlist.get(position));
-                i.putExtra("owner",owner);
+                i.putExtra("revlist","revlist");
+                i.putExtra("walk", wlist.get(position));
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
 
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
 
-        rem.setOnClickListener(new View.OnClickListener() {
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dh.removeWalk(selected);
-                Intent intent = new Intent(con, ReviewList.class);
+                Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
-            return  true;
+            Intent i = new Intent(getApplicationContext(), Home.class);
+            i.putExtra("owner", owner);
+            startActivity(i);
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

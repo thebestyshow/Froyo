@@ -71,16 +71,6 @@
         android:onClick="paw5"
         android:background="@drawable/roundedbutton" />
 
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageButton_settings"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        app:srcCompat="@mipmap/ic_settings_black_24dp" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -119,18 +109,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/et_comm"
-        android:layout_marginTop="78dp"
-        android:layout_height="50dp"
-        android:background="@drawable/loginback"
-        android:layout_width="250dp"
-        android:layout_below="@+id/imageButton_settings"
-        android:layout_toRightOf="@+id/textView15"
-        android:layout_toEndOf="@+id/textView15" />
-
     <TextView
         android:text="@string/name"
         android:layout_width="wrap_content"
@@ -149,7 +127,8 @@
         android:background="@drawable/loginback"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/paw_5"
-        android:layout_alignEnd="@+id/paw_5" />
+        android:layout_alignEnd="@+id/paw_5"
+        android:textAlignment="center" />
 
     <TextView
         android:text="@string/comments"
@@ -185,13 +164,42 @@
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:text="@string/cancel"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:id="@+id/button_cancel"
+        android:background="@drawable/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_savez" />
+
+    <Button
         android:text="@string/save"
         android:layout_width="150dp"
         android:id="@+id/button_savez"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:layout_height="45dp"
         android:layout_below="@+id/textView_time"
-        android:layout_toLeftOf="@+id/paw_5"
-        android:layout_toStartOf="@+id/paw_5" />
+        android:layout_alignLeft="@+id/button_cancel"
+        android:layout_alignStart="@+id/button_cancel" />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/et_comm"
+        android:layout_height="50dp"
+        android:background="@drawable/loginback"
+        android:layout_width="250dp"
+        android:layout_below="@+id/textView21"
+        android:layout_toRightOf="@+id/textView_distance"
+        android:layout_alignRight="@+id/paw_5"
+        android:layout_alignEnd="@+id/paw_5"
+        android:textAlignment="center" />
+        android:text="@string/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button_cancel"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/button_share" />
 </RelativeLayout>

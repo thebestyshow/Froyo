@@ -21,17 +21,17 @@ public class YahooWeatherService {
     private String location;
     private Exception error;
 
-    public YahooWeatherService (Callback callback){
+    public YahooWeatherService(Callback callback) {
 
         this.callback = callback;
     }
 
-    public String getLocation(){
+    public String getLocation() {
 
         return location;
     }
 
-    public void refreshWeather(String l){
+    public void refreshWeather(String l) {
         this.location = l;
         new AsyncTask<String, Void, String>() {
             @Override
@@ -51,7 +51,7 @@ public class YahooWeatherService {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                     StringBuilder result = new StringBuilder();
                     String line;
-                    while((line = reader.readLine()) != null){
+                    while ((line = reader.readLine()) != null) {
                         result.append(line);
                     }
 
@@ -65,9 +65,9 @@ public class YahooWeatherService {
             }
 
             @Override
-            protected void onPostExecute(String s){
+            protected void onPostExecute(String s) {
 
-                if(s == null && error != null){
+                if (s == null && error != null) {
                     callback.serviceFailure(error);
                     return;
                 }
@@ -77,7 +77,7 @@ public class YahooWeatherService {
                     JSONObject queryResults = data.optJSONObject("query");
 
                     int count = queryResults.optInt("count");
-                    if(count == 0 ){
+                    if (count == 0) {
                         callback.serviceFailure(new LocationWeatherException("No weather information found for " + location +
                                 "\n\t\t\t\t\t\t\t\t\t Try refreshing page"));
                         return;
@@ -95,7 +95,7 @@ public class YahooWeatherService {
         }.execute(location);
     }
 
-    public class LocationWeatherException extends Exception{
+    public class LocationWeatherException extends Exception {
         public LocationWeatherException(String detailMessage) {
 
             super(detailMessage);

@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -58,7 +57,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Polyline line;
     LatLng oldlatlng;
     int maptype;
-    TextView tv;
+    TextView tv,dist;
+
     long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     int Seconds, Minutes, Hours, MilliSeconds;
 
@@ -71,22 +71,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv = (TextView) findViewById(R.id.timer);
+        dist = (TextView)findViewById(R.id.tv_distance);
         StartTime = SystemClock.uptimeMillis();
         tv.postDelayed(runnable, 0);
+        dist.postDelayed(runnable, 0);
 
         lisbun = getIntent().getExtras().getBundle("bundle");
         ArrayList<Location> loc = getIntent().getParcelableArrayListExtra("locs");
-        if (loc == null){
-        }else if  (!loc.isEmpty()){
-            for (Location l : loc){
-                points.add(new LatLng(l.getLatitude(),l.getLongitude()));
+        if (loc == null) {
+        } else if (!loc.isEmpty()) {
+            for (Location l : loc) {
+                points.add(new LatLng(l.getLatitude(), l.getLongitude()));
             }
             redrawLine();
-        }else{
-            Log.d("ERROR","Empty location array");
+        } else {
+            Log.d("ERROR", "Empty location array");
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
                 locRequest = LocationRequest.create()
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -116,8 +118,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 TimeBuff += MillisecondTime;
                 tv.removeCallbacks(runnable);
+                dist.removeCallbacks(runnable);
 
-                for (LatLng ll : points){
+                for (LatLng ll : points) {
                     loc = new Location("");
                     loc.setLatitude(ll.latitude);
                     loc.setLongitude(ll.longitude);
@@ -129,9 +132,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 i.putExtra("hours", Integer.toString(Hours));
                 i.putExtra("mins", Integer.toString(Minutes));
                 i.putExtra("secs", Integer.toString(Seconds));
-                i.putParcelableArrayListExtra("locs",locarr);
+                i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("dis", totaldis);
-                i.putExtra("bundle",lisbun);
+                i.putExtra("bundle", lisbun);
                 MillisecondTime = 0L;
                 StartTime = 0L;
                 TimeBuff = 0L;
@@ -161,16 +164,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 i.putParcelableArrayListExtra("locs", locarr);
                 i.putExtra("start", s);
                 i.putExtra("owner", dh.getOwnerHelper(owner));
-                i.putExtra("bundle",lisbun);
+                i.putExtra("bundle", lisbun);
                 startActivity(i);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 
@@ -257,8 +261,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         prevLocation = location;
     }
 
-    public void redrawLine(){
-        try{
+    public void redrawLine() {
+        try {
             map.clear();
             PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
             int f = points.size();
@@ -268,8 +272,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 options.add(point);
             }
             line = map.addPolyline(options);
-        }catch (RuntimeException e){
-            Log.d("ERROR","Redraw line error");
+        } catch (RuntimeException e) {
+            Log.d("ERROR", "Redraw line error");
         }
     }
 
@@ -387,6 +391,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     + String.format("%02d", Minutes) + ":"
                     + String.format("%02d", Seconds));
             tv.postDelayed(this, 0);
+            String n = String.format("%.2f", totaldis);
+            dist.setText(n);
         }
     };
 }

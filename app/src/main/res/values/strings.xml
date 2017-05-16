@@ -35,6 +35,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="totdis">Total Distance</string>
     <string name="totTime">Total Time</string>
+    <string name="share">Share</string>
 
     <!-- Map Page -->
     <string name="map">Map</string>
@@ -50,10 +51,32 @@
     <string name="startw">Start Walk</string>
     <string name="choosedogs">Choose dogs for the walk</string>
 
-    <string name="Help_content">Dogmapp is an app that allows you to create walks and share them with other users. It allows you to socialise with other dog
-    owners and organise walks. You can make profiles for each of the your dogs where stats from each walk your pet has been on will be saved. Once you have
-    started a walk dogmapp will track where you are and when your walk is complete, you can save the walk, give the walk a review and share it.\nFor any futher
-    assistance with Dogmapp please email p4072699@tees.ac.uk.</string>
+    <string name="help">Here is a step-by-step guide to help you along:
+
+        \n•	\tCreate a profile
+
+        \n•	\tLogin
+
+        \n•	\tAdd dogs(s)
+
+        \n•	\tCheck the weather before you go
+
+        \n•	\tStart Walk
+
+        \n•	\tSelect your dogs for the walk
+
+        \n•	\tStart your walk
+
+        \n•	\tSave your walk
+
+        \n•	\tShare your walk with your friends!
+    </string>
+
+    <string name="About">Created by Team Froyo
+    \nV1.0
+    \nSupport@Froyo.com
+    </string>
+
     <string name="title_activity_walk_map">Map</string>
     <string name="title_activity_maps">Map</string>
 
@@ -149,4 +172,7 @@
     <string name="temperature">Temperature</string>
     <string name="location">Location</string>
     <string name="condition">Condition</string>
+
+    <string name="facebook_app_id">452029198472307</string>
+    <string name="fb_login_protocol_scheme">fb452029198472307</string>
 </resources>

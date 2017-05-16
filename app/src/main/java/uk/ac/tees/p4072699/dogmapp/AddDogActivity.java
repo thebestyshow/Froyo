@@ -14,6 +14,7 @@ public class AddDogActivity extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
 
     Owner owner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Add Dog");
@@ -27,35 +28,26 @@ public class AddDogActivity extends AppCompatActivity {
 //        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-        owner = (Owner)getIntent().getSerializableExtra("owner");
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
-
+        owner = (Owner) getIntent().getSerializableExtra("owner");
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.add(new Dog(dh.getDogCount()+1,dgname.getText().toString(), owner.getId()));
+                dh.add(new Dog(dh.getDogCount() + 1, dgname.getText().toString(), owner.getId()));
                 Intent intent = new Intent(con, DogList.class);
-                intent.putExtra("owner",dh.getOwnerHelper(owner));
+                intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
 

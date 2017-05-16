@@ -3,8 +3,7 @@ package uk.ac.tees.p4072699.dogmapp.weatherdata;
 import org.json.JSONObject;
 
 
-
-public class Units implements JSONPopulator{
+public class Units implements JSONPopulator {
 
     private String temperature;
 

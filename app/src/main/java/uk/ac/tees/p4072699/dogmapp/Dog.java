@@ -12,15 +12,15 @@ public class Dog implements Serializable {
     private double totdistance;
     private int id;
 
-    public Dog(int id,String name, int owner,int totWalks, double totdistance) {
-        this(name,owner);
+    public Dog(int id, String name, int owner, int totWalks, double totdistance) {
+        this(name, owner);
         this.totwalks = totWalks;
         this.totdistance = totdistance;
         this.id = id;
     }
 
-    public Dog(int id,String name, int owner) {
-        this(name,owner);
+    public Dog(int id, String name, int owner) {
+        this(name, owner);
         this.id = id;
         totwalks = 0;
         totdistance = 0.0;

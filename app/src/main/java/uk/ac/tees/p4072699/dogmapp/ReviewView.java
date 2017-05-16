@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -34,13 +35,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener  {
+        LocationListener {
 
     private GoogleMap map;
     GoogleApiClient googleAPI;
@@ -53,6 +55,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
     ArrayList<LatLng> points;
     Polyline line;
     ImageView p1, p2, p3, p4, p5;
+    String prevAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +67,23 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         w = (Walk) getIntent().getSerializableExtra("walk");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (getIntent().hasExtra("home")){
+            prevAct = getIntent().getStringExtra("home");
+        }else if(getIntent().hasExtra("revlist")){
+            prevAct = getIntent().getStringExtra("revlist");
+        }
+
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
         final TextView dis = (TextView) findViewById(R.id.textView_dis);
         final TextView time = (TextView) findViewById(R.id.textView_time);
-        final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
-        Log.d("dsa","CURRENT LATLONGS : " + points.toString());
+        Log.d("dsa", "CURRENT LATLONGS : " + points.toString());
         //points.add(l1);
         //points.add(l2);
 
@@ -107,31 +115,31 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         p4 = (ImageView) findViewById(R.id.paw_4);
         p5 = (ImageView) findViewById(R.id.paw_5);
 
-        if (w.getRating() == 1){
+        if (w.getRating() == 1) {
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==2){
+        } else if (w.getRating() == 2) {
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.paw);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==3){
+        } else if (w.getRating() == 3) {
             p3.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p4.setImageResource(R.drawable.paw);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==4){
+        } else if (w.getRating() == 4) {
             p4.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
             p1.setImageResource(R.drawable.selected);
             p5.setImageResource(R.drawable.paw);
-        }else if(w.getRating() ==5){
+        } else if (w.getRating() == 5) {
             p5.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.selected);
             p3.setImageResource(R.drawable.selected);
@@ -139,23 +147,16 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             p1.setImageResource(R.drawable.selected);
         }
 
-        retur.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent i = new Intent(getApplicationContext(),ReviewList.class);
-                i.putExtra("owner",owner);
-                startActivity(i);
-            }
-        });
 
-        edit.setOnClickListener(new View.OnClickListener(){
+
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), EditWalk.class);
-                i.putParcelableArrayListExtra("pointsarray",w.getPoints());
+                i.putParcelableArrayListExtra("pointsarray", w.getPoints());
                 w.setPoints(null);
-                i.putExtra("walk",w);
-                i.putExtra("owner",owner);
+                i.putExtra("walk", w);
+                i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
@@ -170,19 +171,34 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             }
         });
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
-            return  true;
+            if (prevAct == "home"){
+                Intent i = new Intent(getApplicationContext(),Home.class);
+                i.putExtra("owner", owner);
+                startActivity(i);
+                return true;
+            }else if (prevAct == "revList"){
+                Intent i = new Intent(getApplicationContext(),ReviewList.class);
+                i.putExtra("owner", owner);
+                startActivity(i);
+                return true;
+            }else{
+                onBackPressed();
+                return true;
+            }
+
+
         }
         return super.onOptionsItemSelected(item);
 
     }
 
 
-    public void redrawLine(){
-        Log.d("Redraw","Redraw line start");
+    public void redrawLine() {
+        Log.d("Redraw", "Redraw line start");
         map.clear();
         PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
         int f = points.size();
@@ -191,13 +207,11 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             LatLng point = points.get(i);
             options.add(point);
         }
-        //Something goes here. Something to do with markers
-        //http://stackoverflow.com/questions/30249920/how-to-draw-path-as-i-move-starting-from-my-current-location-using-google-maps
         line = map.addPolyline(options);
-        zoomRoute(map,points);
+        zoomRoute(map, points);
         points.clear();
-        Log.d("DEBUG","Array after draw: " + points.toString());
-        Log.d("Redraw","Redraw line finish");
+        Log.d("DEBUG", "Array after draw: " + points.toString());
+        Log.d("Redraw", "Redraw line finish");
     }
 
 
@@ -249,55 +263,56 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
 
     public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {
 
-        Log.d("Zoom","Zoom start");
-        if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()){
+        Log.d("Zoom", "Zoom start");
+        if (googleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()) {
             return;
         }
 
         LatLngBounds currentLatLongBounds = googleMap.getProjection().getVisibleRegion().latLngBounds;
         boolean updateBounds = false;
-        for (LatLng latlng : lstLatLngRoute){
-            if (!currentLatLongBounds.contains(latlng)){
+        for (LatLng latlng : lstLatLngRoute) {
+            if (!currentLatLongBounds.contains(latlng)) {
                 updateBounds = true;
             }
         }
 
-        if (updateBounds){
+        if (updateBounds) {
             CameraUpdate cameraUpdate;
 
-            if (lstLatLngRoute.size()==1){
+            if (lstLatLngRoute.size() == 1) {
                 LatLng latlng = lstLatLngRoute.iterator().next();
 
                 cameraUpdate = CameraUpdateFactory.newLatLng(latlng);
-            }else {
+            } else {
                 LatLngBounds.Builder builder = LatLngBounds.builder();
-                for (LatLng latlng : lstLatLngRoute){
+                for (LatLng latlng : lstLatLngRoute) {
                     builder.include(latlng);
                 }
 
                 LatLngBounds latLongBounds = builder.build();
 
-                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds,90);
+                cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLongBounds, 700, 600, 0);
 
-                try{
-                    googleMap.animateCamera(cameraUpdate,500,
-                            new GoogleMap.CancelableCallback(){
+                try {
+                    googleMap.animateCamera(cameraUpdate, 500,
+                            new GoogleMap.CancelableCallback() {
                                 @Override
-                                public void onFinish(){
+                                public void onFinish() {
 
                                 }
 
                                 @Override
-                                public void onCancel(){
+                                public void onCancel() {
 
                                 }
                             });
-                } catch (IllegalStateException ex){
+                } catch (IllegalStateException ex) {
+                    ex.printStackTrace();
                 }
             }
         }
-
-        Log.d("Zoom","Zoom Finish");
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        Log.d("Zoom", "Zoom Finish");
     }
 
 

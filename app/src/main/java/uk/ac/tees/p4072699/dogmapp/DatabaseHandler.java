@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -455,9 +457,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int comIdx = cursor.getColumnIndex(COL_ROUTE_COMMENT);
             int timeIdx = cursor.getColumnIndex(COL_ROUTE_TIME);
             int latlngIdx = cursor.getColumnIndex(COL_POINTS);
-            //int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
-
-
+            int dateIDx = cursor.getColumnIndex(COL_ROUTE_DATE);
 
 
             do {
@@ -465,10 +465,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 JSONObject o = new JSONObject(cursor.getString(latlngIdx));
                 //Log.d("JSON CHECK",o.toString());
                 JSONArray loc;
-                if (!o.has("locations")){
+                if (!o.has("locations")) {
                     break;
-                }else{
-                     loc =  (JSONArray) o.get("locations");
+                } else {
+                    loc = (JSONArray) o.get("locations");
                 }
 
                 Log.d("JSON", "NEW JSON....");
@@ -490,7 +490,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
 
 
-
                 Log.d("LatLng Array: ", points.toString());
                 Log.d("", "");
                 Walk walk = new Walk(
@@ -500,7 +499,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(comIdx),
                         cursor.getInt(idIdx),
                         cursor.getInt(timeIdx),
-                        points
+                        points,
+                        cursor.getString(dateIDx)
                 );
                 list.add(walk);
 
