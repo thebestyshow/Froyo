@@ -110,7 +110,7 @@ public class Review extends AppCompatActivity {
                 shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "DogMapp");
                 shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
-                finish();
+
             }
         });
 
