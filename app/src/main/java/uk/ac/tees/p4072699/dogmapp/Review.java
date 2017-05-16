@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,8 @@ public class Review extends AppCompatActivity {
     String secs;
     double d;
     String date;
+    String shareMessage = "test";
+    int numDogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class Review extends AppCompatActivity {
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
@@ -61,6 +65,8 @@ public class Review extends AppCompatActivity {
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
         DecimalFormat df = new DecimalFormat("##.00");
+
+        numDogs = doglist.size();
 
         dh.addOwnerWalk(owner, Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist, Double.parseDouble(df.format(d)));
@@ -78,6 +84,7 @@ public class Review extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
+
         int h, m, s;
         hours = String.format("%02d", Integer.valueOf(hours));
         secs = String.format("%02d", Integer.valueOf(secs));
@@ -86,17 +93,27 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-
+        shareMessage = ("I just walked " + (df.format(d)) +
+                " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
+                "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
+        if (numDogs > 0)
+        {
+            shareMessage = ("I just walked " + numDogs + " dogs a total of " + (df.format(d)) +
+                    " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
+                    "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
+        }
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(con, FacebookShare.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-                setContentView(R.layout.activity_facebook_share);
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "DogMapp");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "Share via"));
                 finish();
             }
         });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

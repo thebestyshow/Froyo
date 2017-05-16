@@ -194,7 +194,16 @@
         android:layout_toRightOf="@+id/textView_distance"
         android:layout_alignRight="@+id/paw_5"
         android:layout_alignEnd="@+id/paw_5" />
+
+    <Button
         android:text="@string/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button_share" />
+    android:text="@string/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/button_cancel"
