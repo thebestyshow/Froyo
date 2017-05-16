@@ -151,5 +151,6 @@
     <string name="location">Location</string>
     <string name="condition">Condition</string>
 
-    <string name="facebook_app_id">425469464497203</string>
+    <string name="facebook_app_id">452029198472307</string>
+    <string name="fb_login_protocol_scheme">fb452029198472307</string>
 </resources>
