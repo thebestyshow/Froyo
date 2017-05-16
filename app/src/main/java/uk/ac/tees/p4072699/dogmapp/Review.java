@@ -14,6 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
@@ -40,6 +47,9 @@ public class Review extends AppCompatActivity {
     String date;
     String shareMessage = "test";
     int numDogs;
+    CallbackManager callbackManager;
+    LoginButton fbLogin;
+    boolean loggedInFB = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +63,29 @@ public class Review extends AppCompatActivity {
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        LoginManager.getInstance().logOut();
+        fbLogin = (LoginButton)findViewById(R.id.facebook_login_button);
+        callbackManager = CallbackManager.Factory.create();
+
+        fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
 
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
@@ -214,4 +246,11 @@ public class Review extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }
+
+

@@ -203,10 +203,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/button_share" />
-    android:text="@string/share"
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_cancel"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button_share" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView15"
+        android:layout_alignEnd="@+id/textView15" />
+
+
 </RelativeLayout>
