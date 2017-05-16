@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class Weather extends AppCompatActivity implements Callback {
         setTitle("Weather");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         weatherIconImageView = (ImageView)findViewById(R.id.weatherIconImageView);
         temperatureTextView = (TextView)findViewById(R.id.temperatureTextView);
@@ -49,21 +51,21 @@ public class Weather extends AppCompatActivity implements Callback {
 
         final Context con = this;
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        home = (Button) findViewById(R.id.button_home);
+//        home = (Button) findViewById(R.id.button_home);
         refresh = (Button) findViewById(R.id.button_refresh);
         refresh.performClick();
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Intent i = new Intent(getApplicationContext(), Home.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-                setContentView(R.layout.activity_home);
-                finish();
-            }
-        });
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//                Intent i = new Intent(getApplicationContext(), Home.class);
+//                i.putExtra("owner", dh.getOwnerHelper(owner));
+//                startActivity(i);
+//                setContentView(R.layout.activity_home);
+//                finish();
+//            }
+//        });
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,15 @@ public class Weather extends AppCompatActivity implements Callback {
                 startActivity(getIntent());
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

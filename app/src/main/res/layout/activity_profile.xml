@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/Prof_name"
         android:layout_alignBottom="@+id/imageButton_settings"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:id="@+id/textView8"
         android:text="@string/tot_walks"
         android:layout_below="@+id/Prof_name"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
 
     <TextView
         android:text="TextView"
@@ -47,19 +49,7 @@
         android:layout_alignLeft="@+id/Prof_name"
         android:layout_alignStart="@+id/Prof_name"
         android:layout_marginTop="15dp"
-        android:textAlignment="gravity"
-        android:gravity="center" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Prof_avgwalks"
-        android:layout_below="@+id/textView9"
-        android:layout_alignLeft="@+id/prof_totwalks"
-        android:layout_alignStart="@+id/prof_totwalks"
-        android:layout_marginTop="21dp"
-        android:textAlignment="gravity"
+        android:textAlignment="center"
         android:gravity="center" />
 
     <TextView
@@ -69,7 +59,8 @@
         android:id="@+id/textView9"
         android:layout_marginTop="19dp"
         android:layout_below="@+id/prof_totwalks"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
 
     <TextView
         android:text="@string/dogs"
@@ -80,30 +71,32 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="@string/home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_home"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/Prof_dogList"
         android:layout_height="150dp"
-        android:layout_above="@+id/button_home"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/button_editProf"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="31dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="@string/editProf"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:id="@+id/button_editProf"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button" />
+
+    <TextView
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_editProf" />
+        android:id="@+id/Prof_avgwalks"
+        android:layout_marginTop="22dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_below="@+id/textView9"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

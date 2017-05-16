@@ -6,6 +6,7 @@ import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -25,6 +26,7 @@ public class MapSettings extends AppCompatActivity {
         setTitle("Map Settings");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
         final Button retur = (Button) findViewById(R.id.button_return);
@@ -74,6 +76,15 @@ public class MapSettings extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void onRadioButtonClicked(View view) {

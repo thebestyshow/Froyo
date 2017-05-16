@@ -10,32 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.DogProfile">
 
-    <Button
-        android:text="@string/retur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button_return" />
-
-    <Button
-        android:text="@string/editDog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button_savez" />
-
-    <Button
-        android:text="@string/rem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_savez"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_remove" />
-
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -43,4 +17,23 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/textView_dogname" />
+
+    <Button
+        android:text="@string/rem"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:id="@+id/button_remove"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button" />
+
+    <Button
+        android:text="@string/editDog"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:id="@+id/button_savez"
+        android:background="@drawable/button"
+        android:layout_above="@+id/button_remove"
+        android:layout_alignLeft="@+id/button_remove"
+        android:layout_alignStart="@+id/button_remove" />
 </RelativeLayout>

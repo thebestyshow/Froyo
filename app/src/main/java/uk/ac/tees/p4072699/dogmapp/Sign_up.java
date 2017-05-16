@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.widget.EditText;
@@ -21,12 +22,22 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
         setTitle("Sign Up");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         sign = (Button) findViewById(R.id.Sign_Up_btn_sign);
         log = (Button) findViewById(R.id.Log_in_btn_sign);
 
         sign.setOnClickListener(this);
         log.setOnClickListener(this);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

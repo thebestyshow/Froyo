@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.renderscript.RenderScript;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,10 +32,11 @@ public class StartWalk extends AppCompatActivity {
         setTitle("Start Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_walk);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final TextView dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
         final Context con = this;
-        final Button cancel = (Button) findViewById(R.id.button_cancel);
+//        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
@@ -94,14 +96,14 @@ public class StartWalk extends AppCompatActivity {
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Home.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(con, Home.class);
+//                i.putExtra("owner", dh.getOwnerHelper(owner));
+//                startActivity(i);
+//            }
+//        });
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,5 +127,15 @@ public class StartWalk extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
