@@ -47,7 +47,7 @@ public class Weather extends AppCompatActivity implements Callback {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
-        service.refreshWeather("Paris, France");
+        service.refreshWeather("Middlesbrough");
 
         final Context con = this;
         owner = (Owner) getIntent().getSerializableExtra("owner");
@@ -79,7 +79,9 @@ public class Weather extends AppCompatActivity implements Callback {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
+            Intent i = new Intent(getApplicationContext(),Home.class);
+            i.putExtra("owner",owner);
+            startActivity(i);
             return  true;
         }
         return super.onOptionsItemSelected(item);

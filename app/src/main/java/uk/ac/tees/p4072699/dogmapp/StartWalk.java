@@ -36,7 +36,6 @@ public class StartWalk extends AppCompatActivity {
 //        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
         list = dh.getAllDogs(owner.getId());
 
         for (Dog d : list) {
@@ -54,11 +53,11 @@ public class StartWalk extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (selected.contains(position)) {
                     selected.remove(Integer.valueOf(position));
-
                     if (selected.isEmpty()){
                         dogs_tv.setText("");
                         return;
                     }
+
                     for (int i : selected){
                         if (i == selected.get(selected.size()-1))
                             sb.append(list.get(i).getName());
@@ -84,14 +83,6 @@ public class StartWalk extends AppCompatActivity {
             }
         });
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(con, Settings.class);
-                i.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(i);
-            }
-        });
 
 //        cancel.setOnClickListener(new View.OnClickListener() {
 //            @Override
