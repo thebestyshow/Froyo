@@ -11,31 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Review">
 
-    <TextView
-        android:text="@string/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_comm"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView3" />
-
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
-        android:id="@+id/paw_3"
-        android:cropToPadding="false"
-        android:adjustViewBounds="false"
-        android:elevation="0dp"
-        android:scaleType="fitCenter"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:onClick="paw3" />
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_2"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -44,12 +23,13 @@
         android:layout_alignTop="@+id/paw_3"
         android:layout_toLeftOf="@+id/paw_3"
         android:layout_toStartOf="@+id/paw_3"
-        android:onClick="paw2" />
+        android:onClick="paw2"
+        android:background="@drawable/roundedbutton" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_1"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -58,12 +38,13 @@
         android:layout_alignTop="@+id/paw_2"
         android:layout_toLeftOf="@+id/paw_2"
         android:layout_toStartOf="@+id/paw_2"
-        android:onClick="paw1" />
+        android:onClick="paw1"
+        android:background="@drawable/roundedbutton" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_4"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -72,12 +53,13 @@
         android:layout_alignTop="@+id/paw_3"
         android:layout_toRightOf="@+id/paw_3"
         android:layout_toEndOf="@+id/paw_3"
-        android:onClick="paw4" />
+        android:onClick="paw4"
+        android:background="@drawable/roundedbutton" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_5"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -86,25 +68,8 @@
         android:layout_alignTop="@+id/paw_4"
         android:layout_toRightOf="@+id/paw_4"
         android:layout_toEndOf="@+id/paw_4"
-        android:onClick="paw5" />
-
-    <Button
-        android:text="@string/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button_cancel" />
-
-    <Button
-        android:text="@string/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/button_savez" />
+        android:onClick="paw5"
+        android:background="@drawable/roundedbutton" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -115,15 +80,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         app:srcCompat="@mipmap/ic_settings_black_24dp" />
-
-    <TextView
-        android:text="@string/totdis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/paw_1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView13" />
 
     <TextView
         android:text="TextView"
@@ -154,43 +110,88 @@
         android:id="@+id/textView_time" />
 
     <TextView
+        android:text="@string/totdis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView13"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/paw_1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/et_comm"
+        android:layout_marginTop="78dp"
+        android:layout_height="50dp"
+        android:background="@drawable/loginback"
+        android:layout_width="250dp"
+        android:layout_below="@+id/imageButton_settings"
+        android:layout_toRightOf="@+id/textView15"
+        android:layout_toEndOf="@+id/textView15" />
+
+    <TextView
         android:text="@string/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_alignBottom="@+id/imageButton_settings"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/etname"
+        android:background="@drawable/loginback"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/paw_5"
+        android:layout_alignEnd="@+id/paw_5" />
 
     <TextView
         android:text="@string/comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView21"
-        android:layout_alignTop="@+id/et_comm"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/etname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/et_comm"
-        android:layout_height="150dp"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
+    <TextView
+        android:text="@string/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etname"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/et_comm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
+        android:id="@+id/paw_3"
+        android:cropToPadding="false"
+        android:adjustViewBounds="false"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        android:onClick="paw3"
+        android:background="@drawable/roundedbutton"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/save"
+        android:layout_width="150dp"
+        android:id="@+id/button_savez"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textView_time"
+        android:layout_toLeftOf="@+id/paw_5"
+        android:layout_toStartOf="@+id/paw_5" />
 </RelativeLayout>

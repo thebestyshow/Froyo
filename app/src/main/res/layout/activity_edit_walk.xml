@@ -11,20 +11,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.EditWalk">
 
-    <Button
-        android:text="@string/retur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button_return" />
-
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_3"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -32,12 +23,13 @@
         android:scaleType="fitCenter"
         android:onClick="paw3"
         android:layout_alignTop="@+id/paw_2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_4"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -46,12 +38,13 @@
         android:onClick="paw4"
         android:layout_alignTop="@+id/paw_3"
         android:layout_toRightOf="@+id/paw_3"
-        android:layout_toEndOf="@+id/paw_3" />
+        android:layout_toEndOf="@+id/paw_3"
+        android:background="@drawable/button" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_2"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -60,12 +53,13 @@
         android:onClick="paw2"
         android:layout_alignTop="@+id/paw_1"
         android:layout_toLeftOf="@+id/paw_3"
-        android:layout_toStartOf="@+id/paw_3" />
+        android:layout_toStartOf="@+id/paw_3"
+        android:background="@drawable/button" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_1"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -75,12 +69,13 @@
         android:layout_marginBottom="61dp"
         android:layout_above="@+id/button_return"
         android:layout_toLeftOf="@+id/paw_2"
-        android:layout_toStartOf="@+id/paw_2" />
+        android:layout_toStartOf="@+id/paw_2"
+        android:background="@drawable/button" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/paw"
+        app:srcCompat="@mipmap/ic_pets_black_24dp"
         android:id="@+id/paw_5"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
@@ -89,7 +84,8 @@
         android:onClick="paw5"
         android:layout_alignTop="@+id/paw_4"
         android:layout_toRightOf="@+id/paw_4"
-        android:layout_toEndOf="@+id/paw_4" />
+        android:layout_toEndOf="@+id/paw_4"
+        android:background="@drawable/button" />
 
     <TextView
         android:text="@string/name"
@@ -129,15 +125,6 @@
         android:layout_toLeftOf="@+id/paw_3"
         android:layout_toRightOf="@+id/paw_1"
         android:layout_toEndOf="@+id/paw_1" />
-
-    <Button
-        android:text="@string/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_savez"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="@string/comments"
@@ -180,4 +167,23 @@
         android:layout_toRightOf="@+id/et_name"
         android:layout_alignRight="@+id/et_name"
         android:layout_alignEnd="@+id/et_name" />
+
+    <Button
+        android:text="@string/retur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_return"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView17"
+        android:layout_alignEnd="@+id/textView17" />
+
+    <Button
+        android:text="@string/save"
+        android:layout_height="45dp"
+        android:id="@+id/button_savez"
+        android:background="@drawable/button"
+        android:layout_width="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView19"
+        android:layout_alignEnd="@+id/textView19" />
 </RelativeLayout>

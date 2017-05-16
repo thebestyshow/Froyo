@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class Review extends AppCompatActivity {
         setTitle("Review Walk");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         lisbun  = getIntent().getExtras().getBundle("bundle");
         owner = (Owner) getIntent().getSerializableExtra("owner");
         doglist = (ArrayList<Dog>) lisbun.getSerializable("ARRAYLIST");
@@ -63,7 +65,7 @@ public class Review extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
-        final Button cancel = (Button) findViewById(R.id.button_cancel);
+//        final Button cancel = (Button) findViewById(R.id.button_cancel);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
@@ -112,17 +114,17 @@ public class Review extends AppCompatActivity {
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dh.addW(new Walk(d, time, points));
-                Intent intent = new Intent(con, Home.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-                setContentView(R.layout.activity_home);
-                finish();
-            }
-        });
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dh.addW(new Walk(d, time, points));
+//                Intent intent = new Intent(con, Home.class);
+//                intent.putExtra("owner", dh.getOwnerHelper(owner));
+//                startActivity(intent);
+//                setContentView(R.layout.activity_home);
+//                finish();
+//            }
+//        });
 
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -179,5 +181,14 @@ public class Review extends AppCompatActivity {
                 p1.setImageResource(R.drawable.selected);
             }
         });
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
