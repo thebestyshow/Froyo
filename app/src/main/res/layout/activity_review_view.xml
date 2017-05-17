@@ -74,7 +74,8 @@
         android:text="nfvh vbhbv"
         android:textAlignment="center"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -89,7 +90,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             tools:context="uk.ac.tees.p4072699.dogmapp.ReviewView"
             android:layout_width="match_parent"
-            android:layout_height="288dp"
+            android:layout_height="375dp"
             android:layout_above="@+id/textView_dis" />
     </FrameLayout>
 
@@ -116,79 +117,79 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@mipmap/ic_pets_black_24dp"
+        app:srcCompat="@drawable/paw"
         android:id="@+id/paw_2"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
         android:elevation="0dp"
         android:scaleType="fitCenter"
         android:onClick="paw2"
-        android:background="@drawable/roundedbutton"
+        android:background="@drawable/pawback"
         android:layout_above="@+id/button_remove"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@mipmap/ic_pets_black_24dp"
-        android:id="@+id/paw_3"
-        android:cropToPadding="false"
-        android:adjustViewBounds="false"
-        android:elevation="0dp"
-        android:scaleType="fitCenter"
-        android:onClick="paw3"
-        android:background="@drawable/roundedbutton"
-        android:layout_below="@+id/textView18"
-        android:layout_toRightOf="@+id/textView18"
-        android:layout_toEndOf="@+id/textView18" />
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@mipmap/ic_pets_black_24dp"
-        android:id="@+id/paw_4"
-        android:cropToPadding="false"
-        android:adjustViewBounds="false"
-        android:elevation="0dp"
-        android:scaleType="fitCenter"
-        android:onClick="paw4"
-        android:background="@drawable/roundedbutton"
-        android:layout_above="@+id/button_savez"
-        android:layout_toRightOf="@+id/textView_Revname"
-        android:layout_toEndOf="@+id/textView_Revname" />
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@mipmap/ic_pets_black_24dp"
+        app:srcCompat="@drawable/paw"
         android:id="@+id/paw_1"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
         android:elevation="0dp"
         android:scaleType="fitCenter"
         android:onClick="paw1"
-        android:background="@drawable/roundedbutton"
+        android:background="@drawable/pawback"
         android:layout_below="@+id/textView18"
-        android:layout_toLeftOf="@+id/paw_3"
-        android:layout_toStartOf="@+id/paw_3"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp" />
+        android:layout_toLeftOf="@+id/textView_dis"
+        android:layout_toStartOf="@+id/textView_dis" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@mipmap/ic_pets_black_24dp"
+        app:srcCompat="@drawable/paw"
         android:id="@+id/paw_5"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
         android:elevation="0dp"
         android:scaleType="fitCenter"
         android:onClick="paw5"
-        android:background="@drawable/roundedbutton"
+        android:background="@drawable/pawback"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_above="@+id/button_savez"
         android:layout_toRightOf="@+id/paw_4"
-        android:layout_toEndOf="@+id/paw_4"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_above="@+id/button_savez" />
+        android:layout_toEndOf="@+id/paw_4" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/paw"
+        android:id="@+id/paw_3"
+        android:cropToPadding="false"
+        android:adjustViewBounds="false"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        android:onClick="paw3"
+        android:background="@drawable/pawback"
+        android:layout_above="@+id/button_remove"
+        android:layout_alignLeft="@+id/textView_dis"
+        android:layout_alignStart="@+id/textView_dis" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/paw"
+        android:id="@+id/paw_4"
+        android:cropToPadding="false"
+        android:adjustViewBounds="false"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        android:onClick="paw4"
+        android:background="@drawable/pawback"
+        android:layout_above="@+id/button_savez"
+        android:layout_toRightOf="@+id/paw_2"
+        android:layout_toEndOf="@+id/paw_2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
 
 </RelativeLayout>
