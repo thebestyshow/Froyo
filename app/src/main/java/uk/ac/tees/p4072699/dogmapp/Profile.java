@@ -43,7 +43,7 @@ public class Profile extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("00.00");
         String avg = df.format(owner.getTot_dis() / owner.getTot_walks());
         avgWalks.setText(avg + "KM");
-
+        totDis.setText(df.format(owner.getTot_dis()));
         final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 
