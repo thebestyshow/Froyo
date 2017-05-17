@@ -13,16 +13,6 @@ public class Owner implements Serializable {
     private String Password;
     private Date dob;
     private Image img;
-    private String city;
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-
-        return city;
-    }
 
     public int getId() {
         return id;
