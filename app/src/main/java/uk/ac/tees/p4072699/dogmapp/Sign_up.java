@@ -16,6 +16,10 @@ import java.util.*;
 public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Button sign, log;
+    private EditText n, e, p1, p2;
+    private String name, email, pass, conPass;
+    private SQLiteDatabase db;
+    private Cursor cursor;
 
     /*Initialises all buttons on this activity and sets onClickListeners to them */
     @Override
@@ -54,19 +58,19 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent i;
-        final EditText n = (EditText) findViewById(R.id.name_sign);
-        final EditText e = (EditText) findViewById(R.id.email_sign);
-        final EditText p1 = (EditText) findViewById(R.id.Pass_sign);
-        final EditText p2 = (EditText) findViewById(R.id.Pass_con_sign);
+        n = (EditText) findViewById(R.id.name_sign);
+        e = (EditText) findViewById(R.id.email_sign);
+        p1 = (EditText) findViewById(R.id.Pass_sign);
+        p2 = (EditText) findViewById(R.id.Pass_con_sign);
 
         switch (v.getId()) {
             case R.id.Sign_Up_btn_sign:
-                String name = n.getText().toString();
-                String email = e.getText().toString();
-                String pass = p1.getText().toString();
-                String conPass = p2.getText().toString();
-                SQLiteDatabase db = dh.getReadableDatabase();
-                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?", new String[]{email});
+                name = n.getText().toString();
+                email = e.getText().toString();
+                pass = p1.getText().toString();
+                conPass = p2.getText().toString();
+                db = dh.getReadableDatabase();
+                cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?", new String[]{email});
                 if (email.contains("@")) {
                     if (cursor != null) {
                         if (email.equals("")) {

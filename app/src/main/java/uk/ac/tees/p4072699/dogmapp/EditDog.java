@@ -8,14 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class EditDog extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Dog d;
     private Owner owner;
+    private Button save;
+    private EditText dgname;
 
-    //* this class will sned you to the edit dog screen so the user can change the details of
+    //* this class will send you to the edit dog screen so the user can change the details of
     //* the dog if they have mis-spelt the name for example. You can also remove and save the entry
     //* if the home button is pressed, you will be sent back to the home screen
     @Override
@@ -26,17 +27,25 @@ public class EditDog extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         final Context con = this;
+
+        save = (Button) findViewById(R.id.button_save2);
+        dgname = (EditText) findViewById(R.id.editText_dgname);
+
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
+
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
 
         dgname.setText(d.getName());
 
+
+        save.setOnClickListener(new View.OnClickListener() {
+
         save.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View view){
                 dh.edit(d, dgname.getText().toString());

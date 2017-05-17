@@ -35,6 +35,9 @@ public class Home extends AppCompatActivity {
     private int selected;
     private String[] walks = {};
     private Integer[] walkID = {};
+    private ListView walkList;
+    private TextView doglistlbl;
+    private Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +53,9 @@ public class Home extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
-        ListView walkList = (ListView) findViewById(R.id.lv_walks);
+        walkList = (ListView) findViewById(R.id.lv_walks);
         List<Walk> list = new ArrayList<>();
-        TextView doglistlbl = (TextView) findViewById(R.id.tv_doglist);
+        doglistlbl = (TextView) findViewById(R.id.tv_doglist);
 
         /*Get the walks and display them in the list.*/
         try {
@@ -76,9 +79,7 @@ public class Home extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
         walkList.setAdapter(adapter);
-
-        final Button start = (Button) findViewById(R.id.button_startw);
-
+        start = (Button) findViewById(R.id.button_startw);
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
         /*Navigation Drawer menu logic*/

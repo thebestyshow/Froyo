@@ -22,6 +22,10 @@ public class StartWalk extends AppCompatActivity {
     private List<Integer> selected = new ArrayList<Integer>();
     private List<Dog> list = new ArrayList<>();
     private StringBuilder sb = new StringBuilder();
+    private TextView dogs_tv;
+    private Button start;
+    private ListView listView;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +34,9 @@ public class StartWalk extends AppCompatActivity {
         setContentView(R.layout.activity_start_walk);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final TextView dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
+        dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
         final Context con = this;
-        final Button start = (Button) findViewById(R.id.button_start);
+        start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         list = dh.getAllDogs(owner.getId());
 
@@ -42,8 +46,8 @@ public class StartWalk extends AppCompatActivity {
         }
 
         //setup the adapter to dissplay the dogs
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
-        ListView listView = (ListView) findViewById(R.id.lv_ownerdogs);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
+        listView = (ListView) findViewById(R.id.lv_ownerdogs);
         listView.setAdapter(adapter);
 
         //when a dog is clicked, add the dog to the string
