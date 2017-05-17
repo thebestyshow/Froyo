@@ -12,6 +12,7 @@ public class Dog implements Serializable {
     private double totdistance;
     private int id;
 
+    //*this shows the dog details; the total walks, name, owner and distance
     public Dog(int id, String name, int owner, int totWalks, double totdistance) {
         this(name, owner);
         this.totwalks = totWalks;
@@ -19,6 +20,7 @@ public class Dog implements Serializable {
         this.id = id;
     }
 
+    //* default dog settings for when it is made
     public Dog(int id, String name, int owner) {
         this(name, owner);
         this.id = id;
@@ -31,6 +33,7 @@ public class Dog implements Serializable {
         this.ownerID = owner;
     }
 
+    //* getters and setters
     public int getTotwalks() {
         return totwalks;
     }

@@ -16,6 +16,9 @@ public class EditDog extends AppCompatActivity {
     Dog d;
     Owner owner;
 
+    //* this class will sned you to the edit dog screen so the user can change the details of
+    //* the dog if they have mis-spelt the name for example. You can also remove and save the entry
+    //* if the home button is pressed, you will be sent back to the home screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Add Dog");
