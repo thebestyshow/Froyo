@@ -51,7 +51,6 @@ public class DogProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     dh.removeDog(d.getId());
-
                     Intent intent = new Intent(con, DogList.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
