@@ -15,15 +15,16 @@
         android:ems="10"
         android:id="@+id/et_con_new_pass"
         android:hint="@string/conNewPass"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:background="@drawable/loginback"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:fontFamily="sans-serif-condensed"
         android:textAlignment="center"
         android:layout_below="@+id/et_new_pass"
         android:layout_alignLeft="@+id/et_new_pass"
-        android:layout_alignStart="@+id/et_new_pass" />
+        android:layout_alignStart="@+id/et_new_pass"
+        android:padding="10dp"/>
 
     <Button
         android:text="@string/save"
@@ -36,8 +37,24 @@
         android:layout_marginBottom="139dp" />
 
     <EditText
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginTop="48dp"
+        android:id="@+id/et_old_pass"
+        android:hint="@string/oldPass"
+        android:background="@drawable/loginback"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_new_pass"
@@ -45,24 +62,11 @@
         android:background="@drawable/loginback"
         android:fontFamily="sans-serif-condensed"
         android:textAlignment="center"
-        android:layout_marginTop="98dp"
+        android:layout_marginTop="84dp"
+        android:textSize="14sp"
+        android:padding="10dp"
         android:layout_below="@+id/et_old_pass"
         android:layout_alignLeft="@+id/et_old_pass"
         android:layout_alignStart="@+id/et_old_pass" />
-
-    <EditText
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_marginTop="48dp"
-        android:id="@+id/et_old_pass"
-        android:hint="@string/oldPass"
-        android:background="@drawable/loginback"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

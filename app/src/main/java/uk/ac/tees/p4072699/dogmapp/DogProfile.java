@@ -19,6 +19,9 @@ public class DogProfile extends AppCompatActivity {
     Owner owner;
     int selected = -1;
 
+    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
+    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Dog Profile");
@@ -29,8 +32,9 @@ public class DogProfile extends AppCompatActivity {
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
         final TextView name = (TextView) findViewById(R.id.textView_dogname);
-        //final TextView totWalks = (TextView) findViewById(R.id.Dog_totwalks);
-        //final TextView avgWalks = (TextView) findViewById(R.id.Dog_avgwalks);
+        final TextView totWalks = (TextView) findViewById(R.id.dog_tot_walks);
+        final TextView avgWalks = (TextView) findViewById(R.id.dog_avg_dis);
+        final TextView totDis = (TextView) findViewById(R.id.dog_tot_dis);
 
         final Context con = getApplicationContext();
 //        final Button ret = (Button) findViewById(R.id.button_return);
@@ -39,8 +43,13 @@ public class DogProfile extends AppCompatActivity {
         //totWalks.setText(Integer.toString(d.getTotwalks()));
 
         name.setText(d.getName());
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("00.00");
         String avg = df.format(d.getTotdistance() / d.getTotwalks());
+
+        totWalks.setText(String.valueOf(d.getTotwalks()));
+        totDis.setText(df.format(d.getTotdistance()) + "km");
+        avgWalks.setText(avg + "km");
+
 
 
         rem.setOnClickListener(new View.OnClickListener() {

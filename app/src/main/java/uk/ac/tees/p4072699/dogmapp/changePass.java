@@ -14,12 +14,18 @@ public class changePass extends AppCompatActivity {
     Owner owner;
     Toast t;
 
+
+    /* Initialises all EditTexts and buttons. Once Save is pressed, the passwords that have been entered are checked,
+    * if the entered passwords pass the validation then the new password is saved to the database in place of the old.
+    * If the entered passwords do not pass the validation, then a toast message is displayed letting the user know that
+    * the passwords they entered were incorrect*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Change Password");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pass);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final EditText oldPass = (EditText) findViewById(R.id.et_old_pass);
@@ -58,6 +64,7 @@ public class changePass extends AppCompatActivity {
 
     }
 
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

@@ -55,7 +55,12 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
     ArrayList<LatLng> points;
     Polyline line;
     ImageView p1, p2, p3, p4, p5;
+    String prevAct;
 
+    /*Intialises all TextViews,Buttons and Variables. Sets ImageViews to the corrext image's depending on the rating of the walk passed to this activity.
+    * Displays the length and time taken on this walk as well as the route taken. The route is displayed on google maps within a mapfragment
+    * If the Edit walk button is pressed, the user is taken to the Edit review activity
+    * IF the Remove button is pressed, the walk being displayed will be deleted from the database*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,20 +71,22 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         w = (Walk) getIntent().getSerializableExtra("walk");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (getIntent().hasExtra("home")){
+            prevAct = getIntent().getStringExtra("home");
+        }else if(getIntent().hasExtra("revlist")){
+            prevAct = getIntent().getStringExtra("revlist");
+        }
+
         final TextView name = (TextView) findViewById(R.id.textView_Revname);
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
         final TextView dis = (TextView) findViewById(R.id.textView_dis);
         final TextView time = (TextView) findViewById(R.id.textView_time);
-        final Button retur = (Button) findViewById(R.id.button_return);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        DecimalFormat df = new DecimalFormat("##.00");
+        DecimalFormat df = new DecimalFormat("00.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
-        Log.d("dsa", "CURRENT LATLONGS : " + points.toString());
-        //points.add(l1);
-        //points.add(l2);
 
         locRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -141,14 +148,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             p1.setImageResource(R.drawable.selected);
         }
 
-        retur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ReviewList.class);
-                i.putExtra("owner", owner);
-                startActivity(i);
-            }
-        });
+
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,17 +173,34 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         });
     }
 
+    /*checks if a menu item is pressed and if it is, a check is made to find which is the previous screen. Depending on the result
+    * is the activity which the user is taken to*/
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+            if (prevAct == "home"){
+                Intent i = new Intent(getApplicationContext(),Home.class);
+                i.putExtra("owner", owner);
+                startActivity(i);
+                return true;
+            }else if (prevAct == "revList"){
+                Intent i = new Intent(getApplicationContext(),ReviewList.class);
+                i.putExtra("owner", owner);
+                startActivity(i);
+                return true;
+            }else{
+                onBackPressed();
+                return true;
+            }
+
+
         }
         return super.onOptionsItemSelected(item);
 
     }
 
 
+    /*Redraws the polyline of the route on the google map*/
     public void redrawLine() {
         Log.d("Redraw", "Redraw line start");
         map.clear();
@@ -248,6 +265,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         //map.getUiSettings().setScrollGesturesEnabled(false);
     }
 
+    /*Zooms in on the polyline of the route that was taken when this walk was saved. */
     public void zoomRoute(GoogleMap googleMap, ArrayList<LatLng> lstLatLngRoute) {
 
         Log.d("Zoom", "Zoom start");

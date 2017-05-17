@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,29 +45,35 @@ public class Home extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
+        ListView walkList = (ListView) findViewById(R.id.lv_walks);
+        List<Walk> list = new ArrayList<>();
+        TextView doglistlbl = (TextView) findViewById(R.id.tv_doglist);
 
-        List<Walk> list = null;
         try {
             list = dh.getAllWalks();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < 10; i++) {
-            if (i > walks.length - 1) {
-                break;
-            } else {
-                walks = Arrays.copyOf(walks, walks.length + 1);
-                walks[walks.length - 1] = "Name: " + list.get(i).getName() + "\nRating: " + list.get(i).getRating() + "\nComment: " + list.get(i).getComment();
-                walkID = Arrays.copyOf(walkID, walkID.length + 1);
-                walkID[walkID.length - 1] = list.get(i).getId();
-            }
 
+        if (list.size() > 0){
+            walkList.setVisibility(View.VISIBLE);
+            doglistlbl.setVisibility(View.VISIBLE);
+        }
+
+        for (Walk w :list) {
+
+                walks = Arrays.copyOf(walks, walks.length + 1);
+                walks[walks.length - 1] = "Name: " + w.getName() + "\nRating: " + w.getRating() + "\nComment: " + w.getComment();
+                walkID = Arrays.copyOf(walkID, walkID.length + 1);
+                walkID[walkID.length - 1] = w.getId();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
 
-        ListView walkList = (ListView) findViewById(R.id.lv_walks);
+
+
         walkList.setAdapter(adapter);
+
 
         final Button start = (Button) findViewById(R.id.button_startw);
 
@@ -101,13 +109,13 @@ public class Home extends AppCompatActivity {
                         accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
                         startActivity(accountActivity);
                         break;
-                    case (R.id.nav_settings):
-                        accountActivity = new Intent(getApplicationContext(), Settings.class);
+                    case (R.id.nav_help):
+                        accountActivity = new Intent(getApplicationContext(), Help.class);
                         accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
                         startActivity(accountActivity);
                         break;
-                    case (R.id.nav_help):
-                        accountActivity = new Intent(getApplicationContext(), Help.class);
+                    case (R.id.nav_about):
+                        accountActivity = new Intent(getApplicationContext(), About.class);
                         accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
                         startActivity(accountActivity);
                         break;
@@ -145,6 +153,7 @@ public class Home extends AppCompatActivity {
                 Log.d("SELECTED ARRAY", wlist.get(position).getPoints().toString());
                 i.putParcelableArrayListExtra("pointsarray", wlist.get(position).getPoints());
                 wlist.get(position).setPoints(null);
+                i.putExtra("home","home");
                 i.putExtra("walk", wlist.get(position));
                 i.putExtra("owner", owner);
                 startActivity(i);
@@ -157,7 +166,6 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
-
         }
         return super.onOptionsItemSelected(item);
 

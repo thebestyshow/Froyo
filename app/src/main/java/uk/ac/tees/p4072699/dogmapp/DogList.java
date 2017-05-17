@@ -24,6 +24,8 @@ public class DogList extends AppCompatActivity {
     Integer[] dogsId = {};
     Owner owner;
 
+    /*Initialises all buttons and the ListView. An ArrayAdapter is created to populate the list. If the user selects an item on the list,
+    * they are taken to Dogs profile activity. If the user pressed the add button, they will be taken to the add dog activity*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Dogs");
@@ -32,7 +34,6 @@ public class DogList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-        //final Button home = (Button) findViewById(R.id.button_home);
         final Button add = (Button) findViewById(R.id.button_add);
         final ListView listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
@@ -42,7 +43,7 @@ public class DogList extends AppCompatActivity {
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nTotWalks: " + dg.getTotwalks() + "    TotDis: " + df.format(dg.getTotdistance()) + "\nOwner: " + dh.getOwnerHelper(owner).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName();
 
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
@@ -74,6 +75,7 @@ public class DogList extends AppCompatActivity {
         });
     }
 
+    /*checks if a menu item is pressed and if it is, the user is taken the home screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

@@ -11,25 +11,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.AddDogActivity">
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_marginTop="54dp"
-        android:id="@+id/editText_editdgname"
-        android:textAlignment="center"
-        android:background="@drawable/loginback"
-        android:layout_below="@+id/imageButton_settings"
-        android:layout_centerHorizontal="true" />
-
     <Button
         android:text="@string/save"
         android:layout_width="150dp"
         android:layout_height="45dp"
         android:id="@+id/button_savez"
         android:background="@drawable/button"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="55dp"
+        android:id="@+id/editText_editdgname"
+        android:textAlignment="center"
+        android:background="@drawable/loginback"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/dogname"
+        android:padding="10dp"/>
 
 </RelativeLayout>

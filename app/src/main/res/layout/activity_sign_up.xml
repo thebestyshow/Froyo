@@ -10,63 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.Sign_up">
 
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/Pass_sign"
-        android:hint="@string/p_hint"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/email_sign"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/loginback"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-condensed" />
-
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/Pass_con_sign"
-        android:hint="@string/p_con_hint"
-        android:background="@drawable/loginback"
-        android:fontFamily="sans-serif-condensed"
-        android:textAlignment="center"
-        android:layout_below="@+id/Pass_sign"
-        android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
-
-    <EditText
-        android:layout_width="250dp"
-        android:inputType="textEmailAddress|textPersonName"
-        android:ems="10"
-        android:id="@+id/email_sign"
-        android:hint="@string/e_hint"
-        android:layout_height="50dp"
-        android:background="@drawable/loginback"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_below="@+id/name_sign"
-        android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
-
-    <EditText
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/name_sign"
-        android:hint="@string/n_hint"
-        android:textAlignment="center"
-        android:background="@drawable/loginback"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/email_sign"
-        android:layout_alignStart="@+id/email_sign"
-        android:layout_marginTop="61dp" />
-
     <Button
         android:text="@string/retur"
         android:layout_width="150dp"
@@ -87,5 +30,64 @@
         android:background="@drawable/button"
         android:layout_below="@+id/Pass_con_sign"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/Pass_sign"
+        android:hint="@string/p_hint"
+        android:layout_marginTop="194dp"
+        android:background="@drawable/loginback"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/Pass_con_sign"
+        android:hint="@string/p_con_hint"
+        android:background="@drawable/loginback"
+        android:fontFamily="sans-serif-condensed"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:layout_below="@+id/Pass_sign"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/name_sign"
+        android:hint="@string/n_hint"
+        android:textAlignment="center"
+        android:background="@drawable/loginback"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"
+        android:layout_marginTop="31dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/Pass_sign"
+        android:layout_alignStart="@+id/Pass_sign" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/email_sign"
+        android:layout_below="@+id/name_sign"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:hint="@string/e_hint"
+        android:background="@drawable/loginback"
+        android:elevation="24dp" />
 
 </RelativeLayout>

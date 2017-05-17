@@ -8,6 +8,9 @@
     <string name="weather">Weather</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="skip">Skip</string>
+    <string name="tot_dis">Total Distance</string>
+    <string name="doglist">Dog List</string>
 
 
     <!--String for activity_add_dog and activity_dog_list-->
@@ -52,6 +55,7 @@
     <string name="choosedogs">Choose dogs for the walk</string>
 
     <string name="help">Here is a step-by-step guide to help you along:
+        \n	\t
 
         \n•	\tCreate a profile
 
