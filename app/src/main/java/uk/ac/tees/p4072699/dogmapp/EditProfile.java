@@ -13,6 +13,8 @@ public class EditProfile extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Owner owner;
     private Toast t;
+    private Button changePass, save;
+    private EditText etname, etEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +23,11 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText etname = (EditText) findViewById(R.id.etname);
-        final EditText etEmail = (EditText) findViewById(R.id.etEmail);
-        final Button changePass = (Button) findViewById(R.id.button_change);
-        final Button save = (Button) findViewById(R.id.button_savez);
-
+        etname = (EditText) findViewById(R.id.etname);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        changePass = (Button) findViewById(R.id.button_change);
+        save = (Button) findViewById(R.id.button_save2);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
 

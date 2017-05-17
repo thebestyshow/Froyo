@@ -13,6 +13,9 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Button sign, log, datashow;
+    private EditText emailtxt, passtxt;
+    private String pass, email;
+    private Cursor cemail, cursor;
 
     /*Initialises all TextViews and buttons */
     @Override
@@ -41,8 +44,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Intent i;
         Toast t;
 
-        final EditText emailtxt = (EditText) findViewById(R.id.Email_log);
-        final EditText passtxt = (EditText) findViewById(R.id.Pass_log);
+        emailtxt = (EditText) findViewById(R.id.Email_log);
+        passtxt = (EditText) findViewById(R.id.Pass_log);
 
         switch (view.getId()) {
             case R.id.Sign_up_btn_log:
@@ -52,12 +55,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.Log_in_btn_log:
-                String email = emailtxt.getText().toString();
-                String pass = passtxt.getText().toString().trim();
+                email = emailtxt.getText().toString();
+                pass = passtxt.getText().toString().trim();
                 SQLiteDatabase db = dh.getReadableDatabase();
 
-                Cursor cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?", new String[]{email});
-                Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email, pass});
+                cemail = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=?", new String[]{email});
+                cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + dh.getColEmail() + "=? AND " + dh.getCOL_PASS() + "=?", new String[]{email, pass});
 
                 if(email.contains("@")){
                     if (cursor != null) {

@@ -22,6 +22,9 @@ public class EditWalk extends AppCompatActivity {
     private int rating;
     private String name;
     private ImageButton p1, p2, p3, p4, p5;
+    private EditText etname, etcomm;
+    private TextView tv_dis, tv_time;
+    private Button retur, save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,12 @@ public class EditWalk extends AppCompatActivity {
         rating = w.getRating();
         ArrayList<LatLng> tempP = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(tempP);
-        final EditText etname = (EditText) findViewById(R.id.et_name);
-        final EditText etcomm = (EditText) findViewById(R.id.et_comm);
-        final TextView tv_dis = (TextView) findViewById(R.id.tv_distance);
-        final TextView tv_time = (TextView) findViewById(R.id.tv_time);
-        final Button retur = (Button) findViewById(R.id.button_return);
-        final Button save = (Button) findViewById(R.id.button_savez);
+        etname = (EditText) findViewById(R.id.et_name);
+        etcomm = (EditText) findViewById(R.id.et_comm);
+        tv_dis = (TextView) findViewById(R.id.tv_distance);
+        tv_time = (TextView) findViewById(R.id.tv_time);
+        retur = (Button) findViewById(R.id.button_return);
+        save = (Button) findViewById(R.id.button_save2);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);

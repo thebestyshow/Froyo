@@ -59,7 +59,7 @@
         android:layout_alignStart="@+id/textView4" />
 
     <TextView
-        android:text="TextView"
+        android:text="0km"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Prof_avgwalks"
@@ -87,7 +87,7 @@
         android:layout_alignEnd="@+id/Prof_name" />
 
     <TextView
-        android:text="TextView"
+        android:text="0km"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/prof_tot_dis"
@@ -101,7 +101,7 @@
         android:paddingLeft="7dp" />
 
     <TextView
-        android:text="TextView"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/prof_totwalks"
@@ -137,5 +137,5 @@
         android:layout_below="@+id/textView11"
         android:layout_above="@+id/button_editProf"
         android:divider="#ffffff"
-        android:paddingLeft="150dp" />
+        android:paddingLeft="130dp" />
 </RelativeLayout>

@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -80,7 +79,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         final TextView comm = (TextView) findViewById(R.id.textView_Review);
         final TextView dis = (TextView) findViewById(R.id.textView_dis);
         final TextView time = (TextView) findViewById(R.id.textView_time);
-        final Button edit = (Button) findViewById(R.id.button_savez);
+        final Button edit = (Button) findViewById(R.id.button_save2);
         final Button remove = (Button) findViewById(R.id.button_remove);
         DecimalFormat df = new DecimalFormat("00.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
