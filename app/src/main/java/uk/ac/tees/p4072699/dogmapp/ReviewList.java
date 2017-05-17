@@ -22,6 +22,9 @@ public class ReviewList extends AppCompatActivity {
     private int selected;
     private String[] reviews = {};
     private Integer[] revId = {};
+    private Button home;
+    private ListView listView;
+    private ArrayAdapter adapter;
 
     /*Sets the title, the Up navigation, the home button, and the Walk list.
     * Contains the logic for the walk display and list click actions.*/
@@ -33,7 +36,7 @@ public class ReviewList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-        final Button home = (Button) findViewById(R.id.Rev_home);
+        home = (Button) findViewById(R.id.Rev_home);
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
         List<Walk> list = new ArrayList<>();
@@ -52,13 +55,13 @@ public class ReviewList extends AppCompatActivity {
             revId[revId.length - 1] = w.getId();
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reviews);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reviews);
 
         for (Walk w : list) {
             Log.d("LIST CHECK", w.getId() + " : " + w.getPoints().toString());
         }
 
-        ListView listView = (ListView) findViewById(R.id.lv_rev);
+        listView = (ListView) findViewById(R.id.lv_rev);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -25,6 +25,7 @@ public class DogList extends AppCompatActivity {
     private Owner owner;
     private Button add;
     private ListView listView;
+    private ArrayAdapter adapter;
 
     /*Initialises all buttons and the ListView. An ArrayAdapter is created to populate the list. If the user selects an item on the list,
     * they are taken to Dogs profile activity. If the user pressed the add button, they will be taken to the add dog activity*/
@@ -54,7 +55,7 @@ public class DogList extends AppCompatActivity {
             dogsId[dogsId.length - 1] = dg.getId();
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
