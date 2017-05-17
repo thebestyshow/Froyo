@@ -9,7 +9,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="skip">Skip</string>
-    <string name="tot_dis">Total Distance</string>
+    <string name="tot_dis">Total Distance:</string>
     <string name="doglist">Dog List</string>
 
 
@@ -85,8 +85,8 @@
     <string name="title_activity_maps">Map</string>
 
     <!-- Profile Page -->
-    <string name="tot_walks">Total Walks</string>
-    <string name="avg_walks">Average Walk Length</string>
+    <string name="tot_walks">Total Walks:</string>
+    <string name="avg_walks">Average Walk Length:</string>
 
     <string name="end">End Walk</string>
     <string name="title_activity_settings">Settings</string>

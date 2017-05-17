@@ -49,7 +49,6 @@ public class Review extends AppCompatActivity {
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
