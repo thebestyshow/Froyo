@@ -10,23 +10,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ReviewList extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    int selected;
-    String[] reviews = {};
-    Integer[] revId = {};
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private int selected;
+    private String[] reviews = {};
+    private Integer[] revId = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +34,6 @@ public class ReviewList extends AppCompatActivity {
         final Button home = (Button) findViewById(R.id.Rev_home);
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
-
         List<Walk> list = new ArrayList<>();
         try {
             list = dh.getAllWalks();
@@ -47,7 +41,6 @@ public class ReviewList extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
@@ -90,17 +83,14 @@ public class ReviewList extends AppCompatActivity {
             }
         });
 
-
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.removeWalk(selected);
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,6 +102,5 @@ public class ReviewList extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

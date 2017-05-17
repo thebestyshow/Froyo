@@ -9,21 +9,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StartWalk extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    String[] dogs = {};
-    List<Integer> selected = new ArrayList<Integer>();
-    List<Dog> list = new ArrayList<>();
-    StringBuilder sb = new StringBuilder();
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private String[] dogs = {};
+    private List<Integer> selected = new ArrayList<Integer>();
+    private List<Dog> list = new ArrayList<>();
+    private StringBuilder sb = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,6 @@ public class StartWalk extends AppCompatActivity {
 
         final TextView dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
         final Context con = this;
-//        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         list = dh.getAllDogs(owner.getId());
@@ -44,11 +41,13 @@ public class StartWalk extends AppCompatActivity {
             dogs[dogs.length - 1] = "Name: " + d.getName();
         }
 
+        //setup the adapter to dissplay the dogs
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
-
         ListView listView = (ListView) findViewById(R.id.lv_ownerdogs);
         listView.setAdapter(adapter);
 
+        //when a dog is clicked, add the dog to the string
+        //if the dog is already in the string, remove it
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,20 +79,10 @@ public class StartWalk extends AppCompatActivity {
                     dogs_tv.setText(sb.toString());
                     sb.setLength(0);
                 }
-
             }
         });
 
-
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
-
+        //when start is pressed pass in the dogs and pre set the map to type 0
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +90,6 @@ public class StartWalk extends AppCompatActivity {
                 ArrayList<Dog> passList = new ArrayList<Dog>();
 
                 for (int num : selected) {
-                    //list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
                     passList.add(list.get(num));
                 }
 

@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class changePass extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    Toast t;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private Toast t;
 
 
     /* Initialises all EditTexts and buttons. Once Save is pressed, the passwords that have been entered are checked,
@@ -26,14 +26,11 @@ public class changePass extends AppCompatActivity {
         setContentView(R.layout.activity_change_pass);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final EditText oldPass = (EditText) findViewById(R.id.et_old_pass);
         final EditText newPass = (EditText) findViewById(R.id.et_new_pass);
         final EditText conNewPass = (EditText) findViewById(R.id.et_con_new_pass);
-
         final Button save = (Button) findViewById(R.id.button_savez);
-
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +57,6 @@ public class changePass extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
@@ -72,6 +67,5 @@ public class changePass extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

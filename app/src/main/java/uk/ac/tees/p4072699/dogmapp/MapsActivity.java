@@ -42,25 +42,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-
     private GoogleMap map;
-    GoogleApiClient googleAPI;
-    LocationRequest locRequest;
-    Location prevLocation;
-    Location location;
-    LocationManager lm;
-    Owner owner;
-    Bundle lisbun;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    double totaldis;
-    ArrayList<LatLng> points;
-    Polyline line;
-    LatLng oldlatlng;
-    int maptype;
-    TextView tv,dist;
-
-    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
-    int Seconds, Minutes, Hours, MilliSeconds;
+    private GoogleApiClient googleAPI;
+    private LocationRequest locRequest;
+    private Location prevLocation;
+    private Location location;
+    private LocationManager lm;
+    private Owner owner;
+    private Bundle lisbun;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private double totaldis;
+    private ArrayList<LatLng> points;
+    private Polyline line;
+    private LatLng oldlatlng;
+    private int maptype;
+    private TextView tv, dist;
+    private long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
+    private int Seconds, Minutes, Hours, MilliSeconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +68,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         points = new ArrayList<LatLng>();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //setup the time and distance text views
         tv = (TextView) findViewById(R.id.timer);
         dist = (TextView)findViewById(R.id.tv_distance);
         StartTime = SystemClock.uptimeMillis();
@@ -88,6 +87,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("ERROR", "Empty location array");
         }
 
+        //check that the permissions have being allowed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
                 locRequest = LocationRequest.create()
@@ -110,6 +110,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         totaldis = getIntent().getDoubleExtra("dis", 0);
         final String s = getIntent().getStringExtra("start");
 
+        //when the walk has finished pass all the details to the review screen to be processed
         rev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +147,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        //to access the settings to change the map type
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,10 +179,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
-
+    //setup the map
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -199,6 +200,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    //change the map type through settings
     public void setMapType() {
         int i = maptype;
         Log.d("maptype", Integer.toString(i));
@@ -222,6 +224,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleAPI.connect();
     }
 
+    //when the map is connected
     @Override
     public void onConnected(Bundle bundle) {
         if (ContextCompat.checkSelfPermission(this,
@@ -235,11 +238,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    //if we wanted to pause the map connection for some reason
     @Override
     public void onConnectionSuspended(int i) {
 
     }
 
+    //when the location has changed this puts the points down
     private void handleNewLocation(Location location) {
         Log.d("loc", location.toString());
         double currentLatitude = location.getLatitude();
@@ -261,6 +266,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         prevLocation = location;
     }
 
+    //used to draw the polyline
     public void redrawLine() {
         try {
             map.clear();
@@ -277,13 +283,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
         Log.d("loc", "changed");
         handleNewLocation(location);
     }
 
+    //calculate the distance between the points
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km
         double lat1 = StartP.latitude;
@@ -305,7 +311,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int meterInDec = Integer.valueOf(newFormat.format(meter));
         Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
                 + " Miles   " + meterInDec);
-
         return Radius * c;
     }
 
@@ -329,6 +334,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    //used to check the permissions
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public boolean checkLocationPermission() {
@@ -377,6 +383,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    //this sets the timer and displays the time and distance
     //Time from http://www.android-examples.com/android-create-stopwatch-example-tutorial-in-android-studio/
     public Runnable runnable = new Runnable() {
         public void run() {

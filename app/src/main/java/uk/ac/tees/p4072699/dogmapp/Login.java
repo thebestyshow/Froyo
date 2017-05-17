@@ -5,17 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Button sign, log, datashow;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Button sign, log, datashow;
 
     /*Initialises all TextViews and buttons */
     @Override
@@ -98,8 +95,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     t.show();
                     emailtxt.setText("");
                 }
-
-
         }
     }
 }

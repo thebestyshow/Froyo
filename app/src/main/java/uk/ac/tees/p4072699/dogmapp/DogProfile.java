@@ -7,17 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
 public class DogProfile extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Dog d;
-    Owner owner;
-    int selected = -1;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Dog d;
+    private Owner owner;
+    private int selected = -1;
+
+    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
+    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
+
+    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
+    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +39,8 @@ public class DogProfile extends AppCompatActivity {
         final TextView totDis = (TextView) findViewById(R.id.dog_tot_dis);
 
         final Context con = getApplicationContext();
-//        final Button ret = (Button) findViewById(R.id.button_return);
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
-        //totWalks.setText(Integer.toString(d.getTotwalks()));
 
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("00.00");
@@ -47,12 +50,9 @@ public class DogProfile extends AppCompatActivity {
         totDis.setText(df.format(d.getTotdistance()) + "km");
         avgWalks.setText(avg + "km");
 
-
-
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (selected == -1) {
                     Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
                 } else {
@@ -73,7 +73,6 @@ public class DogProfile extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,7 +84,6 @@ public class DogProfile extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }
 

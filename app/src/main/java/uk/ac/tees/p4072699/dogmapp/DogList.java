@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -18,11 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DogList extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    int selected = -1;
-    String[] dogs = {};
-    Integer[] dogsId = {};
-    Owner owner;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private int selected = -1;
+    private String[] dogs = {};
+    private Integer[] dogsId = {};
+    private Owner owner;
 
     /*Initialises all buttons and the ListView. An ArrayAdapter is created to populate the list. If the user selects an item on the list,
     * they are taken to Dogs profile activity. If the user pressed the add button, they will be taken to the add dog activity*/
@@ -85,6 +84,5 @@ public class DogList extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

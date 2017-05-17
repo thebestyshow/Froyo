@@ -4,7 +4,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Walk implements Serializable {
     private double length;
@@ -15,6 +14,7 @@ public class Walk implements Serializable {
     private ArrayList<LatLng> points;
     private String date;
 
+    //the constructors
     public Walk(double length, int time, ArrayList<LatLng> points, String date) {
         this.length = length;
         this.time = time;
@@ -38,7 +38,6 @@ public class Walk implements Serializable {
         this.rating = rating;
         this.comment = comment;
         this.time = time;
-
     }
 
     public Walk(String n, double length, int rating, String comment,int id, int time, ArrayList<LatLng> points) {
@@ -56,6 +55,7 @@ public class Walk implements Serializable {
         this.date = date;
     }
 
+    //the getters and setter for the variables
     public void setPoints(ArrayList<LatLng> points) {
         this.points = points;
     }
