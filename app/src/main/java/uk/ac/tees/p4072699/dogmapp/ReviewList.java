@@ -94,7 +94,6 @@ public class ReviewList extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.removeWalk(selected);
                 Intent intent = new Intent(con, Home.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));
                 startActivity(intent);
