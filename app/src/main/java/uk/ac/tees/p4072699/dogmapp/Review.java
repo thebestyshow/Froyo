@@ -63,7 +63,6 @@ public class Review extends AppCompatActivity {
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 
-
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
