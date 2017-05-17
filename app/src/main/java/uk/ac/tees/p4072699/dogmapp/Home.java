@@ -24,13 +24,12 @@ import java.util.List;
 public class Home extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    Walk w;
-    int selected;
-    String[] walks = {};
-    Integer[] walkID = {};
-
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private Walk w;
+    private int selected;
+    private String[] walks = {};
+    private Integer[] walkID = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +68,7 @@ public class Home extends AppCompatActivity {
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
-
-
-
         walkList.setAdapter(adapter);
-
 
         final Button start = (Button) findViewById(R.id.button_startw);
 
@@ -159,8 +154,6 @@ public class Home extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -168,8 +161,5 @@ public class Home extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
-
-
 }
