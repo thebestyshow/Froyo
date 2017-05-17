@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +32,6 @@ public class StartWalk extends AppCompatActivity {
 
         final TextView dogs_tv = (TextView) findViewById(R.id.Dog_list_tv);
         final Context con = this;
-//        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button start = (Button) findViewById(R.id.button_start);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         list = dh.getAllDogs(owner.getId());
@@ -80,19 +77,8 @@ public class StartWalk extends AppCompatActivity {
                     dogs_tv.setText(sb.toString());
                     sb.setLength(0);
                 }
-
             }
         });
-
-
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +87,6 @@ public class StartWalk extends AppCompatActivity {
                 ArrayList<Dog> passList = new ArrayList<Dog>();
 
                 for (int num : selected) {
-                    //list.get(num).setTotwalks(list.get(num).getTotwalks() + 1);
                     passList.add(list.get(num));
                 }
 

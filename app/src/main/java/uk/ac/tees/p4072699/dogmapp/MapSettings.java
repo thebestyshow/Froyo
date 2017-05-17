@@ -14,13 +14,13 @@ import android.widget.RadioButton;
 import java.util.ArrayList;
 
 public class MapSettings extends AppCompatActivity {
-    Owner owner;
-    int maptype;
-    Bundle lisbun;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Double totaldis;
-    String s;
-    ArrayList<Location> locarr = new ArrayList<Location>();
+    private Owner owner;
+    private int maptype;
+    private Bundle lisbun;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Double totaldis;
+    private String s;
+    private ArrayList<Location> locarr = new ArrayList<Location>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,6 @@ public class MapSettings extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     public void onRadioButtonClicked(View view) {

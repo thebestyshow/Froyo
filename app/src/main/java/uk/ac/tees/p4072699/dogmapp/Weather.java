@@ -19,16 +19,15 @@ import uk.ac.tees.p4072699.dogmapp.weatherservice.Callback;
 import uk.ac.tees.p4072699.dogmapp.weatherservice.YahooWeatherService;
 
 public class Weather extends AppCompatActivity implements Callback {
-    Button home;
-    Button refresh;
-    Owner owner;
-    DatabaseHandler dh = new DatabaseHandler(this);
+    private Button home;
+    private Button refresh;
+    private Owner owner;
+    private DatabaseHandler dh = new DatabaseHandler(this);
 
     private ImageView weatherIconImageView;
     private TextView temperatureTextView;
     private TextView locationTextView;
     private TextView conditionTextView;
-
     private YahooWeatherService service;
     private ProgressDialog dialog;
 
@@ -52,21 +51,8 @@ public class Weather extends AppCompatActivity implements Callback {
 
         final Context con = this;
         owner = (Owner) getIntent().getSerializableExtra("owner");
-//        home = (Button) findViewById(R.id.button_home);
         refresh = (Button) findViewById(R.id.button_refresh);
         refresh.performClick();
-
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//                Intent i = new Intent(getApplicationContext(), Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//                setContentView(R.layout.activity_home);
-//                finish();
-//            }
-//        });
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +73,6 @@ public class Weather extends AppCompatActivity implements Callback {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override
