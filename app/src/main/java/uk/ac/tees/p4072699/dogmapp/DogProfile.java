@@ -21,6 +21,9 @@ public class DogProfile extends AppCompatActivity {
     //* this displays the dog profile. This will have the name, total wlaks, average distance and also
     //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
 
+    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
+    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Dog Profile");
