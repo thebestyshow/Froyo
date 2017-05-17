@@ -10,7 +10,7 @@
     <string name="close">Close</string>
     <string name="skip">Skip</string>
     <string name="tot_dis">Total Distance:</string>
-    <string name="doglist">Dog List</string>
+    <string name="doglist">My Walks</string>
 
 
     <!--String for activity_add_dog and activity_dog_list-->
