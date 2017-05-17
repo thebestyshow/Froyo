@@ -16,10 +16,7 @@ public class DogProfile extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Dog d;
     private Owner owner;
-    private int selected = -1;
 
-    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
-    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
 
     //* this displays the dog profile. This will have the name, total wlaks, average distance and also
     //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
@@ -53,14 +50,11 @@ public class DogProfile extends AppCompatActivity {
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selected == -1) {
-                    Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
-                } else {
-                    dh.removeDog(selected);
+                    dh.removeDog(d.getId());
                     Intent intent = new Intent(con, DogList.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
-                }
+
             }
         });
 
