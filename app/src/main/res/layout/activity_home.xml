@@ -19,12 +19,13 @@
             android:layout_height="331dp"
             android:id="@+id/lv_walks"
             android:elevation="19dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:dividerHeight="2dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:background="@color/colorBrownish" />
 
         <Button
             android:text="@string/startw"
@@ -35,6 +36,16 @@
             android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="@string/doglist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_doglist"
+            android:textColor="?attr/colorControlActivated"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
