@@ -14,6 +14,7 @@ public class Walk implements Serializable {
     private ArrayList<LatLng> points;
     private String date;
 
+    //the constructors
     public Walk(double length, int time, ArrayList<LatLng> points, String date) {
         this.length = length;
         this.time = time;
@@ -54,6 +55,7 @@ public class Walk implements Serializable {
         this.date = date;
     }
 
+    //the getters and setter for the variables
     public void setPoints(ArrayList<LatLng> points) {
         this.points = points;
     }
