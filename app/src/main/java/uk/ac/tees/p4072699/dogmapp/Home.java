@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*Sets up the home screen layout, the Navigation Drawer,
+* the Database handler, and the walks variables. The home screen
+* displays the Start Walk button, as well as the walks that the
+* user has taken, the list is displayed when the list size is greater
+* than zero.*/
 public class Home extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -39,6 +44,7 @@ public class Home extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
+        /*Navigation Drawer listener and syncState, the Burger navigation icon is enabled here also*/
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,6 +54,7 @@ public class Home extends AppCompatActivity {
         List<Walk> list = new ArrayList<>();
         TextView doglistlbl = (TextView) findViewById(R.id.tv_doglist);
 
+        /*Get the walks and display them in the list.*/
         try {
             list = dh.getAllWalks();
         } catch (JSONException e) {
@@ -74,6 +81,7 @@ public class Home extends AppCompatActivity {
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
+        /*Navigation Drawer menu logic*/
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -156,6 +164,7 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToggle.onOptionsItemSelected(item)) {
             return true;

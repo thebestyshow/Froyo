@@ -23,6 +23,8 @@ public class ReviewList extends AppCompatActivity {
     private String[] reviews = {};
     private Integer[] revId = {};
 
+    /*Sets the title, the Up navigation, the home button, and the Walk list.
+    * Contains the logic for the walk display and list click actions.*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Reviews");
@@ -93,6 +95,7 @@ public class ReviewList extends AppCompatActivity {
         });
     }
 
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
