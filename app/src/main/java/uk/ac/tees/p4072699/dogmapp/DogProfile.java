@@ -17,7 +17,6 @@ public class DogProfile extends AppCompatActivity {
     DatabaseHandler dh = new DatabaseHandler(this);
     Dog d;
     Owner owner;
-    int selected = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,10 @@ public class DogProfile extends AppCompatActivity {
         final TextView totDis = (TextView) findViewById(R.id.dog_tot_dis);
 
         final Context con = getApplicationContext();
-//        final Button ret = (Button) findViewById(R.id.button_return);
+
         final Button rem = (Button) findViewById(R.id.button_remove);
         final Button ed = (Button) findViewById(R.id.button_savez);
-        //totWalks.setText(Integer.toString(d.getTotwalks()));
+
 
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("00.00");
@@ -52,15 +51,11 @@ public class DogProfile extends AppCompatActivity {
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (selected == -1) {
-                    Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
-                } else {
-                    dh.removeDog(selected);
+                    dh.removeDog(d.getId());
                     Intent intent = new Intent(con, DogList.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
-                }
+
             }
         });
 
