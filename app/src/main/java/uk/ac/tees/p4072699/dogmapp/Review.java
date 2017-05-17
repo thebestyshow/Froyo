@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
@@ -37,6 +45,11 @@ public class Review extends AppCompatActivity {
     String secs;
     double d;
     String date;
+    String shareMessage = "test";
+    int numDogs;
+    CallbackManager callbackManager;
+    LoginButton fbLogin;
+    boolean loggedInFB = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,29 @@ public class Review extends AppCompatActivity {
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        LoginManager.getInstance().logOut();
+        fbLogin = (LoginButton)findViewById(R.id.facebook_login_button);
+        callbackManager = CallbackManager.Factory.create();
+
+        fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
@@ -61,6 +97,8 @@ public class Review extends AppCompatActivity {
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
         DecimalFormat df = new DecimalFormat("##.00");
+
+        numDogs = doglist.size();
 
         dh.addOwnerWalk(owner, Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist, Double.parseDouble(df.format(d)));
@@ -77,6 +115,7 @@ public class Review extends AppCompatActivity {
         p5 = (ImageButton) findViewById(R.id.paw_5);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
+
 
         int h, m, s;
         hours = String.format("%02d", Integer.valueOf(hours));
@@ -196,4 +235,11 @@ public class Review extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }
+
+
