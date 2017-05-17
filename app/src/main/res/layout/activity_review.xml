@@ -142,6 +142,7 @@
         android:layout_below="@+id/paw_2"
         android:layout_centerHorizontal="true" />
 
+
     <TextView
         android:text="@string/rating"
         android:layout_width="wrap_content"
@@ -183,6 +184,7 @@
         android:layout_below="@+id/textView_distance"
         android:layout_centerHorizontal="true" />
 
+
     <Button
         android:text="@string/share"
 
@@ -196,13 +198,7 @@
 
     <Button
         android:text="@string/save"
-        android:id="@+id/button_savez"
-        android:background="@drawable/button"
-        android:layout_height="40dp"
-        android:layout_width="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView15"
-        android:layout_alignEnd="@+id/textView15" />
+
 
     <Button
         android:text="@string/skip"
