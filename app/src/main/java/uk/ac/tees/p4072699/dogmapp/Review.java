@@ -63,27 +63,7 @@ public class Review extends AppCompatActivity {
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        LoginManager.getInstance().logOut();
-        fbLogin = (LoginButton)findViewById(R.id.facebook_login_button);
-        callbackManager = CallbackManager.Factory.create();
 
-        fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
 
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
@@ -246,10 +226,7 @@ public class Review extends AppCompatActivity {
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+
 }
 
 

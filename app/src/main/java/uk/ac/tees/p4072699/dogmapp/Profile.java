@@ -56,7 +56,7 @@ public class Profile extends AppCompatActivity {
             Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
                     + " WHERE " + dh.getColId() + "=?", new String[]{Integer.toString(dg.getOwnerID())});
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nOwner: " + dh.getOneOwner(cID).getName();
+            dogs[dogs.length - 1] = dg.getName();
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
