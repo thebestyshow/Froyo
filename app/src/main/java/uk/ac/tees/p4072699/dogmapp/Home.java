@@ -49,7 +49,6 @@ public class Home extends AppCompatActivity {
 
         try {
             list = dh.getAllWalks();
-            Log.d("'list' array",list.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -64,12 +63,10 @@ public class Home extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
 
-        for (String s : walks){
-            Log.d("List object Strings: ", s.toString());
-        }
 
         ListView walkList = (ListView) findViewById(R.id.lv_walks);
         walkList.setAdapter(adapter);
+
 
         final Button start = (Button) findViewById(R.id.button_startw);
 

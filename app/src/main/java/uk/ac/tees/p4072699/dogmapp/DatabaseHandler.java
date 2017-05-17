@@ -127,6 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, 1);
     }
 
+    /* Constructs database with 3 tables using SQL strings above*/
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_OWNER_TABLE);
@@ -134,7 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_WALK_TABLE);
         Log.d("Database", "Database Created");
     }
-
+    /*Counts the number of dogs in the database and returns the number*/
     public int getDogCount() {
         String countQuery = "SELECT  * FROM " + DOG_TABLE_NAME;
         SQLiteDatabase db = getReadableDatabase();
@@ -144,6 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cnt;
     }
 
+    /*Counts the number of profiles in the database and returns the number*/
     public int getProfilesCount() {
         String countQuery = "SELECT  * FROM " + OWNER_LOGIN_TABLE;
         SQLiteDatabase db = getReadableDatabase();
@@ -153,6 +155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cnt;
     }
 
+    /*Inserts a new dog into the Dog table in the database*/
     public void add(Dog d) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -168,7 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Log.d("Database", "NEW ENTRY ADDED");
     }
-
+    /*Creates a list of dog objects that are created from database records. The list is then returned*/
     public List<Dog> getAllDogs(int owner) {
         List<Dog> list = new ArrayList<Dog>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -196,6 +199,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    /*Changes the name of a dog in the database where the ID matches with dog passed into method*/
     public void edit(Dog d, String s) {
         SQLiteDatabase sq = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -207,12 +211,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("UP", "dated");
     }
 
+    /*Removes a dog from the database where the ID matches with the number passed into method*/
     public void removeDog(int i) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(DOG_TABLE_NAME, COL_ID + "=" + i, null);
         Log.d("DATABASE", "DOG DELETED");
     }
 
+    /*Increments the total walks and adds the distance of walk to all dogs contained within the List passed.
+    * The information is updated in the database where the dogs ID matches in the database.*/
     public void addDogWalk(ArrayList<Dog> list, double dis) {
         ContentValues values = new ContentValues();
         for (Dog d : list) {
@@ -232,12 +239,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*removes a walk from the database where the ID matches the number passsed to the method*/
     public void removeWalk(int i) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(WALK_TABLE_NAME, COL_ID + "=" + i, null);
         Log.d("DATABASE", "REVIEW DELETED");
     }
 
+    /*Adds a owner/user to the User table within the database*/
     public long add(Owner o) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -260,6 +269,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return input;
     }
 
+    /*Adds a walk to the Walk table with only length,time and date.*/
     public long addW(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -276,6 +286,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return input;
     }
 
+    /*Adds a walk to the walk table. This method adds all information to the database from the walk object.
+    * The points Array list is converted to a JSON string so it can be inserted into the database*/
     public long add(Walk w) throws JSONException {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -314,6 +326,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return input;
     }
 
+    /*Inserts new values into the a record within the walk table where the ID of the walk matches a record ID*/
     public void editWalk(Walk w) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -331,6 +344,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("Database", "Walk Updated" + w.getId() + " : " + w.getName() + " : " + w.getComment() + " : " + w.getRating());
     }
 
+    /*Constructs a cursor when passed a Owner object. This then calls getOneOwner which retrieves the first record that matches the cursors query and returns it*/
     public Owner getOwnerHelper(Owner o) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM " + OWNER_LOGIN_TABLE + " WHERE " + COL_EMAIL + "=?", new String[]{o.getEmail()});
@@ -338,35 +352,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return getOneOwner(c);
     }
 
-    public Dog getDogHelper(Dog d) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + DOG_TABLE_NAME + " WHERE " + COL_ID + "=?", new String[]{d.getName()});
-
-        return getOneDog(c);
-    }
-
-    public Dog getOneDog(Cursor c) {
-
-        if (c.moveToFirst()) {
-            int idIdx = c.getColumnIndex(COL_ID);
-            int nameIdx = c.getColumnIndex(COL_NAME);
-            int OwnerIdx = c.getColumnIndex(COL_OWNER);
-            int totWalks = c.getColumnIndex(COL_TOT_WALKS);
-            int totDis = c.getColumnIndex(COL_TOT_DIS);
-            do {
-                Dog dog = new Dog(
-                        c.getInt(idIdx),
-                        c.getString(nameIdx),
-                        c.getInt(OwnerIdx),
-                        c.getInt(totWalks),
-                        c.getDouble(totDis)
-                );
-                return dog;
-            } while (c.moveToNext());
-        }
-        return null;
-    }
-
+    /*Inserts new values into a record within the user table where the ID of the owner matches a record ID */
     public void editUser(Owner owner) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -386,6 +372,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    /*Finds the first record that matches the cursor query and constructs a owner from the record the constructed owner is then returned*/
     public Owner getOneOwner(Cursor c) {
 
         if (c.moveToFirst()) {
@@ -411,6 +398,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    /*Creates a list of Owner objects from records with in the Owner table. The list is then returned*/
     public List<Owner> getallOwners() {
         ArrayList<Owner> list = new ArrayList<Owner>();
 
@@ -440,6 +428,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    /*Creates a list of Walk objects from records within the Walk table. The list is then returned
+    * JSON string is converted to construct the ArrayList of LatLng objects within the Walk object*/
     public List<Walk> getAllWalks() throws JSONException {
         ArrayList<Walk> list = new ArrayList<Walk>();
 
@@ -512,7 +502,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-
+    /*Increments the total walks and adds the distance of walk to the owner that is passed to this method
+    * The information is updated in the database where the Owner ID matches in the database.*/
     public void addOwnerWalk(Owner o, double dis) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -535,129 +526,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("Database", o.getId() + " Walk Added " + o.getName() + " : " + o.getTot_walks() + " : " + o.getTot_dis());
     }
 
-
+    /*Returns the OWNER_LOGIN_TABLE string*/
     public String getOwnerLogintable() {
         return OWNER_LOGIN_TABLE;
     }
 
+    /*Returns the DATABASE_NAME string*/
     public String getDatabaseName() {
         return DATABASE_NAME;
     }
 
-    public static String getFriendTableName() {
-        return FRIEND_TABLE_NAME;
-    }
-
-    public static String getDogTableName() {
-        return DOG_TABLE_NAME;
-    }
-
-    public static String getWalkTableName() {
-        return WALK_TABLE_NAME;
-    }
-
-    public static String getOwnerLoginTable() {
-        return OWNER_LOGIN_TABLE;
-    }
-
+    /*Returns the COL_ID string*/
     public static String getColId() {
         return COL_ID;
     }
 
-    public static String getColName() {
-        return COL_NAME;
-    }
-
-    public static String getColCategory() {
-        return COL_CATEGORY;
-    }
-
-    public static String getColDatetime() {
-        return COL_DATETIME;
-    }
-
-    public static String getColLocLong() {
-        return COL_LOC_LONG;
-    }
-
-    public static String getColLocLat() {
-        return COL_LOC_LAT;
-    }
-
-    public static String getColImage() {
-        return COL_IMAGE;
-    }
-
-    public static String getColAvgDis() {
-        return COL_AVG_DIS;
-    }
-
-    public static String getColTotWalks() {
-        return COL_TOT_WALKS;
-    }
-
-    public static String getColTotDis() {
-        return COL_TOT_DIS;
-    }
-
-    public static String getColTotTime() {
-        return COL_TOT_TIME;
-    }
-
-    public static String getColOwner() {
-        return COL_OWNER;
-    }
-
+    /*Returns the COL_EMAIL string*/
     public static String getColEmail() {
         return COL_EMAIL;
-    }
-
-    public static String getColPass() {
-        return COL_PASS;
-    }
-
-    public static String getColDob() {
-        return COL_DOB;
-    }
-
-    public static String getColRouteLen() {
-        return COL_ROUTE_LEN;
-    }
-
-    public static String getColRouteRating() {
-        return COL_ROUTE_RATING;
-    }
-
-    public static String getCreateFriendsTable() {
-        return CREATE_FRIENDS_TABLE;
-    }
-
-    public static void setCreateFriendsTable(String createFriendsTable) {
-        CREATE_FRIENDS_TABLE = createFriendsTable;
-    }
-
-    public static String getCreateDogTable() {
-        return CREATE_DOG_TABLE;
-    }
-
-    public static void setCreateDogTable(String createDogTable) {
-        CREATE_DOG_TABLE = createDogTable;
-    }
-
-    public static String getCreateOwnerTable() {
-        return CREATE_OWNER_TABLE;
-    }
-
-    public static void setCreateOwnerTable(String createOwnerTable) {
-        CREATE_OWNER_TABLE = createOwnerTable;
-    }
-
-    public static String getCreateWalkTable() {
-        return CREATE_WALK_TABLE;
-    }
-
-    public static void setCreateWalkTable(String createWalkTable) {
-        CREATE_WALK_TABLE = createWalkTable;
     }
 
     @Override

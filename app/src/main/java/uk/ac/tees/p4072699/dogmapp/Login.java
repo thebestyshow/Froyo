@@ -17,6 +17,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     DatabaseHandler dh = new DatabaseHandler(this);
     Button sign, log, datashow;
 
+    /*Initialises all TextViews and buttons */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Login");
@@ -32,6 +33,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         datashow.setOnClickListener(this);
     }
 
+    /*Once the user has pressed the sign up button, they will be taken to the sign up activity.
+    * If the user presses the login button, the details that they entered will be checked.
+    * If the email field is empty then an appropriate toast message is created and displayed.
+    * If the password field is empty then an appropriate toast message is created and displayed.
+    * If the email does not exist in the database, then an appropriate toast message is created and displayed.
+    * If the Email or password is wrong then an appropriate toast message is created and displayed
+    * if the Email and password entered match with a record in the database, the the user is logged in a taken to the Home activity
+    */
     @Override
     public void onClick(View view) {
         Intent i;
