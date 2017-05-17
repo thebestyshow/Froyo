@@ -16,12 +16,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StartWalk extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    String[] dogs = {};
-    List<Integer> selected = new ArrayList<Integer>();
-    List<Dog> list = new ArrayList<>();
-    StringBuilder sb = new StringBuilder();
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private String[] dogs = {};
+    private List<Integer> selected = new ArrayList<Integer>();
+    private List<Dog> list = new ArrayList<>();
+    private StringBuilder sb = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,13 @@ public class StartWalk extends AppCompatActivity {
             dogs[dogs.length - 1] = "Name: " + d.getName();
         }
 
+        //setup the adapter to dissplay the dogs
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
-
         ListView listView = (ListView) findViewById(R.id.lv_ownerdogs);
         listView.setAdapter(adapter);
 
+        //when a dog is clicked, add the dog to the string
+        //if the dog is already in the string, remove it
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +82,7 @@ public class StartWalk extends AppCompatActivity {
             }
         });
 
+        //when start is pressed pass in the dogs and pre set the map to type 0
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

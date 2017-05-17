@@ -19,7 +19,8 @@
         android:id="@+id/imageButton_settings"
         android:scaleType="fitCenter"
         app:srcCompat="@mipmap/ic_settings_black_24dp"
-        android:contentDescription="Settings" />
+        android:contentDescription="Settings"
+        android:elevation="24dp" />
 
     <TextView
         android:text="00:00:00"
@@ -29,7 +30,8 @@
         android:textStyle="bold"
         android:layout_gravity="bottom|right"
         android:paddingRight="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:text="TextView"
@@ -39,13 +41,14 @@
         android:textStyle="bold"
         android:layout_gravity="bottom|left"
         android:paddingLeft="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:textColor="@color/colorPrimary" />
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context="uk.ac.tees.p4072699.dogmapp.MapsActivity"
         android:layout_width="match_parent"
-        android:layout_height="472dp" />
+        android:layout_height="564dp" />
 
 </FrameLayout>
