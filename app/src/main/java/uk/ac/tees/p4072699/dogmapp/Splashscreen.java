@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 public class Splashscreen extends Activity {
     private ProgressBar spinner;
 
+    /*Gets the window, sets the format, created the Thread, and
+    * starts the animations for the Splash images, the progress
+    * bar is displayed here.*/
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
@@ -46,6 +49,9 @@ public class Splashscreen extends Activity {
         iv.clearAnimation();
         iv.startAnimation(anim);
 
+        /*Logic for the thread start for Splash, if the wait time has been less than 3500ms,
+        * the sleep value is 100 and waited is increased by 100, as well as the progress
+        * bar value.*/
         splashTread = new Thread() {
             @Override
             public void run() {

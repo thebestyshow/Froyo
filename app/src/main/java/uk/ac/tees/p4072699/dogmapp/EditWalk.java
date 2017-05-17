@@ -23,6 +23,10 @@ public class EditWalk extends AppCompatActivity {
     private String name;
     private ImageButton p1, p2, p3, p4, p5;
 
+    /*Sets the title, the points arraylist, the EditText fields for name,
+    * distance, comments, and time, asa well as the buttons for return and save.
+    * Paw imagebuttons are setup for the rating system, and a Decimal
+    * format for the distance covered.*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Walk");
@@ -52,6 +56,8 @@ public class EditWalk extends AppCompatActivity {
         tv_dis.setText(df.format(w.getLength()));
         tv_time.setText(String.valueOf(w.getTime()));
 
+        /*Paw rating logic for what happens when the user selects a certain rating.
+        * E.g. if rating is 2 then call the selected paw drawable for paw 1 and 2.*/
         if (w.getRating() == 1) {
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
@@ -84,6 +90,8 @@ public class EditWalk extends AppCompatActivity {
             p1.setImageResource(R.drawable.selected);
         }
 
+        /*Click listeners for the paws, rating value is changed when
+        * the user clicks on a certain paw.*/
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 rating = 1;
@@ -163,6 +171,7 @@ public class EditWalk extends AppCompatActivity {
         });
     }
 
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
