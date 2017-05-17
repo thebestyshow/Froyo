@@ -197,10 +197,6 @@
         android:background="@drawable/button" />
 
     <Button
-        android:text="@string/save"
-
-
-    <Button
         android:text="@string/skip"
         android:layout_width="100dp"
         android:id="@+id/button_cancel"

@@ -62,9 +62,10 @@ public class Review extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("00.00");
 
         numDogs = doglist.size();
-
         dh.addOwnerWalk(owner, Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist, Double.parseDouble(df.format(d)));
+
+        //setup all the buttons so that they are ready to be used
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
@@ -79,6 +80,7 @@ public class Review extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
+        //format the time to display it
         int h, m, s;
         hours = String.format("%02d", Integer.valueOf(hours));
         secs = String.format("%02d", Integer.valueOf(secs));
@@ -88,6 +90,7 @@ public class Review extends AppCompatActivity {
         tvd.setText(df.format(d) + "km");
         numDogs = doglist.size();
 
+        //The message that will be shared via text
         shareMessage = ("I just walked " + (df.format(d)) +
                 " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
                 "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
@@ -111,6 +114,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //When save is clicked the review is saved only if there is a name
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,6 +137,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //If cancel is clicked the walk is saved without a rating, comment or name
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +150,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //For the paw ratings
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 paws = 1;
