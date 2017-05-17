@@ -14,13 +14,13 @@ import android.widget.RadioButton;
 import java.util.ArrayList;
 
 public class MapSettings extends AppCompatActivity {
-    Owner owner;
-    int maptype;
-    Bundle lisbun;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Double totaldis;
-    String s;
-    ArrayList<Location> locarr = new ArrayList<Location>();
+    private Owner owner;
+    private int maptype;
+    private Bundle lisbun;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Double totaldis;
+    private String s;
+    private ArrayList<Location> locarr = new ArrayList<Location>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,10 @@ public class MapSettings extends AppCompatActivity {
         final Context con = this;
         final Button retur = (Button) findViewById(R.id.button_return);
         final Button save = (Button) findViewById(R.id.button_savez);
+
+        //get all of the items that have being passed from the map screen
         owner = (Owner) getIntent().getSerializableExtra("owner");
         lisbun = getIntent().getExtras().getBundle("bundle");
-
         totaldis = getIntent().getDoubleExtra("dis", 0);
         s = getIntent().getStringExtra("start");
         if (!getIntent().getParcelableArrayListExtra("locs").isEmpty()) {
@@ -42,11 +43,13 @@ public class MapSettings extends AppCompatActivity {
         }
         maptype = getIntent().getIntExtra("mt", 0);
 
+        //setup the radio buttons
         RadioButton n = (RadioButton) findViewById(R.id.radioButton_normal);
         RadioButton t = (RadioButton) findViewById(R.id.radioButton_terrain);
         RadioButton sa = (RadioButton) findViewById(R.id.radioButton_satellite);
         RadioButton h = (RadioButton) findViewById(R.id.radioButton_hybrid);
 
+        //highlight the radio button that is currently used
         if (maptype == 0) {
             n.setChecked(true);
         } else if (maptype == 1) {
@@ -64,6 +67,7 @@ public class MapSettings extends AppCompatActivity {
             }
         });
 
+        //pass all the details back to the map including maptype
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,9 +90,9 @@ public class MapSettings extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
+    //get the radio button that has been selected
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 

@@ -9,19 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
 public class Profile extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    String[] dogs = {};
-    Integer[] dogsId = {};
-    Owner owner;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private String[] dogs = {};
+    private Integer[] dogsId = {};
+    private Owner owner;
 
     /*Initialises all TextView and buttons. Constructs an ArrayAdapter to populate the ListView with data. Displays the users stats, such as total walks
     * and total distance.
@@ -40,7 +38,6 @@ public class Profile extends AppCompatActivity {
         final TextView totDis = (TextView)findViewById(R.id.prof_tot_dis);
         final Context con = this;
 
-
         totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
         DecimalFormat df = new DecimalFormat("00.00");
@@ -56,7 +53,7 @@ public class Profile extends AppCompatActivity {
             Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
                     + " WHERE " + dh.getColId() + "=?", new String[]{Integer.toString(dg.getOwnerID())});
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nOwner: " + dh.getOneOwner(cID).getName();
+            dogs[dogs.length - 1] = dg.getName();
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
@@ -66,7 +63,6 @@ public class Profile extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.Prof_dogList);
         lv.setAdapter(adapter);
 
-
         editProf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +71,8 @@ public class Profile extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
+
     /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -85,6 +81,5 @@ public class Profile extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

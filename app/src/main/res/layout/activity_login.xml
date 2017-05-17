@@ -32,7 +32,8 @@
         android:layout_alignStart="@+id/Pass_log"
         android:layout_marginTop="30dp"
         android:hint="@string/e_hint"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:padding="10dp"/>
 
     <EditText
         android:layout_width="250dp"

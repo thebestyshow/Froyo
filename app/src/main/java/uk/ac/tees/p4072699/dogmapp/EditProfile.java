@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditProfile extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Owner owner;
-    Toast t;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
+    private Toast t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,6 @@ public class EditProfile extends AppCompatActivity {
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final Button changePass = (Button) findViewById(R.id.button_change);
         final Button save = (Button) findViewById(R.id.button_savez);
-//        final Button retur = (Button) findViewById(R.id.button_retur);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
@@ -53,15 +52,6 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-//        retur.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getApplicationContext(),Profile.class);
-//                i.putExtra("owner",owner);
-//                startActivity(i);
-//            }
-//        });
-
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +69,5 @@ public class EditProfile extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

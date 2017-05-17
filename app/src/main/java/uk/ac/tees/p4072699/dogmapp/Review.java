@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,41 +12,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONException;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Review extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    int paws;
-    Owner owner;
-    Bundle lisbun;
-    ArrayList<Location> loc;
-    ArrayList<LatLng> points = new ArrayList<LatLng>();
-    ArrayList<Dog> doglist;
-    ImageButton p1, p2, p3, p4, p5;
-    int time;
-    String hours;
-    String mins;
-    String secs;
-    double d;
-    String date;
-    String shareMessage = "test";
-    int numDogs;
-
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private int paws;
+    private Owner owner;
+    private Bundle lisbun;
+    private ArrayList<Location> loc;
+    private ArrayList<LatLng> points = new ArrayList<LatLng>();
+    private ArrayList<Dog> doglist;
+    private ImageButton p1, p2, p3, p4, p5;
+    private int time;
+    private String hours;
+    private String mins;
+    private String secs;
+    private double d;
+    private String date;
+    private String shareMessage = "test";
+    private int numDogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +49,6 @@ public class Review extends AppCompatActivity {
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
@@ -75,9 +61,10 @@ public class Review extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("00.00");
 
         numDogs = doglist.size();
-
         dh.addOwnerWalk(owner, Double.parseDouble(df.format(d)));
         dh.addDogWalk(doglist, Double.parseDouble(df.format(d)));
+
+        //setup all the buttons so that they are ready to be used
         final Context con = this;
         final Button save = (Button) findViewById(R.id.button_savez);
         final EditText com = (EditText) findViewById(R.id.et_comm);
@@ -92,7 +79,7 @@ public class Review extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
 
-
+        //format the time to display it
         int h, m, s;
         hours = String.format("%02d", Integer.valueOf(hours));
         secs = String.format("%02d", Integer.valueOf(secs));
@@ -102,6 +89,7 @@ public class Review extends AppCompatActivity {
         tvd.setText(df.format(d) + "km");
         numDogs = doglist.size();
 
+        //The message that will be shared via text
         shareMessage = ("I just walked " + (df.format(d)) +
                 " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
                 "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
@@ -125,6 +113,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //When save is clicked the review is saved only if there is a name
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +136,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //If cancel is clicked the walk is saved without a rating, comment or name
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +149,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+        //For the paw ratings
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 paws = 1;
@@ -169,7 +160,6 @@ public class Review extends AppCompatActivity {
                 p5.setImageResource(R.drawable.paw);
             }
         });
-
 
         p2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -223,9 +213,7 @@ public class Review extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
-
 }
 
 
