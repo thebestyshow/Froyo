@@ -38,10 +38,12 @@ public class YahooWeatherService {
             protected String doInBackground(String... strings) {
 
 // for fahrenheit  String YQL = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\")", strings[0]);
+                /*creates a yql query to get JSON weather data of the variable location*/
                 String YQL = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\") and u='c'", strings[0]);
                 String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(YQL));
 
                 try {
+                    /*the URL will be used to get the JSON data*/
                     URL url = new URL(endpoint);
 
                     URLConnection connection = url.openConnection();
@@ -67,6 +69,7 @@ public class YahooWeatherService {
             @Override
             protected void onPostExecute(String s) {
 
+                /*if JSON returned, populate channel with data, else error*/
                 if (s == null && error != null) {
                     callback.serviceFailure(error);
                     return;

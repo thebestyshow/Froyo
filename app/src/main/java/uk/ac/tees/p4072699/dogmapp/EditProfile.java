@@ -13,24 +13,27 @@ public class EditProfile extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Owner owner;
     private Toast t;
+    private Button changePass, save;
+    private EditText etname, etEmail;
 
     @Override
+    /*Sets the title, enables Android Up navigation, and sets the EditText fields for
+    * name, email, change password, and save.*/
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Profile");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText etname = (EditText) findViewById(R.id.etname);
-        final EditText etEmail = (EditText) findViewById(R.id.etEmail);
-        final Button changePass = (Button) findViewById(R.id.button_change);
-        final Button save = (Button) findViewById(R.id.button_savez);
-
+        etname = (EditText) findViewById(R.id.etname);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        changePass = (Button) findViewById(R.id.button_change);
+        save = (Button) findViewById(R.id.button_save2);
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
 
+        /*Action listener for save button and logic for saved changed*/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +64,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
-
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

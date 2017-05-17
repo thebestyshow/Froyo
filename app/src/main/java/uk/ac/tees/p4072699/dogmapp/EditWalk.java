@@ -22,7 +22,14 @@ public class EditWalk extends AppCompatActivity {
     private int rating;
     private String name;
     private ImageButton p1, p2, p3, p4, p5;
+    private EditText etname, etcomm;
+    private TextView tv_dis, tv_time;
+    private Button retur, save;
 
+    /*Sets the title, the points arraylist, the EditText fields for name,
+    * distance, comments, and time, asa well as the buttons for return and save.
+    * Paw imagebuttons are setup for the rating system, and a Decimal
+    * format for the distance covered.*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Walk");
@@ -34,12 +41,12 @@ public class EditWalk extends AppCompatActivity {
         rating = w.getRating();
         ArrayList<LatLng> tempP = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(tempP);
-        final EditText etname = (EditText) findViewById(R.id.et_name);
-        final EditText etcomm = (EditText) findViewById(R.id.et_comm);
-        final TextView tv_dis = (TextView) findViewById(R.id.tv_distance);
-        final TextView tv_time = (TextView) findViewById(R.id.tv_time);
-        final Button retur = (Button) findViewById(R.id.button_return);
-        final Button save = (Button) findViewById(R.id.button_savez);
+        etname = (EditText) findViewById(R.id.et_name);
+        etcomm = (EditText) findViewById(R.id.et_comm);
+        tv_dis = (TextView) findViewById(R.id.tv_distance);
+        tv_time = (TextView) findViewById(R.id.tv_time);
+        retur = (Button) findViewById(R.id.button_return);
+        save = (Button) findViewById(R.id.button_save2);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
@@ -52,6 +59,8 @@ public class EditWalk extends AppCompatActivity {
         tv_dis.setText(df.format(w.getLength()));
         tv_time.setText(String.valueOf(w.getTime()));
 
+        /*Paw rating logic for what happens when the user selects a certain rating.
+        * E.g. if rating is 2 then call the selected paw drawable for paw 1 and 2.*/
         if (w.getRating() == 1) {
             p1.setImageResource(R.drawable.selected);
             p2.setImageResource(R.drawable.paw);
@@ -84,6 +93,8 @@ public class EditWalk extends AppCompatActivity {
             p1.setImageResource(R.drawable.selected);
         }
 
+        /*Click listeners for the paws, rating value is changed when
+        * the user clicks on a certain paw.*/
         p1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 rating = 1;
@@ -163,6 +174,7 @@ public class EditWalk extends AppCompatActivity {
         });
     }
 
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class Condition implements JSONPopulator {
 
+    /*code is used to get the correct weather image icon*/
     private int code;
     private int temperature;
     private String description;

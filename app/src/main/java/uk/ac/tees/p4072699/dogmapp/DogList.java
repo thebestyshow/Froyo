@@ -2,6 +2,7 @@ package uk.ac.tees.p4072699.dogmapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,6 +23,9 @@ public class DogList extends AppCompatActivity {
     private String[] dogs = {};
     private Integer[] dogsId = {};
     private Owner owner;
+    private Button add;
+    private ListView listView;
+    private ArrayAdapter adapter;
 
     /*Initialises all buttons and the ListView. An ArrayAdapter is created to populate the list. If the user selects an item on the list,
     * they are taken to Dogs profile activity. If the user pressed the add button, they will be taken to the add dog activity*/
@@ -33,8 +37,8 @@ public class DogList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Context con = this;
-        final Button add = (Button) findViewById(R.id.button_add);
-        final ListView listView = (ListView) findViewById(R.id.lv_dgs);
+        add = (Button) findViewById(R.id.button_add);
+        listView = (ListView) findViewById(R.id.lv_dgs);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         DecimalFormat df = new DecimalFormat("#.00");
         List<Dog> list = dh.getAllDogs(owner.getId());
@@ -42,13 +46,16 @@ public class DogList extends AppCompatActivity {
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName();
+            Cursor cID = dh.getReadableDatabase().rawQuery("SELECT * FROM " + dh.getOwnerLogintable()
+                    + " WHERE " + dh.getColId() + "=?",new String[]{Integer.toString(dg.getOwnerID())});
+
+            dogs[dogs.length - 1] = "Name: " + dg.getName() +"\nOwner: " + dh.getOwnerHelper(owner).getName();
 
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -57,18 +64,17 @@ public class DogList extends AppCompatActivity {
                 selected = dogsId[position];
                 List<Dog> list = dh.getAllDogs(owner.getId());
                 Intent i = new Intent(con, DogProfile.class);
-                i.putExtra("dog", list.get(position));
-                i.putExtra("owner", dh.getOwnerHelper(owner));
+                i.putExtra("dog",list.get(position));
+                i.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(i);
             }
         });
-
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(con, AddDogActivity.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
+                intent.putExtra("owner",dh.getOwnerHelper(owner));
                 startActivity(intent);
             }
         });

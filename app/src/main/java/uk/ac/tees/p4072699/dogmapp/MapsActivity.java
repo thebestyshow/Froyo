@@ -59,6 +59,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private TextView tv, dist;
     private long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
     private int Seconds, Minutes, Hours, MilliSeconds;
+    private Button rev;
+    private ImageButton set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +104,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         final Context con = this;
-        final Button rev = (Button) findViewById(R.id.button_revScr);
-        final ImageButton set = (ImageButton) findViewById(R.id.imageButton_settings);
-
+        rev = (Button) findViewById(R.id.button_revScr);
+        set = (ImageButton) findViewById(R.id.imageButton_settings);
         owner = (Owner) getIntent().getSerializableExtra("owner");
         maptype = getIntent().getIntExtra("map", 0);
         totaldis = getIntent().getDoubleExtra("dis", 0);

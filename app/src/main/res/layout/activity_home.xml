@@ -14,19 +14,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/mappground">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="331dp"
-            android:id="@+id/lv_walks"
-            android:elevation="19dp"
-            android:visibility="invisible"
-            android:dividerHeight="2dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="24dp"
-            android:background="@color/colorBrownish" />
-
         <Button
             android:text="@string/startw"
             android:layout_width="wrap_content"
@@ -37,15 +24,33 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="331dp"
+            android:id="@+id/lv_walks"
+            android:elevation="19dp"
+            android:visibility="invisible"
+            android:dividerHeight="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorBrownish"
+            android:layout_below="@+id/tv_doglist"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/button_startw" />
+
         <TextView
             android:text="@string/doglist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/tv_doglist"
             android:textColor="?attr/colorControlActivated"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginTop="17dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

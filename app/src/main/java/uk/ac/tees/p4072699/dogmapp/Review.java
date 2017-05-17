@@ -36,6 +36,9 @@ public class Review extends AppCompatActivity {
     private String date;
     private String shareMessage = "test";
     private int numDogs;
+    private Button save, cancel, share;
+    private EditText com, name;
+    private TextView tv, tvd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,18 +69,18 @@ public class Review extends AppCompatActivity {
 
         //setup all the buttons so that they are ready to be used
         final Context con = this;
-        final Button save = (Button) findViewById(R.id.button_savez);
-        final EditText com = (EditText) findViewById(R.id.et_comm);
-        final EditText name = (EditText) findViewById(R.id.etname);
-        final Button cancel = (Button) findViewById(R.id.button_cancel);
-        final Button share = (Button) findViewById(R.id.button_share);
+        save = (Button) findViewById(R.id.button_save2);
+        com = (EditText) findViewById(R.id.et_comm);
+        name = (EditText) findViewById(R.id.etname);
+        cancel = (Button) findViewById(R.id.button_cancel);
+        share = (Button) findViewById(R.id.button_share);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
         p4 = (ImageButton) findViewById(R.id.paw_4);
         p5 = (ImageButton) findViewById(R.id.paw_5);
-        final TextView tv = (TextView) findViewById(R.id.textView_time);
-        final TextView tvd = (TextView) findViewById(R.id.textView_distance);
+        tv = (TextView) findViewById(R.id.textView_time);
+        tvd = (TextView) findViewById(R.id.textView_distance);
 
         //format the time to display it
         int h, m, s;
@@ -100,7 +103,7 @@ public class Review extends AppCompatActivity {
                     "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
         }
 
-
+        /*set up the share button with options to post shareMEssage from above.*/
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

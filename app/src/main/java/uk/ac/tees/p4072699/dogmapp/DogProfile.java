@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -16,10 +15,10 @@ public class DogProfile extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Dog d;
     private Owner owner;
-    private int selected = -1;
 
-    //* this displays the dog profile. This will have the name, total wlaks, average distance and also
-    //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
+    private TextView name, totWalks, avgWalks, totDis;
+    private Button rem, ed;
+
 
     //* this displays the dog profile. This will have the name, total wlaks, average distance and also
     //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
@@ -33,14 +32,13 @@ public class DogProfile extends AppCompatActivity {
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
-        final TextView name = (TextView) findViewById(R.id.textView_dogname);
-        final TextView totWalks = (TextView) findViewById(R.id.dog_tot_walks);
-        final TextView avgWalks = (TextView) findViewById(R.id.dog_avg_dis);
-        final TextView totDis = (TextView) findViewById(R.id.dog_tot_dis);
-
+        name = (TextView) findViewById(R.id.textView_dogname);
+        totWalks = (TextView) findViewById(R.id.dog_tot_walks);
+        avgWalks = (TextView) findViewById(R.id.dog_avg_dis);
+        totDis = (TextView) findViewById(R.id.dog_tot_dis);
         final Context con = getApplicationContext();
-        final Button rem = (Button) findViewById(R.id.button_remove);
-        final Button ed = (Button) findViewById(R.id.button_savez);
+        rem = (Button) findViewById(R.id.button_remove);
+        ed = (Button) findViewById(R.id.button_save2);
 
         name.setText(d.getName());
         DecimalFormat df = new DecimalFormat("00.00");
@@ -53,14 +51,11 @@ public class DogProfile extends AppCompatActivity {
         rem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selected == -1) {
-                    Toast.makeText(getApplicationContext(), "Choose a dog to remove", Toast.LENGTH_SHORT).show();
-                } else {
-                    dh.removeDog(selected);
+                    dh.removeDog(d.getId());
                     Intent intent = new Intent(con, DogList.class);
                     intent.putExtra("owner", dh.getOwnerHelper(owner));
                     startActivity(intent);
-                }
+
             }
         });
 

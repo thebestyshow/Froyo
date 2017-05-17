@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +54,10 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
     private Polyline line;
     private ImageView p1, p2, p3, p4, p5;
     private String prevAct;
+    private TextView name, comm, dis, time;
+    private Button edit, remove;
+    private String h, m, s;
+    private int Hours, Minutes, Seconds;
 
     /*Intialises all TextViews,Buttons and Variables. Sets ImageViews to the corrext image's depending on the rating of the walk passed to this activity.
     * Displays the length and time taken on this walk as well as the route taken. The route is displayed on google maps within a mapfragment
@@ -76,12 +79,12 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             prevAct = getIntent().getStringExtra("revlist");
         }
 
-        final TextView name = (TextView) findViewById(R.id.textView_Revname);
-        final TextView comm = (TextView) findViewById(R.id.textView_Review);
-        final TextView dis = (TextView) findViewById(R.id.textView_dis);
-        final TextView time = (TextView) findViewById(R.id.textView_time);
-        final Button edit = (Button) findViewById(R.id.button_savez);
-        final Button remove = (Button) findViewById(R.id.button_remove);
+        name = (TextView) findViewById(R.id.textView_Revname);
+        comm = (TextView) findViewById(R.id.textView_Review);
+        dis = (TextView) findViewById(R.id.textView_dis);
+        time = (TextView) findViewById(R.id.textView_time);
+        edit = (Button) findViewById(R.id.button_save2);
+        remove = (Button) findViewById(R.id.button_remove);
         DecimalFormat df = new DecimalFormat("00.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
@@ -95,8 +98,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         comm.setText(w.getComment());
         dis.setText(df.format(w.getLength()) + "km");
 
-        int Hours, Minutes, Seconds;
-        String h, m, s;
         Seconds = w.getTime();
         Minutes = Seconds / 60;
         Hours = Minutes / 60;

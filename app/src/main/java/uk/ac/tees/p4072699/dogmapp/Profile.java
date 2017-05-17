@@ -20,6 +20,8 @@ public class Profile extends AppCompatActivity {
     private String[] dogs = {};
     private Integer[] dogsId = {};
     private Owner owner;
+    private TextView name, totWalks, avgWalks, totDis;
+    private ListView lv;
 
     /*Initialises all TextView and buttons. Constructs an ArrayAdapter to populate the ListView with data. Displays the users stats, such as total walks
     * and total distance.
@@ -32,10 +34,10 @@ public class Profile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        final TextView name = (TextView) findViewById(R.id.Prof_name);
-        final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
-        final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
-        final TextView totDis = (TextView)findViewById(R.id.prof_tot_dis);
+        name = (TextView) findViewById(R.id.Prof_name);
+        totWalks = (TextView) findViewById(R.id.prof_totwalks);
+        avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
+        totDis = (TextView) findViewById(R.id.prof_tot_dis);
         final Context con = this;
 
         totWalks.setText(Integer.toString(owner.getTot_walks()));
@@ -43,7 +45,7 @@ public class Profile extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("00.00");
         String avg = df.format(owner.getTot_dis() / owner.getTot_walks());
         avgWalks.setText(avg + "KM");
-
+        totDis.setText(df.format(owner.getTot_dis()));
         final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 
@@ -60,7 +62,7 @@ public class Profile extends AppCompatActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dogs);
 
-        ListView lv = (ListView) findViewById(R.id.Prof_dogList);
+        lv = (ListView) findViewById(R.id.Prof_dogList);
         lv.setAdapter(adapter);
 
         editProf.setOnClickListener(new View.OnClickListener() {

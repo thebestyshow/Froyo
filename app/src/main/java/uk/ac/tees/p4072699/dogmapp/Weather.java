@@ -47,6 +47,7 @@ public class Weather extends AppCompatActivity implements Callback {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
+        /*the location hard coded here should be gotten from user.*/
         service.refreshWeather("Middlesbrough");
 
         final Context con = this;
@@ -54,6 +55,7 @@ public class Weather extends AppCompatActivity implements Callback {
         refresh = (Button) findViewById(R.id.button_refresh);
         refresh.performClick();
 
+        /*reopens activity with updated info*/
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +81,7 @@ public class Weather extends AppCompatActivity implements Callback {
     public void serviceSuccess(Channel channel) {
         dialog.hide();
         Item item = channel.getItem();
+        /*uses item.code and attaches to weather_icon string to find correct image in drawables.*/
         int resourceId = getResources().getIdentifier("drawable/weather_icon_" + item.getCondition().getCode(), null, getPackageName());
 
         @SuppressWarnings("deprecation")
