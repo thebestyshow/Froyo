@@ -36,7 +36,7 @@ public class Help extends AppCompatActivity {
 //                setContentView(R.layout.activity_home);
 //                finish();
 //            }
-//        });
+//        });;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

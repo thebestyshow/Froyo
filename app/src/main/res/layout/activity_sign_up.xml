@@ -22,7 +22,8 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/loginback"
         android:textAlignment="center"
-        android:fontFamily="sans-serif-condensed" />
+        android:fontFamily="sans-serif-condensed"
+        android:padding="10dp"/>
 
     <EditText
         android:layout_width="250dp"
@@ -36,7 +37,8 @@
         android:textAlignment="center"
         android:layout_below="@+id/Pass_sign"
         android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
+        android:layout_alignStart="@+id/Pass_sign"
+        android:padding="10dp"/>
 
     <EditText
         android:layout_width="250dp"
@@ -50,7 +52,8 @@
         android:fontFamily="sans-serif-condensed"
         android:layout_below="@+id/name_sign"
         android:layout_alignLeft="@+id/Pass_sign"
-        android:layout_alignStart="@+id/Pass_sign" />
+        android:layout_alignStart="@+id/Pass_sign"
+        android:padding="10dp"/>
 
     <EditText
         android:layout_width="250dp"
@@ -65,7 +68,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/email_sign"
         android:layout_alignStart="@+id/email_sign"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="61dp"
+        android:padding="10dp"/>
 
     <Button
         android:text="@string/retur"
