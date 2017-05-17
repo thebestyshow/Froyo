@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 
 public class Splashscreen extends Activity {
     private ProgressBar spinner;
+    private ImageView iv;
+    private LinearLayout l;
+    private Animation anim;
 
     /*Gets the window, sets the format, created the Thread, and
     * starts the animations for the Splash images, the progress
@@ -37,15 +40,15 @@ public class Splashscreen extends Activity {
     }
 
     private void StartAnimations() {
-        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        LinearLayout l = (LinearLayout) findViewById(R.id.lin_lay);
+        l = (LinearLayout) findViewById(R.id.lin_lay);
         l.clearAnimation();
         l.startAnimation(anim);
 
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
-        ImageView iv = (ImageView) findViewById(R.id.splash);
+        iv = (ImageView) findViewById(R.id.splash);
         iv.clearAnimation();
         iv.startAnimation(anim);
 

@@ -106,7 +106,7 @@
 
     <Button
         android:text="@string/editRev"
-        android:id="@+id/button_savez"
+        android:id="@+id/button_save2"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:background="@drawable/button"
@@ -156,7 +156,7 @@
         android:background="@drawable/pawback"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
-        android:layout_above="@+id/button_savez"
+        android:layout_above="@+id/button_save2"
         android:layout_toRightOf="@+id/paw_4"
         android:layout_toEndOf="@+id/paw_4" />
 
@@ -186,7 +186,7 @@
         android:scaleType="fitCenter"
         android:onClick="paw4"
         android:background="@drawable/pawback"
-        android:layout_above="@+id/button_savez"
+        android:layout_above="@+id/button_save2"
         android:layout_toRightOf="@+id/paw_2"
         android:layout_toEndOf="@+id/paw_2"
         android:layout_marginLeft="16dp"

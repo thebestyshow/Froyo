@@ -13,7 +13,8 @@ public class changePass extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Owner owner;
     private Toast t;
-
+    private EditText oldPass, newPass, conNewPass;
+    private Button save;
 
     /* Initialises all EditTexts and buttons. Once Save is pressed, the passwords that have been entered are checked,
     * if the entered passwords pass the validation then the new password is saved to the database in place of the old.
@@ -27,10 +28,10 @@ public class changePass extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-        final EditText oldPass = (EditText) findViewById(R.id.et_old_pass);
-        final EditText newPass = (EditText) findViewById(R.id.et_new_pass);
-        final EditText conNewPass = (EditText) findViewById(R.id.et_con_new_pass);
-        final Button save = (Button) findViewById(R.id.button_savez);
+        oldPass = (EditText) findViewById(R.id.et_old_pass);
+        newPass = (EditText) findViewById(R.id.et_new_pass);
+        conNewPass = (EditText) findViewById(R.id.et_con_new_pass);
+        save = (Button) findViewById(R.id.button_save2);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

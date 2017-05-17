@@ -18,7 +18,7 @@
             android:text="@string/startw"
             android:layout_width="wrap_content"
             android:id="@+id/button_startw"
-            android:background="@drawable/startwalkcircle"
+            android:background="@drawable/roundedbutton"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_alignParentBottom="true"

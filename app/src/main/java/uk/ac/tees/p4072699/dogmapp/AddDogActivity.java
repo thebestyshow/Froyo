@@ -12,6 +12,8 @@ import android.widget.EditText;
 public class AddDogActivity extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Owner owner;
+    private Button save;
+    private EditText dgname;
 
     //*** this here allows the user to add a dog, the dog is then saved to the users name and
     //* this shows the dog belong to the owner
@@ -24,8 +26,8 @@ public class AddDogActivity extends AppCompatActivity {
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final Context con = this;
-        final Button save = (Button) findViewById(R.id.button_save);
-        final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
+        save = (Button) findViewById(R.id.button_save);
+        dgname = (EditText) findViewById(R.id.editText_dgname);
         owner = (Owner) getIntent().getSerializableExtra("owner");
 
         save.setOnClickListener(new View.OnClickListener() {
