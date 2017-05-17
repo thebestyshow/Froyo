@@ -17,6 +17,8 @@ public class EditProfile extends AppCompatActivity {
     private EditText etname, etEmail;
 
     @Override
+    /*Sets the title, enables Android Up navigation, and sets the EditText fields for
+    * name, email, change password, and save.*/
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Edit Profile");
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class EditProfile extends AppCompatActivity {
         etname.setText(owner.getName());
         etEmail.setText(owner.getEmail());
 
+        /*Action listener for save button and logic for saved changed*/
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +64,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
-
+    /*checks if a menu item is pressed and if it is, the user is returned to the previous screen */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

@@ -22,6 +22,7 @@ public class Owner implements Serializable {
         this.id = id;
     }
 
+    /*this shows the owner details; the total username, name, email and password.*/
     Owner(int id, String n, String e, String p, Date d) {
         this.id = id;
         this.name = n;
@@ -46,6 +47,7 @@ public class Owner implements Serializable {
         this.tot_walks = tw;
     }
 
+    /*Getters and Setters.*/
     public double getTot_dis() {
         return tot_dis;
     }
