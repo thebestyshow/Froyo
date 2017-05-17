@@ -43,7 +43,7 @@ public class DogList extends AppCompatActivity {
         for (Dog dg : list) {
             dogs = Arrays.copyOf(dogs, dogs.length + 1);
 
-            dogs[dogs.length - 1] = "Name: " + dg.getName() + "\nTotWalks: " + dg.getTotwalks() + "    TotDis: " + df.format(dg.getTotdistance()) + "\nOwner: " + dh.getOwnerHelper(owner).getName();
+            dogs[dogs.length - 1] = "Name: " + dg.getName();
 
             dogsId = Arrays.copyOf(dogsId, dogsId.length + 1);
             dogsId[dogsId.length - 1] = dg.getId();

@@ -10,14 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.p4072699.dogmapp.DogProfile">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView_dogname" />
-
     <Button
         android:text="@string/rem"
         android:layout_width="150dp"
@@ -36,4 +28,77 @@
         android:layout_above="@+id/button_remove"
         android:layout_alignLeft="@+id/button_remove"
         android:layout_alignStart="@+id/button_remove" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:id="@+id/dog_tot_dis"
+        android:layout_below="@+id/textView10"
+        android:layout_alignLeft="@+id/textView_dogname"
+        android:layout_alignStart="@+id/textView_dogname"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/dog_tot_walks"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView_dogname"
+        android:layout_alignStart="@+id/textView_dogname"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="@string/tot_dis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/textView10"
+        android:layout_below="@+id/dog_tot_walks"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="@string/avg_walks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView26"
+        android:layout_below="@+id/dog_tot_dis"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_dogname"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="@string/tot_walks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView_dogname"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/dog_avg_dis"
+        android:layout_below="@+id/textView26"
+        android:layout_alignLeft="@+id/dog_tot_dis"
+        android:layout_alignStart="@+id/dog_tot_dis"
+        android:textAlignment="center" />
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 
@@ -44,13 +45,19 @@ public class Home extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_menu);
-
+        ListView walkList = (ListView) findViewById(R.id.lv_walks);
         List<Walk> list = new ArrayList<>();
+        TextView doglistlbl = (TextView) findViewById(R.id.tv_doglist);
 
         try {
             list = dh.getAllWalks();
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        if (list.size() > 0){
+            walkList.setVisibility(View.VISIBLE);
+            doglistlbl.setVisibility(View.VISIBLE);
         }
 
         for (Walk w :list) {
@@ -64,7 +71,7 @@ public class Home extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, walks);
 
 
-        ListView walkList = (ListView) findViewById(R.id.lv_walks);
+
         walkList.setAdapter(adapter);
 
 
@@ -99,11 +106,6 @@ public class Home extends AppCompatActivity {
                         break;
                     case (R.id.nav_weather):
                         accountActivity = new Intent(getApplicationContext(), Weather.class);
-                        accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
-                        startActivity(accountActivity);
-                        break;
-                    case (R.id.nav_settings):
-                        accountActivity = new Intent(getApplicationContext(), Settings.class);
                         accountActivity.putExtra("owner", dh.getOwnerHelper(owner));
                         startActivity(accountActivity);
                         break;
@@ -164,7 +166,6 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
-
         }
         return super.onOptionsItemSelected(item);
 

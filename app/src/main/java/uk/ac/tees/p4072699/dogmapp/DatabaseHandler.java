@@ -256,8 +256,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_EMAIL, o.getEmail());
         values.put(COL_PASS, o.getPassword());
         values.put(COL_DOB, df.format(o.getDob()));
-        values.put(COL_TOT_WALKS, 1);
-        values.put(COL_TOT_DIS, 102.0);
+        values.put(COL_TOT_WALKS, 0);
+        values.put(COL_TOT_DIS, 0.0);
         values.put(COL_AVG_DIS, "nil");
         values.put(COL_TOT_TIME, "nil");
 

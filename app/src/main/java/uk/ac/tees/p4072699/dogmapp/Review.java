@@ -47,9 +47,7 @@ public class Review extends AppCompatActivity {
     String date;
     String shareMessage = "test";
     int numDogs;
-    CallbackManager callbackManager;
-    LoginButton fbLogin;
-    boolean loggedInFB = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,29 +63,6 @@ public class Review extends AppCompatActivity {
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        LoginManager.getInstance().logOut();
-        fbLogin = (LoginButton)findViewById(R.id.facebook_login_button);
-        callbackManager = CallbackManager.Factory.create();
-
-        fbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-
-
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
@@ -97,7 +72,7 @@ public class Review extends AppCompatActivity {
         mins = getIntent().getStringExtra("mins");
         secs = getIntent().getStringExtra("secs");
         d = getIntent().getExtras().getDouble("dis");
-        DecimalFormat df = new DecimalFormat("##.00");
+        DecimalFormat df = new DecimalFormat("00.00");
 
         numDogs = doglist.size();
 
@@ -124,7 +99,8 @@ public class Review extends AppCompatActivity {
         mins = String.format("%02d", Integer.valueOf(mins));
         time = Integer.parseInt(hours) + Integer.parseInt(mins) + Integer.parseInt(secs);
         tv.setText("" + hours + ":" + mins + ":" + secs);
-        tvd.setText(df.format(d));
+        tvd.setText(df.format(d) + "km");
+        numDogs = doglist.size();
 
         shareMessage = ("I just walked " + (df.format(d)) +
                 " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
@@ -135,6 +111,8 @@ public class Review extends AppCompatActivity {
                     " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
                     "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
         }
+
+
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,10 +226,6 @@ public class Review extends AppCompatActivity {
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
 }
 
 

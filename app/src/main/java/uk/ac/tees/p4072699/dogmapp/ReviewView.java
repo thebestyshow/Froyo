@@ -83,7 +83,7 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         final TextView time = (TextView) findViewById(R.id.textView_time);
         final Button edit = (Button) findViewById(R.id.button_savez);
         final Button remove = (Button) findViewById(R.id.button_remove);
-        DecimalFormat df = new DecimalFormat("##.00");
+        DecimalFormat df = new DecimalFormat("00.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
 
