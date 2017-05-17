@@ -14,9 +14,8 @@ import android.widget.Toast;
 import java.util.*;
 
 public class Sign_up extends AppCompatActivity implements View.OnClickListener {
-
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Button sign, log;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Button sign, log;
 
     /*Initialises all buttons on this activity and sets onClickListeners to them */
     @Override

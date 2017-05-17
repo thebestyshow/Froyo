@@ -42,25 +42,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-
     private GoogleMap map;
-    GoogleApiClient googleAPI;
-    LocationRequest locRequest;
-    Location prevLocation;
-    Location location;
-    LocationManager lm;
-    Owner owner;
-    Bundle lisbun;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    double totaldis;
-    ArrayList<LatLng> points;
-    Polyline line;
-    LatLng oldlatlng;
-    int maptype;
-    TextView tv,dist;
-
-    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
-    int Seconds, Minutes, Hours, MilliSeconds;
+    private GoogleApiClient googleAPI;
+    private LocationRequest locRequest;
+    private Location prevLocation;
+    private Location location;
+    private LocationManager lm;
+    private Owner owner;
+    private Bundle lisbun;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private double totaldis;
+    private ArrayList<LatLng> points;
+    private Polyline line;
+    private LatLng oldlatlng;
+    private int maptype;
+    private TextView tv, dist;
+    private long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
+    private int Seconds, Minutes, Hours, MilliSeconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,9 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -305,7 +301,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int meterInDec = Integer.valueOf(newFormat.format(meter));
         Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
                 + " Miles   " + meterInDec);
-
         return Radius * c;
     }
 

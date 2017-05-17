@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,41 +12,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONException;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Review extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    int paws;
-    Owner owner;
-    Bundle lisbun;
-    ArrayList<Location> loc;
-    ArrayList<LatLng> points = new ArrayList<LatLng>();
-    ArrayList<Dog> doglist;
-    ImageButton p1, p2, p3, p4, p5;
-    int time;
-    String hours;
-    String mins;
-    String secs;
-    double d;
-    String date;
-    String shareMessage = "test";
-    int numDogs;
-
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private int paws;
+    private Owner owner;
+    private Bundle lisbun;
+    private ArrayList<Location> loc;
+    private ArrayList<LatLng> points = new ArrayList<LatLng>();
+    private ArrayList<Dog> doglist;
+    private ImageButton p1, p2, p3, p4, p5;
+    private int time;
+    private String hours;
+    private String mins;
+    private String secs;
+    private double d;
+    private String date;
+    private String shareMessage = "test";
+    private int numDogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +49,6 @@ public class Review extends AppCompatActivity {
         loc = getIntent().getParcelableArrayListExtra("locs");
         LatLng ltlg;
         date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
 
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
@@ -91,7 +78,6 @@ public class Review extends AppCompatActivity {
         p5 = (ImageButton) findViewById(R.id.paw_5);
         final TextView tv = (TextView) findViewById(R.id.textView_time);
         final TextView tvd = (TextView) findViewById(R.id.textView_distance);
-
 
         int h, m, s;
         hours = String.format("%02d", Integer.valueOf(hours));
@@ -170,7 +156,6 @@ public class Review extends AppCompatActivity {
             }
         });
 
-
         p2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 paws = 2;
@@ -223,9 +208,7 @@ public class Review extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
-
 }
 
 

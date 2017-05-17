@@ -8,12 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 public class AddDogActivity extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-
-    Owner owner;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Owner owner;
 
     //*** this here allows the user to add a dog, the dog is then saved to the users name and
     //* this shows the dog belong to the owner
@@ -25,14 +23,10 @@ public class AddDogActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
         final Context con = this;
-//        final Button cancel = (Button) findViewById(R.id.button_cancel);
         final Button save = (Button) findViewById(R.id.button_save);
         final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
-
         owner = (Owner) getIntent().getSerializableExtra("owner");
-
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,9 +39,7 @@ public class AddDogActivity extends AppCompatActivity {
         });
     }
 
-
     //** if home button is pressed it will return to home
-
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -55,6 +47,5 @@ public class AddDogActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }

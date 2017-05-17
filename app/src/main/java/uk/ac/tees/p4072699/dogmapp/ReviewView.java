@@ -43,19 +43,18 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-
     private GoogleMap map;
-    GoogleApiClient googleAPI;
-    LocationRequest locRequest;
-    Location location;
-    LocationManager lm;
-    Owner owner;
-    Walk w;
-    DatabaseHandler dh = new DatabaseHandler(this);
-    ArrayList<LatLng> points;
-    Polyline line;
-    ImageView p1, p2, p3, p4, p5;
-    String prevAct;
+    private GoogleApiClient googleAPI;
+    private LocationRequest locRequest;
+    private Location location;
+    private LocationManager lm;
+    private Owner owner;
+    private Walk w;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private ArrayList<LatLng> points;
+    private Polyline line;
+    private ImageView p1, p2, p3, p4, p5;
+    private String prevAct;
 
     /*Intialises all TextViews,Buttons and Variables. Sets ImageViews to the corrext image's depending on the rating of the walk passed to this activity.
     * Displays the length and time taken on this walk as well as the route taken. The route is displayed on google maps within a mapfragment
@@ -86,7 +85,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
         DecimalFormat df = new DecimalFormat("00.00");
         points = getIntent().getParcelableArrayListExtra("pointsarray");
         w.setPoints(points);
-
 
         locRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -148,8 +146,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
             p1.setImageResource(R.drawable.selected);
         }
 
-
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,11 +188,8 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
                 onBackPressed();
                 return true;
             }
-
-
         }
         return super.onOptionsItemSelected(item);
-
     }
 
 
@@ -225,7 +218,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             location = LocationServices.FusedLocationApi.getLastLocation(googleAPI);
-
         }
     }
 
@@ -247,7 +239,6 @@ public class ReviewView extends AppCompatActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
         redrawLine();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -16,12 +16,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class EditWalk extends AppCompatActivity {
-    DatabaseHandler dh = new DatabaseHandler(this);
-    Walk w;
-    Owner owner;
-    int rating;
-    String name;
-    ImageButton p1, p2, p3, p4, p5;
+    private DatabaseHandler dh = new DatabaseHandler(this);
+    private Walk w;
+    private Owner owner;
+    private int rating;
+    private String name;
+    private ImageButton p1, p2, p3, p4, p5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +170,5 @@ public class EditWalk extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 }
