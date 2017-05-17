@@ -37,14 +37,16 @@ public class Profile extends AppCompatActivity {
         final TextView name = (TextView) findViewById(R.id.Prof_name);
         final TextView totWalks = (TextView) findViewById(R.id.prof_totwalks);
         final TextView avgWalks = (TextView) findViewById(R.id.Prof_avgwalks);
+        final TextView totDis = (TextView)findViewById(R.id.prof_tot_dis);
         final Context con = this;
+
 
         totWalks.setText(Integer.toString(owner.getTot_walks()));
         name.setText(owner.getName());
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("00.00");
         String avg = df.format(owner.getTot_dis() / owner.getTot_walks());
         avgWalks.setText(avg + "KM");
-
+        totDis.setText(df.format(owner.getTot_dis()));
         final Button editProf = (Button) findViewById(R.id.button_editProf);
         List<Dog> list = dh.getAllDogs(owner.getId());
 

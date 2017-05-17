@@ -142,27 +142,6 @@
         android:layout_below="@+id/paw_2"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="@string/save"
-        android:layout_width="150dp"
-        android:id="@+id/button_savez"
-        android:layout_marginTop="43dp"
-        android:background="@drawable/button"
-        android:layout_height="45dp"
-        android:layout_below="@+id/textView_time"
-        android:layout_alignLeft="@+id/button_cancel"
-        android:layout_alignStart="@+id/button_cancel" />
-
-    <Button
-        android:text="@string/cancel"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
-        android:id="@+id/button_cancel"
-        android:background="@drawable/button"
-        android:layout_below="@+id/button_savez"
-        android:layout_toLeftOf="@+id/paw_5"
-        android:layout_toStartOf="@+id/paw_5" />
-
     <TextView
         android:text="@string/rating"
         android:layout_width="wrap_content"
@@ -203,6 +182,37 @@
         android:textSize="20sp"
         android:layout_below="@+id/textView_distance"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/share"
+
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button_share"
+        android:background="@drawable/button" />
+
+    <Button
+        android:text="@string/save"
+        android:id="@+id/button_savez"
+        android:background="@drawable/button"
+        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView15"
+        android:layout_alignEnd="@+id/textView15" />
+
+    <Button
+        android:text="@string/skip"
+        android:layout_width="100dp"
+        android:id="@+id/button_cancel"
+        android:background="@drawable/button"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/paw_2"
+        android:layout_toStartOf="@+id/paw_2" />
     android:text="@string/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

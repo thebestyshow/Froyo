@@ -68,35 +68,39 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
                 String conPass = p2.getText().toString();
                 SQLiteDatabase db = dh.getReadableDatabase();
                 Cursor cursor = db.rawQuery("SELECT * FROM " + dh.getOwnerLogintable() + " WHERE " + DatabaseHandler.getColEmail() + "=?", new String[]{email});
-
-                if (cursor != null) {
-                    if (email.equals("")) {
-                        Toast.makeText(getApplicationContext(), "Please Enter an email", Toast.LENGTH_SHORT).show();
-                        break;
-                    } else if (cursor.getCount() > 0) {
-                        Toast.makeText(getApplicationContext(), "Email Already exists", Toast.LENGTH_SHORT).show();
-                        i = new Intent(getApplicationContext(), Login.class);
-                        startActivity(i);
-                        setContentView(R.layout.activity_login);
-                        this.finish();
-                        break;
-                    } else if (email.equals("") || conPass.equals("")) {
-                        Toast.makeText(getApplicationContext(), "Please complete all Fields", Toast.LENGTH_SHORT).show();
-                        break;
-                    } else if (!pass.equals(conPass)) {
-                        Toast.makeText(getApplicationContext(), "Please enter matching passswords", Toast.LENGTH_SHORT).show();
-                        break;
-                    } else if (cursor.getCount() < 1) {
-                        dh.add(new Owner(dh.getProfilesCount() + 1, name, email, conPass, new Date()));
-                        i = new Intent(getApplicationContext(), Login.class);
-                        Toast.makeText(getApplicationContext(), "Owner Added", Toast.LENGTH_SHORT).show();
-                        startActivity(i);
-                        setContentView(R.layout.activity_login);
-                        this.finish();
-                        break;
-                    } else {
-                        Toast.makeText(getApplicationContext(), "NO MATCHING IF", Toast.LENGTH_SHORT).show();
+                if (email.contains("@")) {
+                    if (cursor != null) {
+                        if (email.equals("")) {
+                            Toast.makeText(getApplicationContext(), "Please Enter an email", Toast.LENGTH_SHORT).show();
+                            break;
+                        } else if (cursor.getCount() > 0) {
+                            Toast.makeText(getApplicationContext(), "Email Already exists", Toast.LENGTH_SHORT).show();
+                            i = new Intent(getApplicationContext(), Login.class);
+                            startActivity(i);
+                            setContentView(R.layout.activity_login);
+                            this.finish();
+                            break;
+                        } else if (email.equals("") || conPass.equals("")) {
+                            Toast.makeText(getApplicationContext(), "Please complete all Fields", Toast.LENGTH_SHORT).show();
+                            break;
+                        } else if (!pass.equals(conPass)) {
+                            Toast.makeText(getApplicationContext(), "Please enter matching passswords", Toast.LENGTH_SHORT).show();
+                            break;
+                        } else if (cursor.getCount() < 1) {
+                            dh.add(new Owner(dh.getProfilesCount() + 1, name, email, conPass, new Date()));
+                            i = new Intent(getApplicationContext(), Login.class);
+                            Toast.makeText(getApplicationContext(), "Owner Added", Toast.LENGTH_SHORT).show();
+                            startActivity(i);
+                            setContentView(R.layout.activity_login);
+                            this.finish();
+                            break;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "NO MATCHING IF", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Please Enter a valid email Address",Toast.LENGTH_SHORT).show();
+                    break;
                 }
             case R.id.Log_in_btn_sign:
                 i = new Intent(getApplicationContext(), Login.class);
