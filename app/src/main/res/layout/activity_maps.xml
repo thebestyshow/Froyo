@@ -35,7 +35,7 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/distance"
+        android:id="@+id/tv_distance"
         android:textStyle="bold"
         android:layout_gravity="bottom|left"
         android:paddingLeft="10dp"

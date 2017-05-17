@@ -43,23 +43,25 @@ public class ReviewList extends AppCompatActivity {
         List<Walk> list = new ArrayList<>();
         try {
             list = dh.getAllWalks();
+            Log.d("WALK ARRAY", list.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-
-        for (Walk w : list) {
-            Log.d("LIST CHECK", w.getId() + " : " + w.getPoints().toString());
         }
 
 
         for (Walk w : list) {
             reviews = Arrays.copyOf(reviews, reviews.length + 1);
+
             reviews[reviews.length - 1] = "Name: " + w.getName() + "\nRating: " + w.getRating() + "\nComment: " + w.getComment();
             revId = Arrays.copyOf(revId, revId.length + 1);
             revId[revId.length - 1] = w.getId();
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reviews);
+
+        for (Walk w : list) {
+            Log.d("LIST CHECK", w.getId() + " : " + w.getPoints().toString());
+        }
 
         ListView listView = (ListView) findViewById(R.id.lv_rev);
         listView.setAdapter(adapter);
@@ -81,20 +83,13 @@ public class ReviewList extends AppCompatActivity {
                 Log.d("SELECTED ARRAY", wlist.get(position).getPoints().toString());
                 i.putParcelableArrayListExtra("pointsarray", wlist.get(position).getPoints());
                 wlist.get(position).setPoints(null);
+                i.putExtra("revlist","revlist");
                 i.putExtra("walk", wlist.get(position));
                 i.putExtra("owner", owner);
                 startActivity(i);
             }
         });
 
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(con, Home.class);
-//                i.putExtra("owner", dh.getOwnerHelper(owner));
-//                startActivity(i);
-//            }
-//        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
