@@ -15,6 +15,8 @@ public class AddDogActivity extends AppCompatActivity {
 
     Owner owner;
 
+    //*** this here allows the user to add a dog, the dog is then saved to the users name and
+    //* this shows the dog belong to the owner
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Add Dog");
@@ -42,6 +44,9 @@ public class AddDogActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    //** if home button is pressed it will return to home
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
