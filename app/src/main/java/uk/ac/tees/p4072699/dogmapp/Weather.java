@@ -81,7 +81,7 @@ public class Weather extends AppCompatActivity implements Callback {
     public void serviceSuccess(Channel channel) {
         dialog.hide();
         Item item = channel.getItem();
-        /*uses item.code and attaches to weather_icon string to find orrect image in drawables*/
+        /*uses item.code and attaches to weather_icon string to find orrect image in drawables.*/
         int resourceId = getResources().getIdentifier("drawable/weather_icon_" + item.getCondition().getCode(), null, getPackageName());
 
         @SuppressWarnings("deprecation")
