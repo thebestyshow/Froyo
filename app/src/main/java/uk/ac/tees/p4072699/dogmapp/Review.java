@@ -87,6 +87,7 @@ public class Review extends AppCompatActivity {
             }
         });
 
+
         for (Location l : loc) {
             ltlg = new LatLng(l.getLatitude(), l.getLongitude());
             points.add(ltlg);
@@ -107,7 +108,7 @@ public class Review extends AppCompatActivity {
         final EditText com = (EditText) findViewById(R.id.et_comm);
         final EditText name = (EditText) findViewById(R.id.etname);
         final Button cancel = (Button) findViewById(R.id.button_cancel);
-        //final Button share = (Button) findViewById(R.id.button_share);
+        final Button share = (Button) findViewById(R.id.button_share);
         p1 = (ImageButton) findViewById(R.id.paw_1);
         p2 = (ImageButton) findViewById(R.id.paw_2);
         p3 = (ImageButton) findViewById(R.id.paw_3);
@@ -125,16 +126,27 @@ public class Review extends AppCompatActivity {
         tv.setText("" + hours + ":" + mins + ":" + secs);
         tvd.setText(df.format(d));
 
-/*        share.setOnClickListener(new View.OnClickListener() {
+        shareMessage = ("I just walked " + (df.format(d)) +
+                " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
+                "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
+        if (numDogs > 0)
+        {
+            shareMessage = ("I just walked " + numDogs + " dogs a total of " + (df.format(d)) +
+                    " km in a time of " + "" + hours + ":" + mins + ":" + secs + " and recorded my route using dogMapp. " +
+                    "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
+        }
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(con, FacebookShare.class);
-                intent.putExtra("owner", dh.getOwnerHelper(owner));
-                startActivity(intent);
-                setContentView(R.layout.activity_facebook_share);
-                finish();
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "DogMapp");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "Share via"));
+
             }
-        });*/
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

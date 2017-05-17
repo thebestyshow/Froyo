@@ -143,17 +143,6 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/save"
-        android:layout_width="150dp"
-        android:id="@+id/button_savez"
-        android:layout_marginTop="43dp"
-        android:background="@drawable/button"
-        android:layout_height="45dp"
-        android:layout_below="@+id/textView_time"
-        android:layout_alignLeft="@+id/button_cancel"
-        android:layout_alignStart="@+id/button_cancel" />
-
-    <Button
         android:text="@string/cancel"
         android:layout_width="150dp"
         android:layout_height="45dp"
@@ -205,18 +194,6 @@
         android:layout_centerHorizontal="true" />
     android:text="@string/share"
 
-    <EditText
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/et_comm"
-        android:layout_height="50dp"
-        android:background="@drawable/loginback"
-        android:layout_width="250dp"
-        android:layout_below="@+id/textView21"
-        android:layout_toRightOf="@+id/textView_distance"
-        android:layout_alignRight="@+id/paw_5"
-        android:layout_alignEnd="@+id/paw_5" />
-
     <Button
         android:text="@string/share"
 
@@ -227,14 +204,24 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/button_share" />
 
+    <Button
+        android:text="@string/save"
+        android:layout_width="150dp"
+        android:id="@+id/button_savez"
+        android:background="@drawable/button"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/facebook_login_button"
+        android:layout_alignLeft="@+id/button_cancel"
+        android:layout_alignStart="@+id/button_cancel" />
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView15"
-        android:layout_alignEnd="@+id/textView15" />
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/textView_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
