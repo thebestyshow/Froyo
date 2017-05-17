@@ -28,16 +28,26 @@ public class EditDog extends AppCompatActivity {
 
         owner = (Owner) getIntent().getSerializableExtra("owner");
         final Context con = this;
+
         save = (Button) findViewById(R.id.button_save2);
         dgname = (EditText) findViewById(R.id.editText_dgname);
+
+        final Button save = (Button) findViewById(R.id.button_savez);
+        final EditText dgname = (EditText) findViewById(R.id.editText_dgname);
+
+
         owner = (Owner) getIntent().getSerializableExtra("owner");
         d = (Dog) getIntent().getSerializableExtra("dog");
 
         dgname.setText(d.getName());
 
+
         save.setOnClickListener(new View.OnClickListener() {
+
+        save.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 dh.edit(d, dgname.getText().toString());
                 Intent intent = new Intent(con, DogList.class);
                 intent.putExtra("owner", dh.getOwnerHelper(owner));

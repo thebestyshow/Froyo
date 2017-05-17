@@ -103,7 +103,7 @@ public class Review extends AppCompatActivity {
                     "You could be recording your dog walks too by downloading dogMapp from Google Play for free");
         }
 
-
+        /*set up the share button with options to post shareMEssage from above.*/
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

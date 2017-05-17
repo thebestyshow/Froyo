@@ -15,8 +15,10 @@ public class DogProfile extends AppCompatActivity {
     private DatabaseHandler dh = new DatabaseHandler(this);
     private Dog d;
     private Owner owner;
+
     private TextView name, totWalks, avgWalks, totDis;
     private Button rem, ed;
+
 
     //* this displays the dog profile. This will have the name, total wlaks, average distance and also
     //* the total distance. There is also the option to remove and edit the dog on the screen with buttons
